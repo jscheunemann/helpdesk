@@ -42,8 +42,8 @@ public class Menu extends JFrame {
 
         setJMenuBar(menubar);
 
-        setTitle("Welcome to Ticketing System");
-        setSize(300, 200);
+        setTitle("Welcome to Ticketing Tracking System");
+        setSize(456, 326);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
