@@ -13,6 +13,9 @@ import javax.swing.JButton;
 
 
 public class Gui_Login extends JFrame {
+	
+	private String userName;
+	private String password;
 
 	private JPanel contentPane;
 	private JTextField txtFieldUserName;
@@ -43,7 +46,7 @@ public class Gui_Login extends JFrame {
 		setFont(new Font("Courier New", Font.PLAIN, 12));
 		setTitle("Helpdesk Ticket Tracker");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 287);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -81,16 +84,31 @@ public class Gui_Login extends JFrame {
 		txtFldPassword.setBounds(137, 143, 273, 20);
 		contentPane.add(txtFldPassword);
 		
-		JButton btnSubmit = new JButton("Submit");
-		btnSubmit.setFont(new Font("Courier New", Font.PLAIN, 14));
-		btnSubmit.setBounds(170, 211, 85, 24);
-		contentPane.add(btnSubmit);
+		JButton btnSignIn = new JButton("Sign In");
+		btnSignIn.setFont(new Font("Courier New", Font.PLAIN, 14));
+		btnSignIn.setBounds(109, 211, 99, 24);
+		contentPane.add(btnSignIn);
 		
-		JButton btnRequestLogin = new JButton("Request Login");
-		btnRequestLogin.setFont(new Font("Courier New", Font.PLAIN, 14));
-		btnRequestLogin.setBounds(265, 211, 145, 24);
-		contentPane.add(btnRequestLogin);
-		
-		
+		JButton btnCreateNewAccount = new JButton("Create New Account");
+		btnCreateNewAccount.setFont(new Font("Courier New", Font.PLAIN, 14));
+		btnCreateNewAccount.setBounds(218, 211, 192, 24);
+		contentPane.add(btnCreateNewAccount);	
 	}
+
+	public boolean attemptLogin() {
+		// TODO 
+		return true;
+	}
+	
+	public boolean confirmCredentials() {
+		// TODDO
+		return true;
+	}
+	
+	boolean ProcessLogin() {
+		// TODO process login
+		return false;
+	}
+	
+	
 }

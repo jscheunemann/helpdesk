@@ -6,13 +6,17 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+
 import java.awt.Font;
+
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
+
 import java.awt.Color;
+
 import javax.swing.DefaultComboBoxModel;
 
 
@@ -265,5 +269,9 @@ public class Gui_UpdateTicket extends JFrame {
 		lblUpdateTicket.setFont(new Font("Courier New", Font.PLAIN, 25));
 		lblUpdateTicket.setBounds(35, 11, 620, 44);
 		panel.add(lblUpdateTicket);
+	}
+
+	public void updateTicket() {
+		Ticket updateTicket = new Ticket();
 	}
 }

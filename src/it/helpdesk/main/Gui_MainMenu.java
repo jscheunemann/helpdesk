@@ -5,8 +5,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.Font;
 import java.awt.Color;
+
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
@@ -15,6 +17,10 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JTabbedPane;
 
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Gui_MainMenu extends JFrame {
 
@@ -69,7 +75,16 @@ public class Gui_MainMenu extends JFrame {
 		menuBar.add(MainMenu);
 		
 		JMenuItem mntmAddNewTicket = new JMenuItem("Add New Ticket");
+		mntmAddNewTicket.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				Gui_CreateNewTicket newTicket = new Gui_CreateNewTicket();
+			}
+		});
 		MainMenu.add(mntmAddNewTicket);
+		
+		JMenuItem mntmUpdateTicket = new JMenuItem("Update Ticket");
+		MainMenu.add(mntmUpdateTicket);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(0, 28, 633, 457);
@@ -154,6 +169,24 @@ public class Gui_MainMenu extends JFrame {
 		tableActiveTicket.getColumnModel().getColumn(6).setPreferredWidth(100);
 		tableInactiveTicket.getColumnModel().getColumn(6).setPreferredWidth(100);
 		
+		
+	}
+	
+	public boolean createNewTicket() {
+		Gui_CreateNewTicket newTicket = new Gui_CreateNewTicket();
+		return true;
+	}
+	
+	public boolean updateTicket() {
+		return true;
+	}
+	
+	public void displayActiveTickets() {
+		List<Ticket> activeTicketList = new ArrayList<Ticket>();
+	}
+	
+	public void displayInactiveTickets() {
+		List<Ticket> inActiveTicketList = new ArrayList<Ticket>();
 		
 	}
 }
