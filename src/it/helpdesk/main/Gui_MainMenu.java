@@ -19,8 +19,6 @@ import javax.swing.JTabbedPane;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Gui_MainMenu extends JFrame {
 
@@ -48,43 +46,20 @@ public class Gui_MainMenu extends JFrame {
 	 * Create the frame.
 	 */
 	public Gui_MainMenu() {
+		
+		//Set graphical elements
 		setForeground(Color.WHITE);
 		setType(Type.UTILITY);
 		setFont(new Font("Courier New", Font.PLAIN, 12));
 		setTitle("Helpdesk Ticket Tracker");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 649, 535);
+		
+		//Main panel to hold window's content
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 633, 28);
-		contentPane.add(menuBar);
-		
-		JMenu mnNewMenu = new JMenu("File");
-		mnNewMenu.setFont(new Font("Courier New", Font.PLAIN, 12));
-		menuBar.add(mnNewMenu);
-		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Setting");
-		mnNewMenu.add(mntmNewMenuItem);
-		
-		JMenu MainMenu = new JMenu("Ticket");
-		MainMenu.setFont(new Font("Courier New", Font.PLAIN, 12));
-		menuBar.add(MainMenu);
-		
-		JMenuItem mntmAddNewTicket = new JMenuItem("Add New Ticket");
-		mntmAddNewTicket.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-				Gui_CreateNewTicket newTicket = new Gui_CreateNewTicket();
-			}
-		});
-		MainMenu.add(mntmAddNewTicket);
-		
-		JMenuItem mntmUpdateTicket = new JMenuItem("Update Ticket");
-		MainMenu.add(mntmUpdateTicket);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(0, 28, 633, 457);
@@ -169,6 +144,34 @@ public class Gui_MainMenu extends JFrame {
 		tableActiveTicket.getColumnModel().getColumn(6).setPreferredWidth(100);
 		tableInactiveTicket.getColumnModel().getColumn(6).setPreferredWidth(100);		
 		
+		this.setJMenuBar(createMenu());
+	}
+	
+	private JMenuBar createMenu() {
+		JMenuBar menuBar = new JMenuBar();
+		
+		JMenu fileMenu = new JMenu("File");
+		
+		JMenuItem settingsMenuItem = new JMenuItem("Setting");
+		fileMenu.add(settingsMenuItem);
+		
+		JMenu ticketMenu = new JMenu("Ticket");
+		
+		JMenuItem newTicketMenuItem = new JMenuItem("Add New Ticket");
+		newTicketMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				createNewTicket();
+			}
+		});
+		ticketMenu.add(newTicketMenuItem);
+		
+		JMenuItem updateTicketMenuItem = new JMenuItem("Update Ticket");
+		ticketMenu.add(updateTicketMenuItem);
+		
+		menuBar.add(fileMenu);
+		menuBar.add(ticketMenu);
+		
+		return menuBar;
 	}
 	
 	public void login() {
@@ -185,6 +188,7 @@ public class Gui_MainMenu extends JFrame {
 	
 	public boolean updateTicket() {
 		Gui_UpdateTicket newTicket = new Gui_UpdateTicket();
+		newTicket.setVisible(true);
 		return true;
 	}
 	
