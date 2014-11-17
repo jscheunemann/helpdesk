@@ -41,22 +41,6 @@ public class Gui_UpdateTicket extends JFrame {
 	private JTextField txtFldComplDate;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Gui_UpdateTicket frame = new Gui_UpdateTicket();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
 	public Gui_UpdateTicket() {

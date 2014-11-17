@@ -26,21 +26,6 @@ public class Gui_MainMenu extends JFrame {
 	private JTable tableInactiveTicket;
 	private JTable tableActiveTicket;
 	public DBInterface dbInterface;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Gui_MainMenu frame = new Gui_MainMenu();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.

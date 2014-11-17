@@ -19,7 +19,6 @@ public class Menu extends JFrame {
     }
 
     private void initUI() {
-
         JMenuBar menubar = new JMenuBar();
         ImageIcon icon = new ImageIcon("exit.png");
 
@@ -46,16 +45,5 @@ public class Menu extends JFrame {
         setSize(456, 326);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-    }
-
-    public static void main(String[] args) {
-
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                Menu ex = new Menu();
-                ex.setVisible(true);
-            }
-        });
     }
 }
