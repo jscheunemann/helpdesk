@@ -1,23 +1,28 @@
 package it.helpdesk.main;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DBInterface {
+
+	List<Ticket> activeTicketList;
+	List<Ticket> inActiveTicketList;
 	
 	public DBInterface() {
-		
+		activeTicketList = new ArrayList<Ticket>();
+		inActiveTicketList = new ArrayList<Ticket>();
 	}
 	
 	public boolean connectDB() {
 		return true;
 	}
 	
-	public Ticket queryActiveTicket() {
-		Ticket t = new Ticket();
-		return t;
+	public List<Ticket> queryActiveTicket() {
+		return activeTicketList;
 	}
 
-	public Ticket queryInactiveTicket() {
-		Ticket t = new Ticket();
-		return t;
+	public List<Ticket> queryInactiveTicket() {
+		return inActiveTicketList;
 	}
 
 }

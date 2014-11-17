@@ -27,7 +27,7 @@ public class Gui_MainMenu extends JFrame {
 	private JPanel contentPane;
 	private JTable tableInactiveTicket;
 	private JTable tableActiveTicket;
-
+	public DBInterface dbInterface;
 	/**
 	 * Launch the application.
 	 */
@@ -167,26 +167,31 @@ public class Gui_MainMenu extends JFrame {
 			}
 		));
 		tableActiveTicket.getColumnModel().getColumn(6).setPreferredWidth(100);
-		tableInactiveTicket.getColumnModel().getColumn(6).setPreferredWidth(100);
-		
+		tableInactiveTicket.getColumnModel().getColumn(6).setPreferredWidth(100);		
 		
 	}
 	
+	public void login() {
+		Gui_Login login = new Gui_Login();		
+	}
+	
+	public void accessDB() {
+		dbInterface = new DBInterface(); 
+	}
 	public boolean createNewTicket() {
 		Gui_CreateNewTicket newTicket = new Gui_CreateNewTicket();
 		return true;
 	}
 	
 	public boolean updateTicket() {
+		Gui_UpdateTicket newTicket = new Gui_UpdateTicket();
 		return true;
 	}
 	
 	public void displayActiveTickets() {
-		List<Ticket> activeTicketList = new ArrayList<Ticket>();
 	}
 	
 	public void displayInactiveTickets() {
-		List<Ticket> inActiveTicketList = new ArrayList<Ticket>();
 		
 	}
 }
