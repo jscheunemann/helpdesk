@@ -1,5 +1,6 @@
 package it.helpdesk.main;
 
+import java.awt.Dialog;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -9,6 +10,7 @@ import javax.swing.JLabel;
 
 import java.awt.Font;
 
+import javax.swing.JDialog;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -20,11 +22,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
+
 import java.awt.SystemColor;
+
 import javax.swing.UIManager;
 
 
-public class Gui_UpdateTicket extends JFrame {
+public class Gui_UpdateTicket extends JDialog {
 
 	/**
 	 * 
@@ -43,11 +47,10 @@ public class Gui_UpdateTicket extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Gui_UpdateTicket() {
+	public Gui_UpdateTicket(JFrame parent) {
+		super(parent, "", Dialog.ModalityType.DOCUMENT_MODAL);
 		setType(Type.UTILITY);
-		setFont(new Font("Courier New", Font.PLAIN, 12));
 		setTitle("Helpdesk Ticket Tracker");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 687, 652);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -62,7 +65,6 @@ public class Gui_UpdateTicket extends JFrame {
 		JLabel lblTicketID = new JLabel("Ticket ID");
 		lblTicketID.setBounds(45, 15, 76, 14);
 		lblTicketID.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblTicketID.setFont(new Font("Courier New", Font.PLAIN, 12));
 		pnl1.add(lblTicketID);
 		
 		txtFldTicketID = new JTextField();
@@ -74,7 +76,6 @@ public class Gui_UpdateTicket extends JFrame {
 		JLabel lblOpenedBy = new JLabel("Opened By");
 		lblOpenedBy.setBounds(33, 47, 88, 14);
 		lblOpenedBy.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblOpenedBy.setFont(new Font("Courier New", Font.PLAIN, 12));
 		pnl1.add(lblOpenedBy);
 		
 		txtFldOpenedBy = new JTextField();
@@ -86,7 +87,6 @@ public class Gui_UpdateTicket extends JFrame {
 		JLabel lblOpenedDate = new JLabel("Opened Date");
 		lblOpenedDate.setBounds(344, 47, 88, 14);
 		lblOpenedDate.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblOpenedDate.setFont(new Font("Courier New", Font.PLAIN, 12));
 		pnl1.add(lblOpenedDate);
 		
 		txtFldOpenedDate = new JTextField();
@@ -98,7 +98,6 @@ public class Gui_UpdateTicket extends JFrame {
 		JLabel lblClient = new JLabel("Client");
 		lblClient.setBounds(33, 80, 88, 14);
 		lblClient.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblClient.setFont(new Font("Courier New", Font.PLAIN, 12));
 		pnl1.add(lblClient);
 		
 		txtFldClient = new JTextField();
@@ -109,7 +108,6 @@ public class Gui_UpdateTicket extends JFrame {
 		JLabel lblClientPhone = new JLabel("Client Phone");
 		lblClientPhone.setBounds(33, 109, 88, 14);
 		lblClientPhone.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblClientPhone.setFont(new Font("Courier New", Font.PLAIN, 12));
 		pnl1.add(lblClientPhone);
 		
 		txtFldClientPhone = new JTextField();
@@ -120,7 +118,6 @@ public class Gui_UpdateTicket extends JFrame {
 		JLabel lblClientEmail = new JLabel("Client Email");
 		lblClientEmail.setBounds(344, 109, 88, 14);
 		lblClientEmail.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblClientEmail.setFont(new Font("Courier New", Font.PLAIN, 12));
 		pnl1.add(lblClientEmail);
 		
 		txtFldClientEmail = new JTextField();
@@ -131,7 +128,6 @@ public class Gui_UpdateTicket extends JFrame {
 		JLabel lblSummary = new JLabel("Summary");
 		lblSummary.setBounds(33, 140, 88, 14);
 		lblSummary.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblSummary.setFont(new Font("Courier New", Font.PLAIN, 12));
 		pnl1.add(lblSummary);
 		
 		txtFldSummary = new JTextField();
@@ -142,13 +138,11 @@ public class Gui_UpdateTicket extends JFrame {
 		JLabel lblServiceCategory = new JLabel("Service Category");
 		lblServiceCategory.setBounds(2, 167, 119, 14);
 		lblServiceCategory.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblServiceCategory.setFont(new Font("Courier New", Font.PLAIN, 12));
 		pnl1.add(lblServiceCategory);
 		
 		JLabel lblPriority = new JLabel("Priority");
 		lblPriority.setBounds(344, 167, 88, 14);
 		lblPriority.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblPriority.setFont(new Font("Courier New", Font.PLAIN, 12));
 		pnl1.add(lblPriority);
 		
 		JLabel lblStatus = new JLabel("Status");
@@ -244,6 +238,8 @@ public class Gui_UpdateTicket extends JFrame {
 		lblUpdateTicket.setFont(new Font("Courier New", Font.PLAIN, 30));
 		lblUpdateTicket.setBounds(27, 27, 623, 31);
 		panel.add(lblUpdateTicket);
+		
+		this.setLocationRelativeTo(parent);
 	}
 	
 	public void SaveTicket() {
