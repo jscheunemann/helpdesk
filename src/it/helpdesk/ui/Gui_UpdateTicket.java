@@ -1,4 +1,6 @@
-package it.helpdesk.main;
+package it.helpdesk.ui;
+
+import it.helpdesk.main.Ticket;
 
 import java.awt.Dialog;
 import java.awt.EventQueue;

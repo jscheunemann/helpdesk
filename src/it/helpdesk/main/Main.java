@@ -43,7 +43,7 @@ public class Main {
 			}
 			javax.swing.SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
-					Gui_MainMenu mainScreen = new Gui_MainMenu();
+					it.helpdesk.ui.desktop.swing.Main mainScreen = new it.helpdesk.ui.desktop.swing.Main();
 					mainScreen.setVisible(true);
 					mainScreen.addWindowListener(new WindowAdapter() {
 

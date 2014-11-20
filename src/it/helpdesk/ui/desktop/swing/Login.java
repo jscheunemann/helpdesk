@@ -1,4 +1,4 @@
-package it.helpdesk.main;
+package it.helpdesk.ui.desktop.swing;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 
 
-public class Gui_Login extends JDialog {
+public class Login extends JDialog {
 	
 	private String userName;
 	private String password;
@@ -27,7 +27,7 @@ public class Gui_Login extends JDialog {
 	/**
 	 * Create the frame.
 	 */
-	public Gui_Login(JFrame parent) {
+	public Login(JFrame parent) {
 		super(parent, "", Dialog.ModalityType.DOCUMENT_MODAL);
 		this.setLocationRelativeTo(parent);
 		setTitle("Login");

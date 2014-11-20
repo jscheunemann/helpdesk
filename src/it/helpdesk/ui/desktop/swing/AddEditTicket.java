@@ -1,4 +1,6 @@
-package it.helpdesk.main;
+package it.helpdesk.ui.desktop.swing;
+
+import it.helpdesk.main.Ticket;
 
 import java.awt.Dialog;
 import java.awt.EventQueue;
@@ -30,7 +32,7 @@ import java.awt.event.ActionListener;
 import javax.swing.UIManager;
 
 
-public class Gui_CreateNewTicket extends JDialog {
+public class AddEditTicket extends JDialog {
 
 	/**
 	 * 
@@ -49,7 +51,7 @@ public class Gui_CreateNewTicket extends JDialog {
 	/**
 	 * Create the frame.
 	 */
-	public Gui_CreateNewTicket(JFrame parent) {
+	public AddEditTicket(JFrame parent) {
 		super(parent, "", Dialog.ModalityType.DOCUMENT_MODAL);
 		setTitle("Helpdesk Ticket Tracker");
 		setBounds(100, 100, 687, 652);
@@ -221,7 +223,7 @@ public class Gui_CreateNewTicket extends JDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Gui_CreateNewTicket.this.dispose();
+				AddEditTicket.this.dispose();
 			}
 			
 		});
