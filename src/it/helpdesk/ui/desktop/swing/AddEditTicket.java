@@ -1,6 +1,9 @@
 package it.helpdesk.ui.desktop.swing;
 
 import it.helpdesk.main.Ticket;
+import it.helpdesk.main.Ticket.PriorityEnum;
+import it.helpdesk.main.Ticket.ServiceCatEnum;
+import it.helpdesk.main.Ticket.StatusEnum;
 
 import java.awt.Dialog;
 import java.awt.EventQueue;
@@ -20,7 +23,12 @@ import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 
 import java.awt.Color;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+//import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
@@ -30,6 +38,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.UIManager;
+
+import com.sun.org.apache.xerces.internal.util.Status;
 
 
 public class AddEditTicket extends JDialog {
@@ -47,7 +57,15 @@ public class AddEditTicket extends JDialog {
 	private JTextField txtFldClientEmail;
 	private JTextField txtFldSummary;
 	private JTextField txtFldComplDate;
+	
+	JComboBox cbBoxPriority;
+	JComboBox cbBoxSerCategory;
+	JComboBox cbBoxStatus;
+	
+	JTextArea txtAreaLog;
+	JTextArea txtAreaDescription;
 
+	private Ticket newTicket;
 	/**
 	 * Create the frame.
 	 */
@@ -169,7 +187,9 @@ public class AddEditTicket extends JDialog {
 		lblDescription.setHorizontalAlignment(SwingConstants.RIGHT);
 		pnl1.add(lblDescription);
 		
-		JComboBox cbBoxPriority = new JComboBox();
+		
+		
+		cbBoxPriority = new JComboBox();
 		cbBoxPriority.setModel(new DefaultComboBoxModel(new String[] {"Low ", "Medium ", "High ", "Urgent"}));
 		cbBoxPriority.setBounds(440, 167, 206, 20);
 		pnl1.add(cbBoxPriority);
@@ -178,12 +198,12 @@ public class AddEditTicket extends JDialog {
 		btnAddInformation.setBounds(131, 344, 196, 26);
 		pnl1.add(btnAddInformation);
 		
-		JComboBox cbBoxSerCategory = new JComboBox();
+		cbBoxSerCategory = new JComboBox();
 		cbBoxSerCategory.setModel(new DefaultComboBoxModel(new String[] {"Access Issue", "Hardware", "Software", "Database", "Software Defect", "Inquiry"}));
 		cbBoxSerCategory.setBounds(131, 167, 203, 20);
 		pnl1.add(cbBoxSerCategory);
 		
-		JComboBox cbBoxStatus = new JComboBox();
+		cbBoxStatus = new JComboBox();
 		cbBoxStatus.setModel(new DefaultComboBoxModel(new String[] {"New ", "In Progress", "Wait for Process", "Withdrawn ", "Complete ", "Delete"}));
 		cbBoxStatus.setBounds(131, 198, 203, 20);
 		pnl1.add(cbBoxStatus);
@@ -193,16 +213,17 @@ public class AddEditTicket extends JDialog {
 		lblLog.setBounds(66, 369, 55, 14);
 		pnl1.add(lblLog);
 		
-		JTextArea txtAreaLog = new JTextArea();
+				
+		txtAreaLog = new JTextArea();
 		txtAreaLog.setLineWrap(true);
 		txtAreaLog.setToolTipText("");
 		txtAreaLog.setEditable(false);
 		txtAreaLog.setBounds(131, 381, 515, 130);
 		pnl1.add(txtAreaLog);
 		
-		JTextArea txtAreaDescription = new JTextArea();
+		txtAreaDescription = new JTextArea();
 		txtAreaDescription.setLineWrap(true);
-		txtAreaDescription.setBounds(131, 240, 515, 93);
+		txtAreaDescription.setBounds(131, 252, 515, 93);
 		pnl1.add(txtAreaDescription);
 		
 		
@@ -215,6 +236,12 @@ public class AddEditTicket extends JDialog {
 		
 		JButton btnSave = new JButton("Save");
 		btnSave.setBounds(473, 11, 80, 26);
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				saveTicket();
+				AddEditTicket.this.dispose();
+			}
+		});
 		pnl2.add(btnSave);
 		
 		JButton btnCancel = new JButton("Cancel");
@@ -244,7 +271,29 @@ public class AddEditTicket extends JDialog {
 		this.setLocationRelativeTo(parent);
 	}
 	
-	public void SaveTicket() {
-		Ticket newTicket = new Ticket();
+	public void saveTicket() {
+		newTicket = new Ticket();
+		//newTicket.setID(Long.valueOf((txtFldTicketID).toString())) ;			
+		//newTicket.setOpenedBy(txtFldOpenedBy.toString());
+		newTicket.setOpenedDate(new Date());
+		newTicket.setClient(txtFldClient.getText());
+		newTicket.setClientEmail(txtFldClientEmail.getText());
+		newTicket.setClientPhone(txtFldClientPhone.getText());
+		//newTicket.setCompleteDate(Date.valueOf(txtFldComplDate.toString()));
+		newTicket.setPriority(PriorityEnum.fromInt(cbBoxPriority.getSelectedIndex()));
+		newTicket.setServiceCat(ServiceCatEnum.fromInt(cbBoxSerCategory.getSelectedIndex()));
+		newTicket.setStatus(StatusEnum.fromInt(cbBoxStatus.getSelectedIndex()));
+		newTicket.setDescription(txtAreaDescription.getText());
+		DateFormat dateFormat = new SimpleDateFormat("YYYY/MM/dd HH:mm:ss");
+		
+		// Current date + log string
+		String logStr = dateFormat.format(new Date()) + " : " + txtAreaLog.getText();
+		newTicket.setLog(logStr);
+		newTicket.setSummary(txtFldSummary.getText());	
+	}
+	
+	public Ticket getNewTicket()
+	{
+		return newTicket;
 	}
 }

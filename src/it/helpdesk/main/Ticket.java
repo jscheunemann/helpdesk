@@ -1,11 +1,127 @@
 package it.helpdesk.main;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Ticket {
-	enum PriorityEnum{LOW,MEDIUM, HIGH, URGENT};
-	enum ServiceCatEnum {ACCESS_ISSUE, HARDWARE, SOFTWARE, DATABASE, SOFTWARE_DEFECT, INQUIRY};		
-	enum StatusEnum{NEW, IN_PROGRESS, WAIT_FOR_PROCESS, WITHDRAWN, COMPLETE, DELETE};
+	public enum PriorityEnum{LOW, MEDIUM, HIGH, URGENT;
+	
+		public static PriorityEnum fromInt(int i) {
+	        switch(i) {
+	        case 0:
+	            return LOW;
+	        case 1:
+	            return MEDIUM;
+	        case 2:
+	            return HIGH;
+	        case 3:
+	            return URGENT;
+	        }
+	        return null;
+	    }
+    };	
+    
+    	public static int toInt(PriorityEnum j){
+    		switch(j) {
+    		case LOW: 
+    			return 0;    			
+    		case MEDIUM:
+    			return 1;    			
+    		case HIGH:
+    			return 2;    			
+    		case URGENT:
+    			return 3;   		
+    		}
+    		
+			return 0;
+    		
+    	}
+    
+    
+    public enum ServiceCatEnum {ACCESS_ISSUE, HARDWARE, SOFTWARE, DATABASE, SOFTWARE_DEFECT, INQUIRY;
+    
+    public static ServiceCatEnum fromInt(int i){
+    	switch (i){
+    	case 0: 
+    		return ACCESS_ISSUE;
+    	case 1:
+    		return HARDWARE;
+    	case 2: 
+    		return SOFTWARE;
+    	case 3: 
+    		return DATABASE;
+    	case 4: 
+    		return SOFTWARE_DEFECT;
+    	case 5: 
+    		return INQUIRY;
+    
+    	}
+		return null;    	
+    }
+    
+    public static int toInt(ServiceCatEnum j){
+		switch(j) {
+		case ACCESS_ISSUE: 
+			return 0;    			
+		case HARDWARE:
+			return 1;    			
+		case SOFTWARE:
+			return 2;    			
+		case DATABASE:
+			return 3;  
+		case SOFTWARE_DEFECT:
+			return 4;
+		case INQUIRY:
+			return 5;
+		}
+		
+		return -1;
+		
+	}
+    
+    };	
+    
+   
+	
+    public enum StatusEnum{NEW, IN_PROGRESS, WAIT_FOR_PROCESS, WITHDRAWN, COMPLETE, DELETE;
+    public static StatusEnum fromInt(int i){
+    	switch (i){
+    	case 0: 
+    		return NEW;
+    	case 1:
+    		return IN_PROGRESS;
+    	case 2: 
+    		return WAIT_FOR_PROCESS;
+    	case 3: 
+    		return WITHDRAWN;
+    	case 4: 
+    		return COMPLETE;
+    	case 5: 
+    		return DELETE;
+    
+    	}
+		return null;    	
+    }
+    
+    public static int toInt(StatusEnum j){
+		switch(j) {
+		case NEW: 
+			return 0;    			
+		case IN_PROGRESS:
+			return 1;    			
+		case WAIT_FOR_PROCESS:
+			return 2;    			
+		case WITHDRAWN:
+			return 3;  
+		case COMPLETE:
+			return 4;
+		case DELETE:
+			return 5;
+		}
+		
+		return -1;
+		
+	}
+    };
 
 	private long ID;
 	private String openedBy;

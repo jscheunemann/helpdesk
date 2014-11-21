@@ -1,5 +1,7 @@
 package it.helpdesk.ui.desktop.swing;
 
+import it.helpdesk.main.DBInterface;
+import it.helpdesk.main.Ticket;
 import it.helpdesk.ui.interfaces.IMain;
 import it.helpdesk.ui.interfaces.IMainMenu;
 
@@ -13,12 +15,15 @@ import javax.swing.table.*;
 public class Main extends JFrame implements IMain {
 	private IMainMenu mainMenu;
 	private boolean firstLoad = true;
+	DBInterface dbInterface = new DBInterface();
+
 	public Main() {
 
 		JPanel contentPane;
 		JTable tableInactiveTicket;
 		JTable tableActiveTicket;
 
+		
 		//Set graphical elements
 		setTitle("Helpdesk Ticket Tracker");
 
@@ -106,7 +111,28 @@ public class Main extends JFrame implements IMain {
 
 	@Override
 	public void openCreateNewTicketDialog() {
-		new AddEditTicket(this).setVisible(true);
+		//new AddEditTicket(this).setVisible(true);
+		AddEditTicket newTicketDialog = new AddEditTicket(this);
+		newTicketDialog.setVisible(true);
+		Ticket newTicket = newTicketDialog.getNewTicket();
+		if(newTicket != null){
+			dbInterface.addNewTicket(newTicket);
+			// Testing to make sure new ticket data is correct
+			System.out.println("ID: " + newTicket.getID());
+			System.out.println("OpenedBy: " + newTicket.getOpenedBy());
+			System.out.println("OpenDate: " + newTicket.getOpenedDate());
+			System.out.println("Client: " + newTicket.getClient());
+			System.out.println("Client Email: " + newTicket.getClientEmail());
+			System.out.println("Client Phone: " + newTicket.getClientPhone());
+			System.out.println("Priority: " + newTicket.getPriority());
+			System.out.println("Service Category: " + newTicket.getServiceCat());
+			System.out.println("Status: " + newTicket.getStatus());
+			System.out.println("Summary: " + newTicket.getSummary());
+			System.out.println("Description: " + newTicket.getDescription());
+			System.out.println("Log: " + newTicket.getLog());
+
+		}
+		
 	}
 
 	@Override
