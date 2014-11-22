@@ -13,6 +13,7 @@ import it.helpdesk.ui.interfaces.IMain;
 import it.helpdesk.ui.interfaces.IMainMenu;
 
 public class MainMenu extends JMenuBar implements IMainMenu {
+	private static final long serialVersionUID = 6380669857111206438L;
 	private IMain parentWindow;
 	private JMenu fileMenu;
 	private JMenu ticketMenu;

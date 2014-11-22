@@ -1,9 +1,9 @@
 package it.helpdesk.ui.desktop.swing;
 
-import it.helpdesk.main.DBInterface;
-import it.helpdesk.main.Ticket;
-import it.helpdesk.ui.interfaces.IMain;
-import it.helpdesk.ui.interfaces.IMainMenu;
+import it.helpdesk.datasources.memory.MemoryDatasourceConfiguration;
+import it.helpdesk.main.*;
+import it.helpdesk.ui.controllers.LoginFormController;
+import it.helpdesk.ui.interfaces.*;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -11,17 +11,23 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.table.*;
+
 import java.util.List;
 
-public class Main extends JFrame implements IMain {
+public class MainForm extends JFrame implements IMain {
+	private static final long serialVersionUID = 5596361278718314710L;
+	private IDatasourceConfiguration datasourceConfiguration;
+	private IViewConfiguration viewConfiguration;
 	private IMainMenu mainMenu;
 	private boolean firstLoad = true;
-	DBInterface dbInterface = new DBInterface();
-	JTable tableInactiveTicket;
-	JTable tableActiveTicket;
+	private DBInterface dbInterface = new DBInterface();
+	private JTable tableInactiveTicket;
+	private JTable tableActiveTicket;
 
-	public Main() {
-
+	public MainForm() {
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		viewConfiguration = new SwingViewConfiguration(this);
+		datasourceConfiguration = new MemoryDatasourceConfiguration();
 		JPanel contentPane;
 		//JTable tableInactiveTicket;
 		//JTable tableActiveTicket;
@@ -87,7 +93,7 @@ public class Main extends JFrame implements IMain {
 		this.addComponentListener(new ComponentAdapter() {
 			public void componentShown(ComponentEvent e) {
 				if (firstLoad) {
-					Main.this.openLoginDialog();
+					MainForm.this.openLoginDialog();
 					firstLoad = false;
 				}
 			}
@@ -104,7 +110,8 @@ public class Main extends JFrame implements IMain {
 
 	@Override
 	public void openLoginDialog() {
-		new Login(this).setVisible(true);
+		ILoginFormController controller = new LoginFormController(viewConfiguration, datasourceConfiguration);
+		controller.openForm();
 	}
 
 	@Override

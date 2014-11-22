@@ -6,8 +6,6 @@ import it.helpdesk.main.Ticket.ServiceCatEnum;
 import it.helpdesk.main.Ticket.StatusEnum;
 
 import java.awt.Dialog;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -26,21 +24,11 @@ import javax.swing.JTextArea;
 import java.awt.Color;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-//import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-
 import javax.swing.DefaultComboBoxModel;
 
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.UIManager;
-
-import com.sun.org.apache.xerces.internal.util.Status;
 
 
 public class AddEditTicket extends JDialog {
@@ -59,9 +47,9 @@ public class AddEditTicket extends JDialog {
 	private JTextField txtFldSummary;
 	private JTextField txtFldComplDate;
 	
-	private JComboBox cbBoxPriority;
-	private JComboBox cbBoxSerCategory;
-	private JComboBox cbBoxStatus;
+	private JComboBox<String> cbBoxPriority;
+	private JComboBox<String> cbBoxSerCategory;
+	private JComboBox<String> cbBoxStatus;
 	
 	private JTextArea txtAreaLog;
 	private JTextArea txtAreaDescription;
@@ -190,8 +178,8 @@ public class AddEditTicket extends JDialog {
 		
 		
 		
-		cbBoxPriority = new JComboBox();
-		cbBoxPriority.setModel(new DefaultComboBoxModel(new String[] {"Low ", "Medium ", "High ", "Urgent"}));
+		cbBoxPriority = new JComboBox<String>();
+		cbBoxPriority.setModel(new DefaultComboBoxModel<String>(new String[] {"Low ", "Medium ", "High ", "Urgent"}));
 		cbBoxPriority.setBounds(440, 167, 206, 20);
 		pnl1.add(cbBoxPriority);
 		
@@ -224,13 +212,13 @@ public class AddEditTicket extends JDialog {
 		btnAddInformation.setBounds(131, 344, 196, 26);
 		pnl1.add(btnAddInformation);
 		
-		cbBoxSerCategory = new JComboBox();
-		cbBoxSerCategory.setModel(new DefaultComboBoxModel(new String[] {"Access Issue", "Hardware", "Software", "Database", "Software Defect", "Inquiry"}));
+		cbBoxSerCategory = new JComboBox<String>();
+		cbBoxSerCategory.setModel(new DefaultComboBoxModel<String>(new String[] {"Access Issue", "Hardware", "Software", "Database", "Software Defect", "Inquiry"}));
 		cbBoxSerCategory.setBounds(131, 167, 203, 20);
 		pnl1.add(cbBoxSerCategory);
 		
-		cbBoxStatus = new JComboBox();
-		cbBoxStatus.setModel(new DefaultComboBoxModel(new String[] {"New ", "In Progress", "Wait for Process", "Withdrawn ", "Complete ", "Delete"}));
+		cbBoxStatus = new JComboBox<String>();
+		cbBoxStatus.setModel(new DefaultComboBoxModel<String>(new String[] {"New ", "In Progress", "Wait for Process", "Withdrawn ", "Complete ", "Delete"}));
 		cbBoxStatus.setBounds(131, 198, 203, 20);
 		pnl1.add(cbBoxStatus);
 		

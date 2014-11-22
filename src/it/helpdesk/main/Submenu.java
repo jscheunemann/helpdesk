@@ -4,12 +4,12 @@ import javax.swing.Box;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.SwingUtilities;
 
 
 public class Submenu extends JFrame {
-    
-    public Submenu() {
+	private static final long serialVersionUID = -5886246414863162329L;
+
+	public Submenu() {
         
         initUI();
     }
@@ -36,17 +36,5 @@ public class Submenu extends JFrame {
         setSize(600, 200);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);        
-    }
-
-
-    public static void main(String[] args) {
-        
-        SwingUtilities.invokeLater(new Runnable() {            
-            @Override
-            public void run() {                
-                Submenu ex = new Submenu();
-                ex.setVisible(true);                
-            }
-        });
     }
 }
