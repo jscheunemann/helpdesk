@@ -22,6 +22,7 @@ public class DBInterface {
 	{
 		activeTicketList.add(ticket);
 	}
+	
 	public void updateActiveTicket(Ticket ticket)
 	{
 		Iterator itr = activeTicketList.iterator();
@@ -38,7 +39,9 @@ public class DBInterface {
 			}
 		}
 	}
+	
 	public List<Ticket> queryActiveTicket() {
+		
 		return activeTicketList;
 	}
 

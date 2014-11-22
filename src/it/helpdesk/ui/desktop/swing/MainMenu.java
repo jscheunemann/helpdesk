@@ -71,6 +71,7 @@ public class MainMenu extends JMenuBar implements IMainMenu {
 		newTicketMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MainMenu.this.parentWindow.openCreateNewTicketDialog();
+				
 			}
 		});
 		ticketMenu.add(newTicketMenuItem);

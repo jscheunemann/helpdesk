@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -58,12 +59,12 @@ public class AddEditTicket extends JDialog {
 	private JTextField txtFldSummary;
 	private JTextField txtFldComplDate;
 	
-	JComboBox cbBoxPriority;
-	JComboBox cbBoxSerCategory;
-	JComboBox cbBoxStatus;
+	private JComboBox cbBoxPriority;
+	private JComboBox cbBoxSerCategory;
+	private JComboBox cbBoxStatus;
 	
-	JTextArea txtAreaLog;
-	JTextArea txtAreaDescription;
+	private JTextArea txtAreaLog;
+	private JTextArea txtAreaDescription;
 
 	private Ticket newTicket;
 	/**
@@ -195,6 +196,31 @@ public class AddEditTicket extends JDialog {
 		pnl1.add(cbBoxPriority);
 		
 		JButton btnAddInformation = new JButton("Add Information");
+		btnAddInformation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				//JTextField txtLogInfo = new JTextField();
+				String s = (String)JOptionPane.showInputDialog(
+									AddEditTicket.this,
+				                    "",
+				                    "Add Information",
+				                    JOptionPane.PLAIN_MESSAGE,
+				                    null,
+				                    null,
+				                    "");
+
+				//If a string was returned, say so.
+				if ((s != null) && (s.length() > 0)) {
+					DateFormat dateFormat = new SimpleDateFormat("YYYY/MM/dd HH:mm:ss");
+					// Current date + log string
+					String logStr = dateFormat.format(new Date()) + " : " + s + "\n";
+					txtAreaLog.append(logStr);
+					return;
+				}
+
+				
+			}
+		});
 		btnAddInformation.setBounds(131, 344, 196, 26);
 		pnl1.add(btnAddInformation);
 		
@@ -284,16 +310,35 @@ public class AddEditTicket extends JDialog {
 		newTicket.setServiceCat(ServiceCatEnum.fromInt(cbBoxSerCategory.getSelectedIndex()));
 		newTicket.setStatus(StatusEnum.fromInt(cbBoxStatus.getSelectedIndex()));
 		newTicket.setDescription(txtAreaDescription.getText());
-		DateFormat dateFormat = new SimpleDateFormat("YYYY/MM/dd HH:mm:ss");
-		
-		// Current date + log string
-		String logStr = dateFormat.format(new Date()) + " : " + txtAreaLog.getText();
-		newTicket.setLog(logStr);
+		newTicket.setLog(txtAreaLog.getText());
 		newTicket.setSummary(txtFldSummary.getText());	
 	}
 	
 	public Ticket getNewTicket()
 	{
 		return newTicket;
+	}	
+	
+	public void displayTicketInfo(Ticket ticket){
+		txtFldTicketID.setText(String.valueOf(ticket.getID()));
+		txtFldOpenedBy.setText(ticket.getOpenedBy());
+		txtFldOpenedDate.setText(String.valueOf(ticket.getOpenedDate()));
+		txtFldClient.setText(ticket.getClient());
+		txtFldClientPhone.setText(ticket.getClientPhone());		
+		txtFldClientEmail.setText(ticket.getClientEmail());
+		
+		txtFldSummary.setText(ticket.getSummary());
+		txtFldComplDate.setText(String.valueOf(ticket.getCompleteDate()));
+	
+		cbBoxPriority.setSelectedItem(ticket.getPriority());
+		cbBoxSerCategory.setSelectedItem(ticket.getServiceCat());
+		cbBoxStatus.setSelectedItem(ticket.getStatus());
+		
+		txtAreaLog.setText(ticket.getLog());
+		txtAreaDescription.setText(ticket.getDescription());;
+
+		
+		
 	}
+	
 }

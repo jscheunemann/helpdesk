@@ -11,17 +11,20 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.table.*;
+import java.util.List;
 
 public class Main extends JFrame implements IMain {
 	private IMainMenu mainMenu;
 	private boolean firstLoad = true;
 	DBInterface dbInterface = new DBInterface();
+	JTable tableInactiveTicket;
+	JTable tableActiveTicket;
 
 	public Main() {
 
 		JPanel contentPane;
-		JTable tableInactiveTicket;
-		JTable tableActiveTicket;
+		//JTable tableInactiveTicket;
+		//JTable tableActiveTicket;
 
 		
 		//Set graphical elements
@@ -52,7 +55,7 @@ public class Main extends JFrame implements IMain {
 				},
 
 				new String[] {
-						"ID", "Priority", "Status", "Category", "Client", "Summary", "Data Opened"
+						"ID", "Priority", "Status", "Category", "Client", "Summary", "Date Opened"
 				}
 				));
 
@@ -111,37 +114,78 @@ public class Main extends JFrame implements IMain {
 
 	@Override
 	public void openCreateNewTicketDialog() {
-		//new AddEditTicket(this).setVisible(true);
 		AddEditTicket newTicketDialog = new AddEditTicket(this);
 		newTicketDialog.setVisible(true);
 		Ticket newTicket = newTicketDialog.getNewTicket();
 		if(newTicket != null){
 			dbInterface.addNewTicket(newTicket);
-			// Testing to make sure new ticket data is correct
-			System.out.println("ID: " + newTicket.getID());
-			System.out.println("OpenedBy: " + newTicket.getOpenedBy());
-			System.out.println("OpenDate: " + newTicket.getOpenedDate());
-			System.out.println("Client: " + newTicket.getClient());
-			System.out.println("Client Email: " + newTicket.getClientEmail());
-			System.out.println("Client Phone: " + newTicket.getClientPhone());
-			System.out.println("Priority: " + newTicket.getPriority());
-			System.out.println("Service Category: " + newTicket.getServiceCat());
-			System.out.println("Status: " + newTicket.getStatus());
-			System.out.println("Summary: " + newTicket.getSummary());
-			System.out.println("Description: " + newTicket.getDescription());
-			System.out.println("Log: " + newTicket.getLog());
-
+			
+			updateActiveTable();
 		}
-		
 	}
 
 	@Override
 	public void openEditTicketDialog() {
-		new AddEditTicket(this).setVisible(true);
+		AddEditTicket newTicketDialog = new AddEditTicket(this);
+
+		List<Ticket> currentTicketList = dbInterface.queryActiveTicket();
+		
+		newTicketDialog.displayTicketInfo(currentTicketList.get(0));
+			
+		newTicketDialog.setVisible(true);
+
 	}
+	
 
 	@Override
 	public void close() {
 		this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+	}
+	
+	public void updateActiveTable(){
+		DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) tableActiveTicket
+				.getDefaultRenderer(String.class);
+		renderer.setHorizontalAlignment(JLabel.RIGHT); // Format value in table
+														// to right
+		DefaultTableModel model = (DefaultTableModel) tableActiveTicket
+				.getModel(); // Set value to table
+
+		List<Ticket> currentTicketList = dbInterface.queryActiveTicket();
+
+		int a = model.getRowCount();
+		int b = (int) currentTicketList.size();
+
+		if (a < b) {
+			for (int i = 0; i < (b - a); i++)
+				model.addRow(new Object[] { null, null, null, null, null, null, null }); // Add
+																					// more
+																					// rows
+		}
+
+		for (int i = 0; i < a; i++) { // Clear table
+
+			model.setValueAt("", i, 0);
+			model.setValueAt("", i, 1);
+			model.setValueAt("", i, 2);
+			model.setValueAt("", i, 3);
+			model.setValueAt("", i, 4);
+			model.setValueAt("", i, 5);
+		}
+
+		if (b > 0) {
+
+			for (int i = 0; i < b; i++) { // UPdate values into table
+
+				model.setValueAt(currentTicketList.get(i).getID(), i,0 );
+				model.setValueAt(currentTicketList.get(i).getPriority(), i,1 );
+				model.setValueAt(currentTicketList.get(i).getStatus(), i,2 );
+				model.setValueAt(currentTicketList.get(i).getServiceCat(), i,3 );
+				model.setValueAt(currentTicketList.get(i).getClient(), i,4 );
+				model.setValueAt(currentTicketList.get(i).getSummary(), i,5 );
+				model.setValueAt(currentTicketList.get(i).getOpenedDate(), i,6 );
+
+		}
+		
+	}
 	}
 }

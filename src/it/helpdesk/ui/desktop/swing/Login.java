@@ -13,6 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 public class Login extends JDialog {
@@ -68,6 +70,10 @@ public class Login extends JDialog {
 		contentPane.add(txtFldPassword);
 		
 		JButton btnSignIn = new JButton("Sign In");
+		btnSignIn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnSignIn.setBounds(109, 211, 99, 24);
 		contentPane.add(btnSignIn);
 		
