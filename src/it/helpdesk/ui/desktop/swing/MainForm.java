@@ -142,7 +142,7 @@ public class MainForm extends JFrame implements IMain {
 
 	@Override
 	public void openCreateNewTicketDialog() {
-		AddEditTicket newTicketDialog = new AddEditTicket(this);
+		AddEditTicket newTicketDialog = new AddEditTicket(this, true);
 		newTicketDialog.setVisible(true);
 		Ticket newTicket = newTicketDialog.getNewTicket();
 		if(newTicket != null){
@@ -154,7 +154,7 @@ public class MainForm extends JFrame implements IMain {
 
 	@Override
 	public void openEditTicketDialog() {
-		AddEditTicket newTicketDialog = new AddEditTicket(this);
+		AddEditTicket newTicketDialog = new AddEditTicket(this, false);
 
 		List<Ticket> currentTicketList = dbInterface.queryActiveTicket();
 
