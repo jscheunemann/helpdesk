@@ -20,12 +20,11 @@
 
 package it.helpdesk.ui.interfaces;
 
-import java.util.List;
+import it.helpdesk.ui.interfaces.models.ITechnician;
 
-public interface IUserDatasource {
-	public List<IUser> getUsers();
-	public void saveUser(IUser user, String username, String password, String firstName, String lastName, String emailAddress);
-	public IUser getUserByUsername(String username);
-	public boolean usernameAvailable(String username);
-	public boolean checkPassword(String username, String password);
+public interface ITechnicianFormController {
+	public void openForm();
+	public void closeForm();
+	public void saveButtonPressed();
+	void setTechnician(ITechnician technician);
 }

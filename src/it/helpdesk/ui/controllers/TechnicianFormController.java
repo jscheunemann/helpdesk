@@ -21,15 +21,17 @@
 package it.helpdesk.ui.controllers;
 
 import it.helpdesk.ui.interfaces.*;
+import it.helpdesk.ui.interfaces.models.ITechnician;
+import it.helpdesk.ui.interfaces.models.datasources.ITechnicianDatasource;
 
-public class UserFormController implements IUserFormController {
+public class TechnicianFormController implements ITechnicianFormController {
 	private IViewConfiguration viewConfiguration;
 	private IDatasourceConfiguration datasourceConfiguration;
-	private IUserFormView view;
-	private IUserDatasource datasource;
-	private IUser user;
+	private ITechnicianFormView view;
+	private ITechnicianDatasource datasource;
+	private ITechnician technician;
 
-	public UserFormController(IViewConfiguration viewConfiguration, IDatasourceConfiguration datasourceConfiguration) {
+	public TechnicianFormController(IViewConfiguration viewConfiguration, IDatasourceConfiguration datasourceConfiguration) {
 		this.viewConfiguration = viewConfiguration;
 		this.datasourceConfiguration = datasourceConfiguration;
 	}
@@ -37,19 +39,20 @@ public class UserFormController implements IUserFormController {
 	@Override
 	public void openForm() {
 		if (this.view == null) {
-			this.view = viewConfiguration.getUserFormView();
+			this.view = viewConfiguration.getTechnicianFormView();
 			this.view.setController(this);
 		}
 
 		if (this.datasource == null) {
-			this.datasource = datasourceConfiguration.getUserDatasource();
+			this.datasource = datasourceConfiguration.getTechnicianDatasource();
 		}
 
-		if (user != null) {
-			view.setUsername(user.getUsername());
-			view.setFirstName(user.getFirstName());
-			view.setLastName(user.getLastName());
-			view.setEmailAddress(user.getEmailAddress());
+		if (technician != null) {
+			view.setUsername(technician.getUsername());
+			view.setFirstName(technician.getFirstName());
+			view.setLastName(technician.getLastName());
+			view.setPhoneNumber(technician.getPhoneNumber());
+			view.setEmailAddress(technician.getEmailAddress());
 		}
 
 		this.view.open();
@@ -61,10 +64,11 @@ public class UserFormController implements IUserFormController {
 			this.view.showValidationErrorDialog(); 
 		}
 		else {
-			this.datasource.saveUser(user,
+			this.datasource.saveTechnician(technician,
 					this.view.getUsername(),
 					this.view.getPassword(),
-					this.view.getFirstName(), 
+					this.view.getFirstName(),
+					this.view.getPhoneNumber(),
 					this.view.getLastName(),
 					this.view.getEmailAddress());
 
@@ -74,8 +78,8 @@ public class UserFormController implements IUserFormController {
 	}
 
 	@Override
-	public void setUser(IUser user) {
-		this.user = user;
+	public void setTechnician(ITechnician technician) {
+		this.technician = technician;
 	}
 
 	@Override

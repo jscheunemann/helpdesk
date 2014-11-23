@@ -13,6 +13,7 @@
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     	<property name="show_sql">true</property> 
     	<property name="connection.pool_size">1</property>
-		<mapping class="it.helpdesk.datasources.hibernate.User"></mapping>
+    	<mapping class="it.helpdesk.datasources.hibernate.Person"></mapping>
+		<mapping class="it.helpdesk.datasources.hibernate.Technician"></mapping>
     </session-factory>
 </hibernate-configuration>

@@ -22,9 +22,7 @@ package it.helpdesk.ui.desktop.swing;
 
 import javax.swing.JFrame;
 
-import it.helpdesk.ui.interfaces.ILoginFormView;
-import it.helpdesk.ui.interfaces.IUserFormView;
-import it.helpdesk.ui.interfaces.IViewConfiguration;
+import it.helpdesk.ui.interfaces.*;
 
 public class SwingViewConfiguration implements IViewConfiguration {
 	JFrame parentWindow;
@@ -39,7 +37,7 @@ public class SwingViewConfiguration implements IViewConfiguration {
 	}
 
 	@Override
-	public IUserFormView getUserFormView() {
-		return new UserFormView(parentWindow);
+	public ITechnicianFormView getTechnicianFormView() {
+		return new TechnicianFormView(parentWindow);
 	}
 }

@@ -28,18 +28,19 @@ import javax.swing.*;
 
 import it.helpdesk.ui.interfaces.*;
 
-public class UserFormView implements IUserFormView {
-	private IUserFormController controller;
+public class TechnicianFormView implements ITechnicianFormView {
+	private ITechnicianFormController controller;
 	private JDialog window;
 	private JTextField usernameTextBox;
 	private JPasswordField passwordTextBox;
 	private JPasswordField passwordConfirmationTextBox;
 	private JTextField firstNameTextBox;
 	private JTextField lastNameTextBox;
+	private JTextField phoneNumberTextBox;
 	private JTextField emailTextBox;
 	private JButton okButton;
 	
-	public UserFormView(JFrame parent) {
+	public TechnicianFormView(JFrame parent) {
 		window = new JDialog(parent, null, Dialog.ModalityType.APPLICATION_MODAL);
 		
 		JPanel usernamePanel = new JPanel();
@@ -67,6 +68,11 @@ public class UserFormView implements IUserFormView {
 		lastNameTextBox = new JTextField(15);
 		lastNamePanel.add(lastNameTextBox);
 		
+		JPanel phoneNumberPanel = new JPanel();
+		phoneNumberPanel.add(new JLabel("Phone Number"));
+		phoneNumberTextBox = new JTextField(15);
+		phoneNumberPanel.add(phoneNumberTextBox);
+		
 		JPanel emailPanel = new JPanel();
 		emailPanel.add(new JLabel("Email"));
 		emailTextBox = new JTextField(15);
@@ -82,6 +88,7 @@ public class UserFormView implements IUserFormView {
 		window.add(passwordConfirmationPanel);
 		window.add(firstNamePanel);
 		window.add(lastNamePanel);
+		window.add(phoneNumberPanel);
 		window.add(emailPanel);
 		window.add(okButton);
 
@@ -89,7 +96,7 @@ public class UserFormView implements IUserFormView {
 	}
 
 	@Override
-	public void setController(IUserFormController controller) {
+	public void setController(ITechnicianFormController controller) {
 		this.controller = controller;
 	}
 
@@ -98,7 +105,7 @@ public class UserFormView implements IUserFormView {
 		okButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				UserFormView.this.controller.saveButtonPressed();
+				TechnicianFormView.this.controller.saveButtonPressed();
 			}
 		});
 		
@@ -148,6 +155,16 @@ public class UserFormView implements IUserFormView {
 	@Override
 	public void setLastName(String lastName) {
 		this.lastNameTextBox.setText(lastName);
+	}
+	
+	@Override
+	public String getPhoneNumber() {
+		return this.phoneNumberTextBox.getText();
+	}
+	
+	@Override
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumberTextBox.setText(phoneNumber);
 	}
 
 	@Override

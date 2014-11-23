@@ -20,8 +20,8 @@
 
 package it.helpdesk.ui.interfaces;
 
-public interface IUserFormView {
-	public void setController(IUserFormController controller);
+public interface ITechnicianFormView {
+	public void setController(ITechnicianFormController controller);
 	public void open();
 	public void close();
 	public String getUsername();
@@ -32,6 +32,8 @@ public interface IUserFormView {
 	public void setFirstName(String firstName);
 	public String getLastName();
 	public void setLastName(String lastName);
+	public String getPhoneNumber();
+	public void setPhoneNumber(String phoneNumber);
 	public String getEmailAddress();
 	public void setEmailAddress(String emailAddress);
 	public void showValidationErrorDialog();

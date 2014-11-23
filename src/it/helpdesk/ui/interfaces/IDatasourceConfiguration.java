@@ -20,6 +20,8 @@
 
 package it.helpdesk.ui.interfaces;
 
+import it.helpdesk.ui.interfaces.models.datasources.*;
+
 public interface IDatasourceConfiguration {
-	public IUserDatasource getUserDatasource();
+	public ITechnicianDatasource getTechnicianDatasource();
 }

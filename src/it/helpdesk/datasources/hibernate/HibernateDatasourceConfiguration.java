@@ -21,17 +21,17 @@
 package it.helpdesk.datasources.hibernate;
 
 import it.helpdesk.ui.interfaces.IDatasourceConfiguration;
-import it.helpdesk.ui.interfaces.IUserDatasource;
+import it.helpdesk.ui.interfaces.models.datasources.ITechnicianDatasource;
 
 public class HibernateDatasourceConfiguration implements IDatasourceConfiguration {
-	private IUserDatasource datasource = null;
+	private ITechnicianDatasource datasource = null;
 	
 	public HibernateDatasourceConfiguration() {
-		datasource = new UserDatasource();
+		datasource = new TechnicianDatasource();
 	}
 	
 	@Override
-	public IUserDatasource getUserDatasource() {
+	public ITechnicianDatasource getTechnicianDatasource() {
 		return this.datasource;
 	}
 }

@@ -21,17 +21,18 @@
 package it.helpdesk.datasources.memory;
 
 import it.helpdesk.ui.interfaces.*;
+import it.helpdesk.ui.interfaces.models.datasources.ITechnicianDatasource;
 
 public class MemoryDatasourceConfiguration implements IDatasourceConfiguration {
-	IUserDatasource datasource = null;
+	ITechnicianDatasource datasource = null;
 	
 	public MemoryDatasourceConfiguration() {
-		datasource = new UserDatasource();
-		datasource.saveUser(null, "test", "test", "Jason", "Scheunemann", "jason.scheunemann@example.com");
+		datasource = new TechnicianDatasource();
+		datasource.saveTechnician(null, "test", "test", "Jason", "Scheunemann", "999-999-9999", "jason.scheunemann@example.com");
 	}
 	
 	@Override
-	public IUserDatasource getUserDatasource() {
+	public ITechnicianDatasource getTechnicianDatasource() {
 		return datasource;
 	}
 }

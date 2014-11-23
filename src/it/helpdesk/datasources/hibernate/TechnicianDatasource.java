@@ -25,48 +25,49 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import it.helpdesk.persistence.init.HibernateUtil;
-import it.helpdesk.ui.interfaces.IUser;
-import it.helpdesk.ui.interfaces.IUserDatasource;
+import it.helpdesk.datasources.hibernate.Technician;
+import it.helpdesk.ui.interfaces.models.ITechnician;
+import it.helpdesk.ui.interfaces.models.datasources.ITechnicianDatasource;
 
-public class UserDatasource implements IUserDatasource {
+public class TechnicianDatasource implements ITechnicianDatasource {
 
 	@Override
-	public List<IUser> getUsers() {
-		List<IUser> users = null;
+	public List<ITechnician> getTechnicians() {
+		List<ITechnician> technicians = null;
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 
-		users = (List<IUser>) session.createQuery("from User").list();
+		technicians = (List<ITechnician>) session.createQuery("from Technician").list();
 		session.close();
 
-		return users;
+		return technicians;
 	}
 
 	@Override
-	public void saveUser(IUser user, String username, String password, String firstName, String lastName, String emailAddress) {
+	public void saveTechnician(ITechnician technician, String technicianname, String password, String firstName, String lastName, String phoneNumber, String emailAddress) {
 		boolean newUser = false;
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 
-		if (user == null) {
-			user = new User();
+		if (technician == null) {
+			technician = new Technician();
 			newUser = true;
 		}
 		
-		user.setUsername(username);
-		user.setPassword(password);
-		user.setFirstName(firstName);
-		user.setLastName(lastName);
-		user.setEmailAddress(emailAddress);
+		technician.setUsername(technicianname);
+		technician.setPassword(password);
+		technician.setFirstName(firstName);
+		technician.setLastName(lastName);
+		technician.setPhoneNumber(phoneNumber);
+		technician.setEmailAddress(emailAddress);
 		
 		session.beginTransaction();
 		
 		if (newUser) {
-			session.save(user);
+			session.save(technician);
 		}
 		else {
-			session.update(user);
+			session.update(technician);
 		}
 	
 		session.getTransaction().commit();
@@ -74,10 +75,10 @@ public class UserDatasource implements IUserDatasource {
 	}
 
 	@Override
-	public IUser getUserByUsername(String username) {
-		for (IUser user : this.getUsers()) {
-			if (user.getUsername().equalsIgnoreCase(username)) {
-				return user;
+	public ITechnician getTechnicianByUsername(String username) {
+		for (ITechnician technician : this.getTechnicians()) {
+			if (technician.getUsername().equalsIgnoreCase(username)) {
+				return technician;
 			}
 		}
 		
@@ -88,8 +89,8 @@ public class UserDatasource implements IUserDatasource {
 	public boolean usernameAvailable(String username) {
 		boolean available = true;
 		
-		for (IUser user : this.getUsers()) {
-			if (user.getUsername().equalsIgnoreCase(username)) {
+		for (ITechnician technician : this.getTechnicians()) {
+			if (technician.getUsername().equalsIgnoreCase(username)) {
 				available = false;
 			}
 		}
@@ -98,12 +99,12 @@ public class UserDatasource implements IUserDatasource {
 	}
 
 	@Override
-	public boolean checkPassword(String username, String password) {
-		IUser ret = null;
+	public boolean checkPassword(String technicianname, String password) {
+		ITechnician ret = null;
 		
-		for (IUser user : this.getUsers()) {
-			if (user.getUsername().equalsIgnoreCase(username)) {
-				ret = user;
+		for (ITechnician technician : this.getTechnicians()) {
+			if (technician.getUsername().equalsIgnoreCase(technicianname)) {
+				ret = technician;
 			}
 		}
 		

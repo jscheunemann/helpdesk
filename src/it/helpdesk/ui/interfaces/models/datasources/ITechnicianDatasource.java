@@ -18,19 +18,16 @@
  * 
  */
 
-package it.helpdesk.ui.interfaces;
+package it.helpdesk.ui.interfaces.models.datasources;
 
-public interface IUser {
-	public long getId();
-	public void setId(long id);
-	public String getUsername();
-	public void setUsername(String username);
-	public String getPassword();
-	public void setPassword(String password);
-	public String getFirstName();
-	public void setFirstName(String firstName);
-	public String getLastName();
-	public void setLastName(String lastName);
-	public String getEmailAddress();
-	public void setEmailAddress(String emailAddress);
+import it.helpdesk.ui.interfaces.models.*;
+
+import java.util.List;
+
+public interface ITechnicianDatasource {
+	public List<ITechnician> getTechnicians();
+	public void saveTechnician(ITechnician technician, String username, String password, String firstName, String lastName, String phoneNumber, String emailAddress);
+	public ITechnician getTechnicianByUsername(String username);
+	public boolean usernameAvailable(String username);
+	public boolean checkPassword(String username, String password);
 }

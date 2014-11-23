@@ -22,45 +22,47 @@ package it.helpdesk.datasources.memory;
 
 import java.util.*;
 
-import it.helpdesk.ui.interfaces.*;
+import it.helpdesk.ui.interfaces.models.*;
+import it.helpdesk.ui.interfaces.models.datasources.*;
 
-public class UserDatasource implements IUserDatasource {
-	private List<IUser> users = null;
+public class TechnicianDatasource implements ITechnicianDatasource {
+	private List<ITechnician> technicians = null;
 	
-	public UserDatasource() {
-		users = new Vector<IUser>();
+	public TechnicianDatasource() {
+		technicians = new Vector<ITechnician>();
 	}
 	
 	@Override
-	public List<IUser> getUsers() {
-		return (List<IUser>) this.users;
+	public List<ITechnician> getTechnicians() {
+		return (List<ITechnician>) this.technicians;
 	}
 
 	@Override
-	public void saveUser(IUser user, String username, String password, String firstName, String lastName, String emailAddress) {
+	public void saveTechnician(ITechnician technician, String username, String password, String firstName, String lastName, String phoneNumber, String emailAddress) {
 		long id = 1;
 
-		if (user == null) {
-			user = new User();
+		if (technician == null) {
+			technician = new Technician();
 		}
 		
-		user.setUsername(username);
-		user.setPassword(password);
-		user.setFirstName(firstName);
-		user.setLastName(lastName);
-		user.setEmailAddress(emailAddress);
+		technician.setUsername(username);
+		technician.setPassword(password);
+		technician.setFirstName(firstName);
+		technician.setLastName(lastName);
+		technician.setPhoneNumber(phoneNumber);
+		technician.setEmailAddress(emailAddress);
 
-		if (!(user.getId() > 0)) {
-			users.add(new User(++id, username, password, firstName, lastName, emailAddress));
+		if (!(technician.getId() > 0)) {
+			technicians.add(new Technician(++id, username, password, firstName, lastName, phoneNumber, emailAddress));
 		}
 	}
 
 	@Override
-	public IUser getUserByUsername(String username) {
-		IUser ret = null;
-		for (IUser user : users) {
-			if (user.getUsername().equalsIgnoreCase(username)) {
-				ret = user;
+	public ITechnician getTechnicianByUsername(String username) {
+		ITechnician ret = null;
+		for (ITechnician technician : technicians) {
+			if (technician.getUsername().equalsIgnoreCase(username)) {
+				ret = technician;
 			}
 		}
 		
@@ -70,9 +72,9 @@ public class UserDatasource implements IUserDatasource {
 	@Override
 	public boolean checkPassword(String username, String password) {
 		System.out.println("The password is " + password);
-		IUser ret = null;
+		ITechnician ret = null;
 		
-		for (IUser user : users) {
+		for (ITechnician user : technicians) {
 			if (user.getUsername().equalsIgnoreCase(username)) {
 				ret = user;
 			}
@@ -90,7 +92,7 @@ public class UserDatasource implements IUserDatasource {
 	public boolean usernameAvailable(String username) {
 		boolean usernameExists = false;
 		
-		for (IUser user : users) {
+		for (ITechnician user : technicians) {
 			if (user.getUsername().equalsIgnoreCase(username)) {
 				usernameExists = true;
 			}

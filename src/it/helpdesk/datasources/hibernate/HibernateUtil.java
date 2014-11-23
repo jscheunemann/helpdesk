@@ -18,7 +18,7 @@
  * 
  */
 
-package it.helpdesk.persistence.init;
+package it.helpdesk.datasources.hibernate;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistry;

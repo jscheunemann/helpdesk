@@ -21,19 +21,20 @@
 package it.helpdesk.ui.controllers;
 
 import it.helpdesk.ui.interfaces.*;
+import it.helpdesk.ui.interfaces.models.datasources.*;
 
 public class LoginFormController implements ILoginFormController {
 	private IViewConfiguration viewConfiguration;
 	private IDatasourceConfiguration datasourceConfiguration;
 	private ILoginFormView view;
-	private IUserDatasource datasource;
+	private ITechnicianDatasource datasource;
 	
 	public LoginFormController(IViewConfiguration viewConfiguration, IDatasourceConfiguration datasourceConfiguration) {
 		this.viewConfiguration = viewConfiguration;
 		this.datasourceConfiguration = datasourceConfiguration;
 		this.view = viewConfiguration.getLoginFormView();
 		this.view.setController(this);
-		this.datasource = datasourceConfiguration.getUserDatasource();
+		this.datasource = datasourceConfiguration.getTechnicianDatasource();
 	}
 
 	@Override
@@ -58,7 +59,7 @@ public class LoginFormController implements ILoginFormController {
 
 	@Override
 	public void openCreateUserForm() {
-		IUserFormController controller = new UserFormController(viewConfiguration, datasourceConfiguration);
+		ITechnicianFormController controller = new TechnicianFormController(viewConfiguration, datasourceConfiguration);
 		controller.openForm();
 	}
 }
