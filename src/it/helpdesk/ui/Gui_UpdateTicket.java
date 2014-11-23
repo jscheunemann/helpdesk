@@ -1,10 +1,6 @@
 package it.helpdesk.ui;
 
-import it.helpdesk.main.Ticket;
-
 import java.awt.Dialog;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -20,22 +16,14 @@ import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.DefaultComboBoxModel;
 
 import java.awt.SystemColor;
 
-import javax.swing.UIManager;
-
 
 public class Gui_UpdateTicket extends JDialog {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	
 	private JPanel contentPane;
 	private JTextField txtFldTicketID;
 	private JTextField txtFldOpenedBy;
@@ -171,8 +159,8 @@ public class Gui_UpdateTicket extends JDialog {
 		lblDescription.setFont(new Font("Courier New", Font.PLAIN, 12));
 		pnl1.add(lblDescription);
 		
-		JComboBox cbBoxPriority = new JComboBox();
-		cbBoxPriority.setModel(new DefaultComboBoxModel(new String[] {"Low ", "Medium ", "High ", "Urgent"}));
+		JComboBox<String> cbBoxPriority = new JComboBox<String>();
+		cbBoxPriority.setModel(new DefaultComboBoxModel<String>(new String[] {"Low ", "Medium ", "High ", "Urgent"}));
 		cbBoxPriority.setBounds(440, 167, 206, 20);
 		pnl1.add(cbBoxPriority);
 		
@@ -181,13 +169,13 @@ public class Gui_UpdateTicket extends JDialog {
 		btnAddInformation.setFont(new Font("Courier New", Font.PLAIN, 14));
 		pnl1.add(btnAddInformation);
 		
-		JComboBox cbBoxSerCategory = new JComboBox();
-		cbBoxSerCategory.setModel(new DefaultComboBoxModel(new String[] {"Access Issue", "Hardware", "Software", "Database", "Software Defect", "Inquiry"}));
+		JComboBox<String> cbBoxSerCategory = new JComboBox<String>();
+		cbBoxSerCategory.setModel(new DefaultComboBoxModel<String>(new String[] {"Access Issue", "Hardware", "Software", "Database", "Software Defect", "Inquiry"}));
 		cbBoxSerCategory.setBounds(131, 167, 203, 20);
 		pnl1.add(cbBoxSerCategory);
 		
-		JComboBox cbBoxStatus = new JComboBox();
-		cbBoxStatus.setModel(new DefaultComboBoxModel(new String[] {"New ", "In Progress", "Wait for Process", "Withdrawn ", "Complete ", "Delete"}));
+		JComboBox<String> cbBoxStatus = new JComboBox<String>();
+		cbBoxStatus.setModel(new DefaultComboBoxModel<String>(new String[] {"New ", "In Progress", "Wait for Process", "Withdrawn ", "Complete ", "Delete"}));
 		cbBoxStatus.setBounds(131, 198, 203, 20);
 		pnl1.add(cbBoxStatus);
 		
@@ -245,6 +233,6 @@ public class Gui_UpdateTicket extends JDialog {
 	}
 	
 	public void SaveTicket() {
-		Ticket newTicket = new Ticket();
+		
 	}
 }

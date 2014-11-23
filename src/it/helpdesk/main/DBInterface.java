@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 
 public class DBInterface {
-
 	List<Ticket> activeTicketList;
 	List<Ticket> inActiveTicketList;
 	
@@ -25,7 +24,7 @@ public class DBInterface {
 	
 	public void updateActiveTicket(Ticket ticket)
 	{
-		Iterator itr = activeTicketList.iterator();
+		Iterator<Ticket> itr = activeTicketList.iterator();
 		
 		while(itr.hasNext()){
 			Ticket t = (Ticket) itr.next();
@@ -48,5 +47,4 @@ public class DBInterface {
 	public List<Ticket> queryInactiveTicket() {
 		return inActiveTicketList;
 	}
-
 }

@@ -10,15 +10,12 @@ public class Submenu extends JFrame {
 	private static final long serialVersionUID = -5886246414863162329L;
 
 	public Submenu() {
-        
         initUI();
     }
     
     private void initUI() {
-        
         JMenuBar menubar = new JMenuBar();
         
-
         JMenu filem = new JMenu("Tickets");
         JMenu viewm = new JMenu("Current");
         JMenu toolsm = new JMenu("Status");

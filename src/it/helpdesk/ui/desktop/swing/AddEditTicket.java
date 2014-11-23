@@ -32,11 +32,8 @@ import java.awt.event.ActionListener;
 
 
 public class AddEditTicket extends JDialog {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	
 	private JPanel contentPane;
 	private JTextField txtFldTicketID;
 	private JTextField txtFldOpenedBy;
@@ -55,9 +52,7 @@ public class AddEditTicket extends JDialog {
 	private JTextArea txtAreaDescription;
 
 	private Ticket newTicket;
-	/**
-	 * Create the frame.
-	 */
+	
 	public AddEditTicket(JFrame parent) {
 		super(parent, "", Dialog.ModalityType.DOCUMENT_MODAL);
 		setTitle("Helpdesk Ticket Tracker");
@@ -323,10 +318,6 @@ public class AddEditTicket extends JDialog {
 		cbBoxStatus.setSelectedItem(ticket.getStatus());
 		
 		txtAreaLog.setText(ticket.getLog());
-		txtAreaDescription.setText(ticket.getDescription());;
-
-		
-		
+		txtAreaDescription.setText(ticket.getDescription());
 	}
-	
 }

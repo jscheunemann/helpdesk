@@ -118,7 +118,6 @@ public class LoginFormView implements ILoginFormView {
 
 	@Override
 	public void showValidationErrorDialog() {
-		// TODO Auto-generated method stub
 		
 	}
 }

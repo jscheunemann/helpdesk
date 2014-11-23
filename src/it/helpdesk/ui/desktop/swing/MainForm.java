@@ -1,7 +1,6 @@
 package it.helpdesk.ui.desktop.swing;
 
 import it.helpdesk.datasources.hibernate.HibernateDatasourceConfiguration;
-import it.helpdesk.datasources.memory.MemoryDatasourceConfiguration;
 import it.helpdesk.main.*;
 import it.helpdesk.ui.controllers.LoginFormController;
 import it.helpdesk.ui.interfaces.*;
@@ -17,6 +16,7 @@ import java.util.List;
 
 public class MainForm extends JFrame implements IMain {
 	private static final long serialVersionUID = 5596361278718314710L;
+
 	private IDatasourceConfiguration datasourceConfiguration;
 	private IViewConfiguration viewConfiguration;
 	private IMainMenu mainMenu;
@@ -33,7 +33,7 @@ public class MainForm extends JFrame implements IMain {
 		//JTable tableInactiveTicket;
 		//JTable tableActiveTicket;
 
-		
+
 		//Set graphical elements
 		setTitle("Helpdesk Ticket Tracker");
 
@@ -127,7 +127,7 @@ public class MainForm extends JFrame implements IMain {
 		Ticket newTicket = newTicketDialog.getNewTicket();
 		if(newTicket != null){
 			dbInterface.addNewTicket(newTicket);
-			
+
 			updateActiveTable();
 		}
 	}
@@ -137,24 +137,24 @@ public class MainForm extends JFrame implements IMain {
 		AddEditTicket newTicketDialog = new AddEditTicket(this);
 
 		List<Ticket> currentTicketList = dbInterface.queryActiveTicket();
-		
+
 		newTicketDialog.displayTicketInfo(currentTicketList.get(0));
-			
+
 		newTicketDialog.setVisible(true);
 
 	}
-	
+
 
 	@Override
 	public void close() {
 		this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 	}
-	
+
 	public void updateActiveTable(){
 		DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) tableActiveTicket
 				.getDefaultRenderer(String.class);
 		renderer.setHorizontalAlignment(JLabel.RIGHT); // Format value in table
-														// to right
+		// to right
 		DefaultTableModel model = (DefaultTableModel) tableActiveTicket
 				.getModel(); // Set value to table
 
@@ -166,8 +166,8 @@ public class MainForm extends JFrame implements IMain {
 		if (a < b) {
 			for (int i = 0; i < (b - a); i++)
 				model.addRow(new Object[] { null, null, null, null, null, null, null }); // Add
-																					// more
-																					// rows
+			// more
+			// rows
 		}
 
 		for (int i = 0; i < a; i++) { // Clear table
@@ -192,8 +192,7 @@ public class MainForm extends JFrame implements IMain {
 				model.setValueAt(currentTicketList.get(i).getSummary(), i,5 );
 				model.setValueAt(currentTicketList.get(i).getOpenedDate(), i,6 );
 
+			}
 		}
-		
-	}
 	}
 }
