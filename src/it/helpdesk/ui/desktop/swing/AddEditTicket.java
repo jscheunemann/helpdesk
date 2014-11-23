@@ -73,7 +73,7 @@ public class AddEditTicket extends JDialog {
 
 	private Ticket newTicket;
 	
-	public AddEditTicket(JFrame parent) {
+	public AddEditTicket(JFrame parent, boolean newTicket) {
 		super(parent, "", Dialog.ModalityType.DOCUMENT_MODAL);
 		setTitle("Helpdesk Ticket Tracker");
 		setBounds(100, 100, 687, 652);
@@ -291,7 +291,13 @@ public class AddEditTicket extends JDialog {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblCreateTicket = new JLabel("New Helpdesk Ticket ");
+		String nameLbl;
+		if(newTicket)
+			nameLbl = "New Helpdesk Ticket ";
+		else
+			nameLbl = "Update Helpdesk Ticket ";
+			
+		JLabel lblCreateTicket = new JLabel(nameLbl);
 		lblCreateTicket.setForeground(Color.WHITE);
 		lblCreateTicket.setFont(new Font(lblCreateTicket.getName(), Font.PLAIN, lblCreateTicket.getFont().getSize() * 2));
 		lblCreateTicket.setBounds(15, 15, this.getSize().width, 30);
