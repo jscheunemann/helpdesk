@@ -102,7 +102,7 @@ public class UserFormView implements IUserFormView {
 
 	@Override
 	public String getPassword() {
-		return this.passwordTextBox.getPassword().toString();
+		return new String(this.passwordTextBox.getPassword());
 	}
 	
 	@Override

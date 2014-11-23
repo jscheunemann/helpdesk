@@ -32,7 +32,7 @@ public class DBInterface {
 			if(ticket.getID() == t.getID()){
 			}
 		}
-		for(int i=0; i < activeTicketList.size(); i++){
+		for(int i = 0; i < activeTicketList.size(); i++){
 			if(activeTicketList.get(i).getID() == ticket.getID()){
 				activeTicketList.set(i, ticket);
 				break;

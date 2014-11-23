@@ -1,5 +1,6 @@
 package it.helpdesk.ui.desktop.swing;
 
+import it.helpdesk.datasources.hibernate.HibernateDatasourceConfiguration;
 import it.helpdesk.datasources.memory.MemoryDatasourceConfiguration;
 import it.helpdesk.main.*;
 import it.helpdesk.ui.controllers.LoginFormController;
@@ -27,7 +28,7 @@ public class MainForm extends JFrame implements IMain {
 	public MainForm() {
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		viewConfiguration = new SwingViewConfiguration(this);
-		datasourceConfiguration = new MemoryDatasourceConfiguration();
+		datasourceConfiguration = new HibernateDatasourceConfiguration();
 		JPanel contentPane;
 		//JTable tableInactiveTicket;
 		//JTable tableActiveTicket;

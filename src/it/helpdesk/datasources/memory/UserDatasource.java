@@ -2,7 +2,6 @@ package it.helpdesk.datasources.memory;
 
 import java.util.*;
 
-import it.helpdesk.entities.User;
 import it.helpdesk.ui.interfaces.*;
 
 public class UserDatasource implements IUserDatasource {

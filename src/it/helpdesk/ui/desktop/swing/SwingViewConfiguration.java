@@ -7,22 +7,19 @@ import it.helpdesk.ui.interfaces.IUserFormView;
 import it.helpdesk.ui.interfaces.IViewConfiguration;
 
 public class SwingViewConfiguration implements IViewConfiguration {
-	ILoginFormView loginFormView;
-	IUserFormView userFormView;
 	JFrame parentWindow;
 	
 	public SwingViewConfiguration(JFrame parentWindow) {
-		this.loginFormView = new LoginFormView(parentWindow);
-		this.userFormView = new UserFormView(parentWindow);
+		this.parentWindow = parentWindow;
 	}
 	
 	@Override
 	public ILoginFormView getLoginFormView() {
-		return this.loginFormView;
+		return new LoginFormView(parentWindow);
 	}
 
 	@Override
 	public IUserFormView getUserFormView() {
-		return this.userFormView;
+		return new UserFormView(parentWindow);
 	}
 }

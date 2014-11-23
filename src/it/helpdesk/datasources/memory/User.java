@@ -1,4 +1,4 @@
-package it.helpdesk.entities;
+package it.helpdesk.datasources.memory;
 
 import it.helpdesk.ui.interfaces.IUser;
 
