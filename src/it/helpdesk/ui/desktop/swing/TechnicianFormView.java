@@ -21,6 +21,8 @@
 package it.helpdesk.ui.desktop.swing;
 
 import java.awt.Dialog;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -79,18 +81,96 @@ public class TechnicianFormView implements ITechnicianFormView {
 		emailPanel.add(emailTextBox);
 
 		okButton = new JButton("OK");
+		//okButton.setPreferredSize(new Dimension(100, 20));
 
-		window.getContentPane().setLayout(new BoxLayout(window.getContentPane(), BoxLayout.Y_AXIS));
-
+		window.getContentPane().setLayout(new GridBagLayout());
 		
-		window.add(usernamePanel);
-		window.add(passwordPanel);
-		window.add(passwordConfirmationPanel);
-		window.add(firstNamePanel);
-		window.add(lastNamePanel);
-		window.add(phoneNumberPanel);
-		window.add(emailPanel);
-		window.add(okButton);
+		((JComponent)window.getContentPane()).setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+		GridBagConstraints c = new GridBagConstraints();
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 0;
+		window.add(new JLabel("Username"), c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = 0;
+		window.add(this.usernameTextBox, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 1;
+		window.add(new JLabel("Password"), c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = 1;
+		window.add(this.passwordTextBox, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 2;
+		window.add(new JLabel("Password (Confirm) "), c);
+
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = 2;
+		window.add(this.passwordConfirmationTextBox, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 3;
+		window.add(new JLabel("First Name"), c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = 3;
+		window.add(this.firstNameTextBox, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 4;
+		window.add(new JLabel("Last Name"), c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = 4;
+		window.add(this.lastNameTextBox, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 5;
+		window.add(new JLabel("Phone"), c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = 5;
+		window.add(this.phoneNumberTextBox, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 6;
+		window.add(new JLabel("Email"), c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = 6;
+		window.add(this.emailTextBox, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 7;
+		window.add(new JLabel(" "), c);
+		
+		c.fill = GridBagConstraints.NONE;
+		c.gridx = 0;
+		c.gridy = 8;
+		c.gridwidth = 2;
+		window.add(okButton, c);
 
 		window.pack();
 	}
