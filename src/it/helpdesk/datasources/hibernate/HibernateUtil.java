@@ -20,6 +20,8 @@
 
 package it.helpdesk.datasources.hibernate;
 
+import java.sql.DriverManager;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -34,6 +36,7 @@ public class HibernateUtil {
 	 */
 	static {
 	    try {
+	    	DriverManager.registerDriver(new org.apache.derby.jdbc.EmbeddedDriver());
 	        Configuration configuration = new Configuration().configure();
 	        StandardServiceRegistry serviceRegistry = 
 	                new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();

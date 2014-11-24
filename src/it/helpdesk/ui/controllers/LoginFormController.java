@@ -50,10 +50,10 @@ public class LoginFormController implements ILoginFormController {
 	@Override
 	public void requestAuthentication() {
 		if (datasource.checkPassword(view.getUsername(), view.getPassword())) {
-			System.out.println("pass");
+			this.view.close();
 		}
 		else {
-			System.out.println("fail");
+			this.view.showValidationErrorDialog();
 		}
 	}
 

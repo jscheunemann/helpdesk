@@ -33,6 +33,7 @@ import java.awt.Color;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -138,6 +139,6 @@ public class LoginFormView implements ILoginFormView {
 
 	@Override
 	public void showValidationErrorDialog() {
-		
+		JOptionPane.showMessageDialog(this.window, "Login failed, please try again.", "Login Error!", JOptionPane.ERROR_MESSAGE);
 	}
 }
