@@ -45,43 +45,14 @@ public class TechnicianFormView implements ITechnicianFormView {
 	public TechnicianFormView(JFrame parent) {
 		window = new JDialog(parent, null, Dialog.ModalityType.APPLICATION_MODAL);
 		
-		JPanel usernamePanel = new JPanel();
-		usernamePanel.add(new JLabel("Username"));
 		usernameTextBox = new JTextField(15);
-		usernamePanel.add(usernameTextBox);
-		
-		JPanel passwordPanel = new JPanel();
-		passwordPanel.add(new JLabel("Password"));
 		passwordTextBox = new JPasswordField(15);
-		passwordPanel.add(passwordTextBox);
-		
-		JPanel passwordConfirmationPanel = new JPanel();
-		passwordConfirmationPanel.add(new JLabel("Password (Confirm)"));
 		passwordConfirmationTextBox = new JPasswordField(15);
-		passwordConfirmationPanel.add(passwordConfirmationTextBox);
-		
-		JPanel firstNamePanel = new JPanel();
-		firstNamePanel.add(new JLabel("First Name"));
 		firstNameTextBox = new JTextField(15);
-		firstNamePanel.add(firstNameTextBox);
-
-		JPanel lastNamePanel = new JPanel();
-		lastNamePanel.add(new JLabel("Last Name"));
 		lastNameTextBox = new JTextField(15);
-		lastNamePanel.add(lastNameTextBox);
-		
-		JPanel phoneNumberPanel = new JPanel();
-		phoneNumberPanel.add(new JLabel("Phone Number"));
 		phoneNumberTextBox = new JTextField(15);
-		phoneNumberPanel.add(phoneNumberTextBox);
-		
-		JPanel emailPanel = new JPanel();
-		emailPanel.add(new JLabel("Email"));
 		emailTextBox = new JTextField(15);
-		emailPanel.add(emailTextBox);
-
 		okButton = new JButton("OK");
-		//okButton.setPreferredSize(new Dimension(100, 20));
 
 		window.getContentPane().setLayout(new GridBagLayout());
 		
@@ -94,7 +65,7 @@ public class TechnicianFormView implements ITechnicianFormView {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 0;
-		window.add(new JLabel("Username"), c);
+		window.add(new JLabel("Username ", SwingConstants.RIGHT), c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 1;
@@ -104,7 +75,7 @@ public class TechnicianFormView implements ITechnicianFormView {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 1;
-		window.add(new JLabel("Password"), c);
+		window.add(new JLabel("Password ", SwingConstants.RIGHT), c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 1;
@@ -114,7 +85,7 @@ public class TechnicianFormView implements ITechnicianFormView {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 2;
-		window.add(new JLabel("Password (Confirm) "), c);
+		window.add(new JLabel("Confirm ", SwingConstants.RIGHT), c);
 
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 1;
@@ -124,7 +95,7 @@ public class TechnicianFormView implements ITechnicianFormView {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 3;
-		window.add(new JLabel("First Name"), c);
+		window.add(new JLabel("First Name ", SwingConstants.RIGHT), c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 1;
@@ -134,7 +105,7 @@ public class TechnicianFormView implements ITechnicianFormView {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 4;
-		window.add(new JLabel("Last Name"), c);
+		window.add(new JLabel("Last Name ", SwingConstants.RIGHT), c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 1;
@@ -144,7 +115,7 @@ public class TechnicianFormView implements ITechnicianFormView {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 5;
-		window.add(new JLabel("Phone"), c);
+		window.add(new JLabel("Phone ", SwingConstants.RIGHT), c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 1;
@@ -154,7 +125,7 @@ public class TechnicianFormView implements ITechnicianFormView {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 6;
-		window.add(new JLabel("Email"), c);
+		window.add(new JLabel("Email ", SwingConstants.RIGHT), c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 1;

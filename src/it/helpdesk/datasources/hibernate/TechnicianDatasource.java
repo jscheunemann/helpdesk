@@ -31,6 +31,7 @@ import it.helpdesk.ui.interfaces.models.datasources.ITechnicianDatasource;
 
 public class TechnicianDatasource implements ITechnicianDatasource {
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ITechnician> getTechnicians() {
 		List<ITechnician> technicians = null;

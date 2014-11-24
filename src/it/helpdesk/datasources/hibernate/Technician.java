@@ -25,7 +25,7 @@ import it.helpdesk.ui.interfaces.models.ITechnician;
 import javax.persistence.*;
 
 @Entity
-@PrimaryKeyJoinColumn(name="PERSON_ID")
+@PrimaryKeyJoinColumn(name="person_id")
 @Table(name="Technician")
 public class Technician extends Person implements ITechnician {
 	

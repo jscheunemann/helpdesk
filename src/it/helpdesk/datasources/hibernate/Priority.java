@@ -18,8 +18,37 @@
  * 
  */
 
-package it.helpdesk.ui.interfaces.models;
+package it.helpdesk.datasources.hibernate;
 
-public interface IOperator extends IPerson {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+import it.helpdesk.ui.interfaces.models.IPriority;
+
+@Entity
+@Table(name = "Priority")
+public class Priority implements IPriority {
+	@Id
+	@GeneratedValue
+	private long id;
+	
+	private String priorityName;
+	
+	public long getId() {
+		return this.id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getPriorityName() {
+		return this.priorityName;
+	}
+
+	public void setPriorityName(String priorityName) {
+		this.priorityName = priorityName;
+	}
 }

@@ -20,23 +20,22 @@
 
 package it.helpdesk.datasources.hibernate;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-import it.helpdesk.ui.interfaces.models.IPerson;
+import it.helpdesk.ui.interfaces.models.IServiceCategory;
 
 @Entity
-@Inheritance(strategy=InheritanceType.JOINED)
-@Table(name = "Person")
-public class Person implements IPerson {
+@Table(name = "ServiceCategory")
+public class ServiceCategory implements IServiceCategory {
 	@Id
 	@GeneratedValue
 	private long id;
 	
-	private String firstName;
-	private String lastName;
-	private String phoneNumber;
-	private String emailAddress;
-	
+	private String serviceCategory;
+
 	public long getId() {
 		return this.id;
 	}
@@ -45,35 +44,11 @@ public class Person implements IPerson {
 		this.id = id;
 	}
 
-	public String getFirstName() {
-		return this.firstName;
+	public String getCategoryName() {
+		return this.serviceCategory;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return this.lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getPhoneNumber() {
-		return this.phoneNumber;
-	}
-
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
-	public String getEmailAddress() {
-		return this.emailAddress;
-	}
-
-	public void setEmailAddress(String emailAddress) {
-		this.emailAddress = emailAddress;
+	public void setCategoryName(String serviceCategory) {
+		this.serviceCategory = serviceCategory;
 	}
 }

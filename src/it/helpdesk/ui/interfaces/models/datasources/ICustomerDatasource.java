@@ -18,23 +18,13 @@
  * 
  */
 
-package it.helpdesk.ui.interfaces.models;
+package it.helpdesk.ui.interfaces.models.datasources;
 
-import java.util.Date;
+import it.helpdesk.ui.interfaces.models.*;
 
-public interface ITicket {
-	public long getId();
-	public void setId(long id);
-	public IServiceCategory getServiceCategory();
-	public void setServiceCategory(IServiceCategory serviceCategory);
-	public IStatus getStatus();
-	public void setStatus(IStatus status);
-	public ITechnician getOperator();
-	public void setOperator(ITechnician operator);
-	public ITechnician getAssignedTo();
-	public void setAssignedTo(ITechnician assignedTo);
-	public Date getOpenedOn();
-	public void setOpenedOn(Date openedOn);
-	public Date getCompletedOn();
-	public void setCompletedOn(Date completedOn);
+import java.util.List;
+
+public interface ICustomerDatasource {
+	public List<ICustomer> getCustomers();
+	public void saveCustomer(ICustomer customer, String firstName, String lastName, String phoneNumber, String emailAddress);
 }
