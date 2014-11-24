@@ -71,9 +71,9 @@ public class AddEditTicket extends JDialog {
 	private JTextArea txtAreaLog;
 	private JTextArea txtAreaDescription;
 
-	private Ticket newTicket;
+	private Ticket saveTicket;
 	
-	public AddEditTicket(JFrame parent, boolean newTicket) {
+	public AddEditTicket(JFrame parent, int ticketId, boolean newTicket) {
 		super(parent, "", Dialog.ModalityType.DOCUMENT_MODAL);
 		setTitle("Helpdesk Ticket Tracker");
 		setBounds(100, 100, 687, 652);
@@ -97,6 +97,7 @@ public class AddEditTicket extends JDialog {
 		txtFldTicketID.setBounds(131, 11, 515, 20);
 		pnl1.add(txtFldTicketID);
 		txtFldTicketID.setColumns(10);
+		txtFldTicketID.setText(String.valueOf(ticketId));
 		
 		JLabel lblOpenedBy = new JLabel("Opened By");
 		lblOpenedBy.setBounds(33, 47, 88, 14);
@@ -307,25 +308,25 @@ public class AddEditTicket extends JDialog {
 	}
 	
 	public void saveTicket() {
-		newTicket = new Ticket();
-		//newTicket.setID(Long.valueOf((txtFldTicketID).toString())) ;			
-		//newTicket.setOpenedBy(txtFldOpenedBy.toString());
-		newTicket.setOpenedDate(new Date());
-		newTicket.setClient(txtFldClient.getText());
-		newTicket.setClientEmail(txtFldClientEmail.getText());
-		newTicket.setClientPhone(txtFldClientPhone.getText());
-		//newTicket.setCompleteDate(Date.valueOf(txtFldComplDate.toString()));
-		newTicket.setPriority(PriorityEnum.fromInt(cbBoxPriority.getSelectedIndex()));
-		newTicket.setServiceCat(ServiceCatEnum.fromInt(cbBoxSerCategory.getSelectedIndex()));
-		newTicket.setStatus(StatusEnum.fromInt(cbBoxStatus.getSelectedIndex()));
-		newTicket.setDescription(txtAreaDescription.getText());
-		newTicket.setLog(txtAreaLog.getText());
-		newTicket.setSummary(txtFldSummary.getText());	
+		saveTicket = new Ticket();
+		saveTicket.setID(Long.valueOf((txtFldTicketID).getText())) ;			
+		//saveTicket.setOpenedBy(txtFldOpenedBy.toString());
+		saveTicket.setOpenedDate(new Date());
+		saveTicket.setClient(txtFldClient.getText());
+		saveTicket.setClientEmail(txtFldClientEmail.getText());
+		saveTicket.setClientPhone(txtFldClientPhone.getText());
+		//saveTicket.setCompleteDate(Date.valueOf(txtFldComplDate.toString()));
+		saveTicket.setPriority(PriorityEnum.fromInt(cbBoxPriority.getSelectedIndex()));
+		saveTicket.setServiceCat(ServiceCatEnum.fromInt(cbBoxSerCategory.getSelectedIndex()));
+		saveTicket.setStatus(StatusEnum.fromInt(cbBoxStatus.getSelectedIndex()));
+		saveTicket.setDescription(txtAreaDescription.getText());
+		saveTicket.setLog(txtAreaLog.getText());
+		saveTicket.setSummary(txtFldSummary.getText());	
 	}
 	
-	public Ticket getNewTicket()
+	public Ticket getSaveTicket()
 	{
-		return newTicket;
+		return saveTicket;
 	}	
 	
 	public void displayTicketInfo(Ticket ticket){

@@ -101,7 +101,10 @@ public class MainMenu extends JMenuBar implements IMainMenu {
 		
 		updateTicketMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				MainMenu.this.parentWindow.openEditTicketDialog();
+	
+				int selectedRow = MainMenu.this.parentWindow.getActiveSelectedRow();
+				if(selectedRow >= 0)
+					MainMenu.this.parentWindow.openEditTicketDialog(selectedRow);
 			}
 		});
 		ticketMenu.add(updateTicketMenuItem);

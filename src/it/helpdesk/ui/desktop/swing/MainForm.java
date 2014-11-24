@@ -44,7 +44,8 @@ public class MainForm extends JFrame implements IMain {
 	private DBInterface dbInterface = new DBInterface();
 	private JTable tableInactiveTicket;
 	private JTable tableActiveTicket;
-
+	private int uniqueTicketId = 1;
+	
 	public MainForm() {
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		viewConfiguration = new SwingViewConfiguration(this);
@@ -86,6 +87,26 @@ public class MainForm extends JFrame implements IMain {
 				}
 				));
 
+		tableActiveTicket.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tableActiveTicket.setEnabled(false);
+		tableActiveTicket.addMouseListener(new MouseAdapter(){
+			public void mouseClicked(MouseEvent e){
+				int rowNum = tableActiveTicket.rowAtPoint(e.getPoint());
+				tableActiveTicket.clearSelection();
+				tableActiveTicket.addRowSelectionInterval(rowNum, rowNum);
+				// Right click or double click 
+				if(SwingUtilities.isRightMouseButton(e) == true
+						|| e.getClickCount() == 2){
+					DefaultTableModel model = (DefaultTableModel) tableActiveTicket
+							.getModel(); // Set value to table
+					Object id = model.getValueAt(rowNum, 0);
+					if(id != null){
+						int ticketId = Integer.valueOf(id.toString());
+						openEditTicketDialog(ticketId);
+					}
+				}
+			}
+		});
 		JPanel pnlInactiveTicket = new JPanel();
 		tabbedPane.addTab("Inactive Tickets", null, pnlInactiveTicket, null);
 		pnlInactiveTicket.setLayout(layout);
@@ -142,26 +163,37 @@ public class MainForm extends JFrame implements IMain {
 
 	@Override
 	public void openCreateNewTicketDialog() {
-		AddEditTicket newTicketDialog = new AddEditTicket(this, true);
+		AddEditTicket newTicketDialog = new AddEditTicket(this, uniqueTicketId, true);
 		newTicketDialog.setVisible(true);
-		Ticket newTicket = newTicketDialog.getNewTicket();
+		Ticket newTicket = newTicketDialog.getSaveTicket();
 		if(newTicket != null){
 			dbInterface.addNewTicket(newTicket);
-
+			uniqueTicketId++;
 			updateActiveTable();
 		}
 	}
 
 	@Override
-	public void openEditTicketDialog() {
-		AddEditTicket newTicketDialog = new AddEditTicket(this, false);
-
+	public void openEditTicketDialog(int ticketId) {
+		AddEditTicket newTicketDialog = new AddEditTicket(this, ticketId, false);
+		int editedTicketIdx = 0;
 		List<Ticket> currentTicketList = dbInterface.queryActiveTicket();
-
-		newTicketDialog.displayTicketInfo(currentTicketList.get(0));
-
+		if(currentTicketList != null){
+			for(int i = 0; i < currentTicketList.size(); i++){
+				Ticket t = currentTicketList.get(i);
+				if(t.getID() == ticketId){
+					editedTicketIdx = i;
+					newTicketDialog.displayTicketInfo(t);
+					break;
+				}
+			}
+		}
 		newTicketDialog.setVisible(true);
-
+		Ticket editTicket = newTicketDialog.getSaveTicket();
+		if(editTicket != null){
+			dbInterface.updateActiveTicket(editTicket);
+			updateActiveTable();
+		}
 	}
 
 
@@ -214,5 +246,10 @@ public class MainForm extends JFrame implements IMain {
 
 			}
 		}
+	}
+	
+	public int getActiveSelectedRow() {
+		int selectedRow = tableActiveTicket.getSelectedRow();
+		return Integer.valueOf(tableActiveTicket.getValueAt(selectedRow, 0).toString());
 	}
 }

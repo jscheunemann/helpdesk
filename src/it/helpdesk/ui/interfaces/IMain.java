@@ -24,6 +24,7 @@ public interface IMain {
 	public void openLoginDialog();
 	public void openLogoutDialog();
 	public void openCreateNewTicketDialog();
-	public void openEditTicketDialog();
+	public void openEditTicketDialog(int ticketId);
+	public int getActiveSelectedRow();
 	public void close();
 }
