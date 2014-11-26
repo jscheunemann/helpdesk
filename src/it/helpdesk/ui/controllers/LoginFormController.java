@@ -23,12 +23,40 @@ package it.helpdesk.ui.controllers;
 import it.helpdesk.ui.interfaces.*;
 import it.helpdesk.ui.interfaces.models.datasources.*;
 
+/**
+ * Controller class to handle the communication between the model and the view classes.
+ * 
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-11-26
+ */
 public class LoginFormController implements ILoginFormController {
+	/**
+	 * Contains an IViewConfiguration object.
+	 */
 	private IViewConfiguration viewConfiguration;
+	
+	/**
+	 * Contains an IDatasourceConfiguration object.
+	 */
 	private IDatasourceConfiguration datasourceConfiguration;
+	
+	/**
+	 * Contains an ITechnicianDatasource object.
+	 */
 	private ILoginFormView view;
+	
+	/**
+	 * Contains an ITechnicianDatasource object.
+	 */
 	private ITechnicianDatasource datasource;
 	
+	/**
+	 * Constructor for the LoginFormController class.
+	 * 
+	 * @param viewConfiguration contains IViewConfiguration object
+	 * @param datasourceConfiguration contains IDatasourceConfiguration object 
+	 */
 	public LoginFormController(IViewConfiguration viewConfiguration, IDatasourceConfiguration datasourceConfiguration) {
 		this.viewConfiguration = viewConfiguration;
 		this.datasourceConfiguration = datasourceConfiguration;
@@ -37,16 +65,25 @@ public class LoginFormController implements ILoginFormController {
 		this.datasource = datasourceConfiguration.getTechnicianDatasource();
 	}
 
+	/**
+	 * Opens the form for the ILoginFormView object.
+	 */
 	@Override
 	public void openForm() {
 		view.open();
 	}
 
+	/**
+	 * Closes the form for the ILoginFormView object.
+	 */
 	@Override
 	public void closeForm() {
 		view.close();
 	}
 
+	/**
+	 * Validates the password provided by the user for the ILoginFormView object.
+	 */
 	@Override
 	public void requestAuthentication() {
 		if (datasource.checkPassword(view.getUsername(), view.getPassword())) {
@@ -57,6 +94,9 @@ public class LoginFormController implements ILoginFormController {
 		}
 	}
 
+	/**
+	 * Opens the form for the ITechnicianFormController object.
+	 */
 	@Override
 	public void openCreateUserForm() {
 		ITechnicianFormController controller = new TechnicianFormController(viewConfiguration, datasourceConfiguration);
