@@ -41,16 +41,54 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-
+/**
+ * Controller class to handle the communication between the model and the view classes.
+ * 
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-11-26
+ */
 public class LoginFormView implements ILoginFormView {
+	/**
+	 * Contains an ILoginFormController object
+	 */
 	private ILoginFormController controller;
+	
+	/**
+	 * Contains a JDialog box that will be used as the window for the page
+	 */
 	private JDialog window;
+	
+	/**
+	 * Contains a JPanel that will be used as the content pane
+	 */
 	private JPanel contentPane;
+	
+	/**
+	 * Contains a JTextField that will contian the username for the user
+	 */
 	private JTextField usernameTextBox;
+	
+	/**
+	 * Contains a JPasswordField that will contian the password for the user
+	 */
 	private JPasswordField passwordTextBox;
+	
+	/**
+	 * Contains a JButton that will be used to sign-in to the application
+	 */
 	private JButton btnSignIn;
+	
+	/**
+	 * Contains a JButton that will be used to request access to the application
+	 */
 	private JButton btnCreateNewAccount;
 
+	/**
+	 * Class constructor for the login page.
+	 * 
+	 * @param parent contains a JFrame object
+	 */
 	public LoginFormView(JFrame parent) {
 		window = new JDialog(parent, "Login", Dialog.ModalityType.APPLICATION_MODAL);
 		//window.setLocationRelativeTo(parent);
@@ -101,11 +139,20 @@ public class LoginFormView implements ILoginFormView {
 		window.setLocationRelativeTo(parent);
 	}
 
+	/**
+	 * Method to set the local variable to the ILoginFormController object being
+	 * passed to the method.
+	 * 
+	 * @param controller contains a ILoginFormController object
+	 */
 	@Override
 	public void setController(ILoginFormController controller) {
 		this.controller = controller;
 	}
-
+	
+	/**
+	 * Method handles the opening of the page and intialization of the local variables.
+	 */
 	@Override
 	public void open() {
 		btnSignIn.addActionListener(new ActionListener() {
@@ -122,21 +169,38 @@ public class LoginFormView implements ILoginFormView {
 		window.setVisible(true);
 	}
 
+	/**
+	 * Method that handles the closing of the login window. 
+	 */
 	@Override
 	public void close() {
 		window.dispose();
 	}
 
+	/**
+	 * Method to retrieve the username entered by the user.
+	 * 
+	 * @return a String containing the username entered by the user
+	 */
 	@Override
 	public String getUsername() {
 		return this.usernameTextBox.getText();
 	}
 
+	/**
+	 * Method to retrieve the password entered by the user.
+	 * 
+	 * @return a String containing the password entered by the user
+	 */
 	@Override
 	public String getPassword() {
 		return new String(this.passwordTextBox.getPassword());
 	}
-
+	
+	/**
+	 * Method to show a error message if the credentials supplied are not found in 
+	 * the database.
+	 */
 	@Override
 	public void showValidationErrorDialog() {
 		JOptionPane.showMessageDialog(this.window, "Login failed, please try again.", "Login Error!", JOptionPane.ERROR_MESSAGE);
