@@ -24,18 +24,44 @@ import javax.swing.JFrame;
 
 import it.helpdesk.ui.interfaces.*;
 
+/**
+ * View class that retrieves the login and technician form views to 
+ * the calling class.
+ *
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-11-26
+ */
 public class SwingViewConfiguration implements IViewConfiguration {
+	/**
+	 * Contains a JFrame object.
+	 */
 	JFrame parentWindow;
 	
+	/**
+	 * Class constructor that sets the local JFrame object to the parent window object.
+	 * 
+	 * @param parentWindow contains JFrame object of parent window
+	 */
 	public SwingViewConfiguration(JFrame parentWindow) {
 		this.parentWindow = parentWindow;
 	}
 	
+	/**
+	 * Method to instantiate a new ILoginFormView object using the local JFrame object
+	 * 
+	 * @return new ILoginFormView object
+	 */
 	@Override
 	public ILoginFormView getLoginFormView() {
 		return new LoginFormView(parentWindow);
 	}
 
+	/**
+	 * Method to instantiate a new ITechnicianFormView object using the local JFrame object
+	 * 
+	 * @return new ITechnicianFormView object
+	 */
 	@Override
 	public ITechnicianFormView getTechnicianFormView() {
 		return new TechnicianFormView(parentWindow);
