@@ -24,18 +24,53 @@ import it.helpdesk.ui.interfaces.*;
 import it.helpdesk.ui.interfaces.models.ITechnician;
 import it.helpdesk.ui.interfaces.models.datasources.ITechnicianDatasource;
 
+/**
+ * Controller class to handle the communication between the model and the view classes.
+ * 
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-11-26
+ */
 public class TechnicianFormController implements ITechnicianFormController {
+	/**
+	 * Contains an IViewConfiguration object.
+	 */
 	private IViewConfiguration viewConfiguration;
+	
+	/**
+	 * Contains an IDatasourceConfiguration object.
+	 */
 	private IDatasourceConfiguration datasourceConfiguration;
+	
+	/**
+	 * Contains an ITechnicianFormView object.
+	 */
 	private ITechnicianFormView view;
+	
+	/**
+	 * Contains an ITechnicianDatasource object.
+	 */
 	private ITechnicianDatasource datasource;
+	
+	/**
+	 * Contains an ITechnician object.
+	 */
 	private ITechnician technician;
 
+	/**
+	 * Constructor for the TechnicianFormController class.
+	 * 
+	 * @param viewConfiguration contians an IViewConfiguration object 
+	 * @param datasourceConfiguration contains an IDatasourceConfiguration object
+	 */
 	public TechnicianFormController(IViewConfiguration viewConfiguration, IDatasourceConfiguration datasourceConfiguration) {
 		this.viewConfiguration = viewConfiguration;
 		this.datasourceConfiguration = datasourceConfiguration;
 	}
 
+	/**
+	 * Opens the form for the ITechnicianFormView object.
+	 */
 	@Override
 	public void openForm() {
 		if (this.view == null) {
@@ -58,6 +93,10 @@ public class TechnicianFormController implements ITechnicianFormController {
 		this.view.open();
 	}
 
+	/**
+	 * Button-click event handler that saves data from the view to the datasource, and closes
+	 * the form.
+	 */
 	@Override
 	public void saveButtonPressed() {
 		if (this.view.getFirstName().equals("") || this.view.getLastName().equals("")) {
@@ -77,11 +116,19 @@ public class TechnicianFormController implements ITechnicianFormController {
 		}
 	}
 
+	/**
+	 * Sets the local ITechnician variable to the object passed to the method.
+	 * 
+	 * @param technician contains an ITechnician object
+	 */
 	@Override
 	public void setTechnician(ITechnician technician) {
 		this.technician = technician;
 	}
 
+	/**
+	 * Closes the ITechnicianFormView form.
+	 */
 	@Override
 	public void closeForm() {
 		this.view.close();
