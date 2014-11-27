@@ -42,8 +42,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 /**
- * Controller class to handle the communication between the model and the view classes.
- * 
+ * View class that allows the user to login to the applicaiton or request access.
+ *
  * @author	Helpdesk Tracker Team
  * @version	1.0
  * @since	2014-11-26
