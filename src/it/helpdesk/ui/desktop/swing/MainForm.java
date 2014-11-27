@@ -34,18 +34,65 @@ import javax.swing.table.*;
 
 import java.util.List;
 
+/**
+ * View class containing the Main form for the application containg the list of 
+ * Active and Archive tickets.
+ *
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-11-26
+ */
 public class MainForm extends JFrame implements IMain {
+	
+	/**
+	 * Contains the serial version number for the application.
+	 */
 	private static final long serialVersionUID = 5596361278718314710L;
 
+	/**
+	 * Contains a IDatasourceConfiguration object.
+	 */
 	private IDatasourceConfiguration datasourceConfiguration;
+	
+	/**
+	 * Contains a IViewConfiguration object.
+	 */
 	private IViewConfiguration viewConfiguration;
+	
+	/**
+	 * Contains a IMainMenu object.
+	 */
 	private IMainMenu mainMenu;
+	
+	/**
+	 * Variables reflects whether this is the first load of the page.
+	 */
 	private boolean firstLoad = true;
+	
+	/**
+	 * Contains a DBInterface object.
+	 */
 	private DBInterface dbInterface = new DBInterface();
+	
+	/**
+	 * Contains a JTable object holding a list of archived tickets.
+	 */
 	private JTable tableInactiveTicket;
+	
+	/**
+	 * Contains a JTable object holding a list of active tickets.
+	 */
 	private JTable tableActiveTicket;
+	
+	/**
+	 * Contains a unique ticket ID to be used by the application.
+	 */
 	private int uniqueTicketId = 1;
 	
+	
+	/**
+	 * Class constructor that builds a tabbed ticket view contains active/archived tickets.
+	 */
 	public MainForm() {
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		viewConfiguration = new SwingViewConfiguration(this);
@@ -142,25 +189,40 @@ public class MainForm extends JFrame implements IMain {
 		});
 	}
 
+	/**
+	 * Method used to display the active ticket in the JTable object.
+	 */
 	public void displayActiveTickets() {
 
 	}
 
+	/**
+	 * Method used to display the archived ticket in the JTable object.
+	 */
 	public void displayInactiveTickets() {
 
 	}
 
+	/**
+	 * Method to open the login window prior to displaying any ticket information.
+	 */
 	@Override
 	public void openLoginDialog() {
 		ILoginFormController controller = new LoginFormController(viewConfiguration, datasourceConfiguration);
 		controller.openForm();
 	}
 
+	/**
+	 * Method to display a logout message to the user.
+	 */
 	@Override
 	public void openLogoutDialog() {
 		// TODO Auto-generated method stub
 	}
 
+	/**
+	 * Method to open a new window in which the user can create a new ticket.
+	 */
 	@Override
 	public void openCreateNewTicketDialog() {
 		AddEditTicket newTicketDialog = new AddEditTicket(this, uniqueTicketId, true);
@@ -173,6 +235,9 @@ public class MainForm extends JFrame implements IMain {
 		}
 	}
 
+	/**
+	 * Method to open a new window in which the user can edit an existing ticket.
+	 */
 	@Override
 	public void openEditTicketDialog(int ticketId) {
 		AddEditTicket newTicketDialog = new AddEditTicket(this, ticketId, false);
@@ -196,12 +261,17 @@ public class MainForm extends JFrame implements IMain {
 		}
 	}
 
-
+	/**
+	 * Method to close the active window.
+	 */
 	@Override
 	public void close() {
 		this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 	}
 
+	/**
+	 * Method to update the active ticke table.
+	 */
 	public void updateActiveTable(){
 		DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) tableActiveTicket
 				.getDefaultRenderer(String.class);
@@ -248,6 +318,11 @@ public class MainForm extends JFrame implements IMain {
 		}
 	}
 	
+	/**
+	 * Method to grab the selected ticket ID and return it to the calling method.
+	 * 
+	 * @return ID for the currently selected ticket
+	 */
 	public int getActiveSelectedRow() {
 		int selectedRow = tableActiveTicket.getSelectedRow();
 		return Integer.valueOf(tableActiveTicket.getValueAt(selectedRow, 0).toString());
