@@ -50,29 +50,102 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
+/**
+ * View class that allows the user to add a new ticket to the system or update
+ * an existing ticket.
+ * 
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-11-26
+ */
 public class AddEditTicket extends JDialog {
+	/**
+	 * Variable contains static version number of the page
+	 */
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Variable contains a JPanel used for the content pane
+	 */
 	private JPanel contentPane;
+	
+	/**
+	 * Variable contains a JTextField holding the ticket ID
+	 */
 	private JTextField txtFldTicketID;
+	
+	/**
+	 * Variable contains a JTextField holding the user who opened the ticket
+	 */
 	private JTextField txtFldOpenedBy;
+	
+	/**
+	 * Variable contains a JTextField holding the date the ticket was created
+	 */
 	private JTextField txtFldOpenedDate;
+	
+	/**
+	 * Variable contains a JTextField holding the client's name
+	 */
 	private JTextField txtFldClient;
+	
+	/**
+	 * Variable contains a JTextField holding the client's phone number
+	 */
 	private JTextField txtFldClientPhone;
+	
+	/**
+	 * Variable contains a JTextField holding the client's email address
+	 */
 	private JTextField txtFldClientEmail;
+	
+	/**
+	 * Variable contains a JTextField holding the ticket summary information
+	 */
 	private JTextField txtFldSummary;
+	
+	/**
+	 * Variable contains a JTextField holding the date the ticket was completed
+	 */
 	private JTextField txtFldComplDate;
 	
+	/**
+	 * Variable contains a String JComboBox holding the list of priorities
+	 */
 	private JComboBox<String> cbBoxPriority;
+	
+	/**
+	 * Variable contains a String JComboBox holding the list of service categories
+	 */
 	private JComboBox<String> cbBoxSerCategory;
+	
+	/**
+	 * Variable contains a String JComboBox holding the list of statuses
+	 */
 	private JComboBox<String> cbBoxStatus;
 	
+	/**
+	 * Variable contains a JTextArea holding the ticket history
+	 */
 	private JTextArea txtAreaLog;
+	
+	/**
+	 * Variable contains a JTextArea holding the ticket update information
+	 */
 	private JTextArea txtAreaDescription;
 
+	/**
+	 * Contains a Ticket object
+	 */
 	private Ticket saveTicket;
 	
+	/**
+	 * Class constructor for the Add/Edit ticket View page.
+	 * 
+	 * @param parent contains a JFrame object
+	 * @param ticketId contains the Ticket ID of the current ticket
+	 * @param newTicket contains a boolean value indicating whether this is a new ticket 
+	 */
 	public AddEditTicket(JFrame parent, int ticketId, boolean newTicket) {
 		super(parent, "", Dialog.ModalityType.DOCUMENT_MODAL);
 		setTitle("Helpdesk Ticket Tracker");
@@ -307,6 +380,9 @@ public class AddEditTicket extends JDialog {
 		this.setLocationRelativeTo(parent);
 	}
 	
+	/**
+	 * Method saves the ticket information provided by the user into a Ticket object.
+	 */
 	public void saveTicket() {
 		saveTicket = new Ticket();
 		saveTicket.setID(Long.valueOf((txtFldTicketID).getText())) ;			
@@ -324,11 +400,21 @@ public class AddEditTicket extends JDialog {
 		saveTicket.setSummary(txtFldSummary.getText());	
 	}
 	
+	/**
+	 * Method requesting the local ticket object.
+	 * 
+	 * @return copy of the local Ticket object
+	 */
 	public Ticket getSaveTicket()
 	{
 		return saveTicket;
 	}	
 	
+	/**
+	 * Method to display the current ticket information.
+	 * 
+	 * @param ticket contains a Ticket object
+	 */
 	public void displayTicketInfo(Ticket ticket){
 		txtFldTicketID.setText(String.valueOf(ticket.getID()));
 		txtFldOpenedBy.setText(ticket.getOpenedBy());
