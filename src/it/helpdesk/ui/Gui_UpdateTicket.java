@@ -40,22 +40,69 @@ import javax.swing.DefaultComboBoxModel;
 
 import java.awt.SystemColor;
 
-
+/**
+ * View class that allows the user to update an existing ticket.
+ *
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-11-26
+ */
 public class Gui_UpdateTicket extends JDialog {
+	/**
+	 * Contains the serial version number for the application.
+	 */
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Contains a JPanel object used as the content pane.
+	 */
 	private JPanel contentPane;
+	
+	/**
+	 * Contains a JTextField object containing the ticket ID.
+	 */
 	private JTextField txtFldTicketID;
+	
+	/**
+	 * Contains a JTextField object containing the name of the user who opened the ticket.
+	 */
 	private JTextField txtFldOpenedBy;
+	
+	/**
+	 * Contains a JTextField object containing the date the ticket was opened.
+	 */
 	private JTextField txtFldOpenedDate;
+	
+	/**
+	 * Contains a JTextField object containing the name of the client.
+	 */
 	private JTextField txtFldClient;
+	
+	/**
+	 * Contains a JTextField object containing the client phone number.
+	 */
 	private JTextField txtFldClientPhone;
+	
+	/**
+	 * Contains a JTextField object containing the client email.
+	 */
 	private JTextField txtFldClientEmail;
+	
+	/**
+	 * Contains a JTextField object containing the summary of the ticket.
+	 */
 	private JTextField txtFldSummary;
+	
+	/**
+	 * Contains a JTextField object containing the date the ticket was completed.
+	 */
 	private JTextField txtFldComplDate;
 
 	/**
-	 * Create the frame.
+	 * Class constructor to build the form used to update an existing ticket in 
+	 * the system.
+	 * 
+	 * @param parent contains a JFrame object
 	 */
 	public Gui_UpdateTicket(JFrame parent) {
 		super(parent, "", Dialog.ModalityType.DOCUMENT_MODAL);
@@ -252,6 +299,9 @@ public class Gui_UpdateTicket extends JDialog {
 		this.setLocationRelativeTo(parent);
 	}
 	
+	/**
+	 * Method to save the ticket information to the database.
+	 */
 	public void SaveTicket() {
 		
 	}
