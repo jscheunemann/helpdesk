@@ -155,7 +155,7 @@ public class MainForm extends JFrame implements IMain {
 			}
 		});
 		JPanel pnlInactiveTicket = new JPanel();
-		tabbedPane.addTab("Inactive Tickets", null, pnlInactiveTicket, null);
+		tabbedPane.addTab("Archive Tickets", null, pnlInactiveTicket, null);
 		pnlInactiveTicket.setLayout(layout);
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -171,6 +171,27 @@ public class MainForm extends JFrame implements IMain {
 						"ID", "Priority", "Status", "Category", "Client", "Summary", "Date Opened"
 				}
 				));
+		
+		tableInactiveTicket.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tableInactiveTicket.setEnabled(false);
+		tableInactiveTicket.addMouseListener(new MouseAdapter(){
+			public void mouseClicked(MouseEvent e){
+				int rowNum = tableInactiveTicket.rowAtPoint(e.getPoint());
+				tableInactiveTicket.clearSelection();
+				tableInactiveTicket.addRowSelectionInterval(rowNum, rowNum);
+				// Right click or double click 
+				if(SwingUtilities.isRightMouseButton(e) == true
+						|| e.getClickCount() == 2){
+					DefaultTableModel model = (DefaultTableModel) tableInactiveTicket
+							.getModel(); // Set value to table
+					Object id = model.getValueAt(rowNum, 0);
+					if(id != null){
+						int ticketId = Integer.valueOf(id.toString());
+						openEditTicketDialog(ticketId);
+					}
+				}
+			}
+		});
 
 		this.pack();
 
@@ -270,7 +291,7 @@ public class MainForm extends JFrame implements IMain {
 	}
 
 	/**
-	 * Method to update the active ticke table.
+	 * Method to update the active ticket table.
 	 */
 	public void updateActiveTable(){
 		DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) tableActiveTicket
@@ -326,5 +347,65 @@ public class MainForm extends JFrame implements IMain {
 	public int getActiveSelectedRow() {
 		int selectedRow = tableActiveTicket.getSelectedRow();
 		return Integer.valueOf(tableActiveTicket.getValueAt(selectedRow, 0).toString());
+	}
+	
+	/**
+	 * Method to update the active ticket table.
+	 */
+	public void updateInactiveTable(){
+		DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) tableInactiveTicket
+				.getDefaultRenderer(String.class);
+		renderer.setHorizontalAlignment(JLabel.RIGHT); // Format value in table
+		// to right
+		DefaultTableModel model = (DefaultTableModel) tableInactiveTicket
+				.getModel(); // Set value to table
+
+		List<Ticket> currentTicketList = dbInterface.queryInactiveTicket();
+
+		int a = model.getRowCount();
+		int b = (int) currentTicketList.size();
+
+		if (a < b) {
+			for (int i = 0; i < (b - a); i++)
+				model.addRow(new Object[] { null, null, null, null, null, null, null }); // Add
+			// more
+			// rows
+		}
+
+		for (int i = 0; i < a; i++) { // Clear table
+
+			model.setValueAt("", i, 0);
+			model.setValueAt("", i, 1);
+			model.setValueAt("", i, 2);
+			model.setValueAt("", i, 3);
+			model.setValueAt("", i, 4);
+			model.setValueAt("", i, 5);
+		}
+
+		if (b > 0) {
+
+			for (int i = 0; i < b; i++) { // UPdate values into table
+
+				model.setValueAt(currentTicketList.get(i).getID(), i,0 );
+				model.setValueAt(currentTicketList.get(i).getPriority(), i,1 );
+				model.setValueAt(currentTicketList.get(i).getStatus(), i,2 );
+				model.setValueAt(currentTicketList.get(i).getServiceCat(), i,3 );
+				model.setValueAt(currentTicketList.get(i).getClient(), i,4 );
+				model.setValueAt(currentTicketList.get(i).getSummary(), i,5 );
+				model.setValueAt(currentTicketList.get(i).getOpenedDate(), i,6 );
+
+			}
+		}
+	}
+	
+	
+	/**
+	 * Method to grab the selected ticket ID and return it to the calling method.
+	 * 
+	 * @return ID for the currently selected ticket
+	 */
+	public int getInactiveSelectedRow() {
+		int selectedRow = tableInactiveTicket.getSelectedRow();
+		return Integer.valueOf(tableInactiveTicket.getValueAt(selectedRow, 0).toString());
 	}
 }
