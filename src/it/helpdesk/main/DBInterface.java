@@ -20,6 +20,8 @@
 
 package it.helpdesk.main;
 
+import it.helpdesk.main.Ticket.StatusEnum;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -38,8 +40,41 @@ public class DBInterface {
 	}
 	
 	public void addNewTicket(Ticket ticket)
-	{
-		activeTicketList.add(ticket);
+	{	
+		StatusEnum status =ticket.getStatus();
+		switch (status) {
+        case NEW: {
+        	activeTicketList.add(ticket);
+            break;
+        }	
+        case IN_PROGRESS: {
+        		activeTicketList.add(ticket);
+                break;
+        }
+        case WAIT_FOR_PROCESS: {
+        		activeTicketList.add(ticket);
+                break;
+        }
+        case COMPLETE: {
+    		inActiveTicketList.add(ticket);
+            break;
+        }
+        case WITHDRAWN: {
+    		inActiveTicketList.add(ticket);
+            break;
+        }
+        case DELETE: {
+    		inActiveTicketList.add(ticket);
+            break;
+        }
+        default: {
+        	activeTicketList.add(ticket);
+        	break;
+        }
+		}
+
+
+		
 	}
 	
 	public void updateActiveTicket(Ticket ticket)
@@ -54,6 +89,24 @@ public class DBInterface {
 		for(int i = 0; i < activeTicketList.size(); i++){
 			if(activeTicketList.get(i).getID() == ticket.getID()){
 				activeTicketList.set(i, ticket);
+				break;
+			}
+		}
+	}
+	
+	
+	public void updateInactiveTicket(Ticket ticket)
+	{
+		Iterator<Ticket> itr = inActiveTicketList.iterator();
+		
+		while(itr.hasNext()){
+			Ticket t = (Ticket) itr.next();
+			if(ticket.getID() == t.getID()){
+			}
+		}
+		for(int i = 0; i < inActiveTicketList.size(); i++){
+			if(inActiveTicketList.get(i).getID() == ticket.getID()){
+				inActiveTicketList.set(i, ticket);
 				break;
 			}
 		}
