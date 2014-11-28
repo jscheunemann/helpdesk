@@ -362,40 +362,24 @@ public class MainForm extends JFrame implements IMain {
 
 		List<Ticket> currentTicketList = dbInterface.queryInactiveTicket();
 
-		int a = model.getRowCount();
-		int b = (int) currentTicketList.size();
-
-		if (a < b) {
-			for (int i = 0; i < (b - a); i++)
-				model.addRow(new Object[] { null, null, null, null, null, null, null }); // Add
-			// more
-			// rows
-		}
-
-		for (int i = 0; i < a; i++) { // Clear table
-
-			model.setValueAt("", i, 0);
-			model.setValueAt("", i, 1);
-			model.setValueAt("", i, 2);
-			model.setValueAt("", i, 3);
-			model.setValueAt("", i, 4);
-			model.setValueAt("", i, 5);
-		}
-
-		if (b > 0) {
-
-			for (int i = 0; i < b; i++) { // UPdate values into table
-
-				model.setValueAt(currentTicketList.get(i).getID(), i,0 );
-				model.setValueAt(currentTicketList.get(i).getPriority(), i,1 );
-				model.setValueAt(currentTicketList.get(i).getStatus(), i,2 );
-				model.setValueAt(currentTicketList.get(i).getServiceCat(), i,3 );
-				model.setValueAt(currentTicketList.get(i).getClient(), i,4 );
-				model.setValueAt(currentTicketList.get(i).getSummary(), i,5 );
-				model.setValueAt(currentTicketList.get(i).getOpenedDate(), i,6 );
-
+		int newSize = (int) currentTicketList.size();
+		int rowIndex =0;
+		while(rowIndex < newSize){  
+			if(!(rowIndex < model.getRowCount())){ //Adds row if needed
+				model.addRow(new Object[] { null, null, null, null, null, null, null });
 			}
+			// Updates existing row if a row already exists. If new row was created, that will be updated here. 
+			model.setValueAt(currentTicketList.get(rowIndex).getID(), rowIndex,0 );
+			model.setValueAt(currentTicketList.get(rowIndex).getPriority(), rowIndex,1 );
+			model.setValueAt(currentTicketList.get(rowIndex).getStatus(), rowIndex,2 );
+			model.setValueAt(currentTicketList.get(rowIndex).getServiceCat(), rowIndex,3 );
+			model.setValueAt(currentTicketList.get(rowIndex).getClient(), rowIndex,4 );
+			model.setValueAt(currentTicketList.get(rowIndex).getSummary(), rowIndex,5 );
+			model.setValueAt(currentTicketList.get(rowIndex).getOpenedDate(), rowIndex,6 );
+			rowIndex++;
 		}
+		 
+
 	}
 	
 	
