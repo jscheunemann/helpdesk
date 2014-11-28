@@ -26,13 +26,16 @@ import it.helpdesk.main.Ticket.ServiceCatEnum;
 import it.helpdesk.main.Ticket.StatusEnum;
 
 import java.awt.Dialog;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 
 import java.awt.Font;
 
+import javax.swing.BorderFactory;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
@@ -45,6 +48,7 @@ import java.awt.Color;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import javax.swing.DefaultComboBoxModel;
 
 import java.awt.event.ActionEvent;
@@ -325,8 +329,10 @@ public class AddEditTicket extends JDialog {
 		pnl1.add(txtAreaLog);
 		
 		txtAreaDescription = new JTextArea();
+		Border border = BorderFactory.createLineBorder(Color.GRAY, 1);
+		txtAreaDescription.setBorder(border);
 		txtAreaDescription.setLineWrap(true);
-		txtAreaDescription.setBounds(131, 252, 515, 93);
+		txtAreaDescription.setBounds(131, 252, 515, 92);
 		pnl1.add(txtAreaDescription);
 		
 		
