@@ -20,9 +20,32 @@
 
 package it.helpdesk.ui.interfaces;
 
+/**
+ * Controller class to handle the communication between the model and the view classes.
+ * 
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-11-29
+ */
 public interface ILoginFormController {
+	
+	/**
+	 * Method to open the login page form.
+	 */
 	public void openForm();
+	
+	/**
+	 * Method to close the login page form.
+	 */
 	public void closeForm();
+	
+	/**
+	 * Method to authenticate the user of the login page.
+	 */
 	public void requestAuthentication();
+	
+	/**
+	 * Method to open the create user page form.
+	 */
 	public void openCreateUserForm();
 }
