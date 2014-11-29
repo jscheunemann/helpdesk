@@ -20,9 +20,39 @@
 
 package it.helpdesk.ui.interfaces.models;
 
+/**
+ * Model class to handle the communication between the application and the database.
+ * 
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-11-29
+ */
 public interface IPriority {
+	/**
+	 * Method to retrieve the current priority ID
+	 * 
+	 * @return a long value containing the current priority
+	 */
 	public long getId();
+	
+	/**
+	 * Method to set the current priority ID to the value passed to the method.
+	 * 
+	 * @param id contains the new current priority ID
+	 */
 	public void setId(long id);
+	
+	/**
+	 * Method to retrieve the current priority name
+	 * 
+	 * @return a String value containing the current priority name
+	 */
 	public String getPriorityName();
+	
+	/**
+	 * Method to set the current priority name to the value passed to the method.
+	 * 
+	 * @param priorityName contains the new current priority name
+	 */
 	public void setPriorityName(String priorityName);
 }
