@@ -28,7 +28,20 @@ import org.hibernate.SessionFactory;
 import it.helpdesk.ui.interfaces.models.ICustomer;
 import it.helpdesk.ui.interfaces.models.datasources.ICustomerDatasource;
 
+/**
+ * Model class to handle the communication between the application and the database.
+ * 
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-11-29
+ */
 public class CustomerDatasource implements ICustomerDatasource{
+	
+	/**
+	 * Method to return an array of ICustomer objects to the calling method.
+	 * 
+	 * @return an ICustomer array of the current customers
+	 */
 	@SuppressWarnings("unchecked")
 	public List<ICustomer> getCustomers() {
 		List<ICustomer> customers = null;
@@ -41,6 +54,15 @@ public class CustomerDatasource implements ICustomerDatasource{
 		return customers;
 	}
 
+	/**
+	 * Method to save a new customer record to the database.
+	 * 
+	 * @param customer contains an ICustomer object for the new customer
+	 * @param firstName contains a String value for the first name of the new customer
+	 * @param lastName contains a String value for the last name of the new customer
+	 * @param phoneNumber contains a String value for the phone number of the new customer
+	 * @param emailAddress contains a String value for the email address of the new customer
+	 */
 	public void saveCustomer(ICustomer customer, String firstName, String lastName, String phoneNumber, String emailAddress) {
 		boolean newCustomer = false;
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
