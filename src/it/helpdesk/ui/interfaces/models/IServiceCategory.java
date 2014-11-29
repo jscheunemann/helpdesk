@@ -20,9 +20,40 @@
 
 package it.helpdesk.ui.interfaces.models;
 
+/**
+ * Model class to handle the communication between the application and the database.
+ * 
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-11-29
+ */
 public interface IServiceCategory {
+	
+	/**
+	 * Method to retrieve the current service category ID
+	 * 
+	 * @return a long value containing the current service category ID
+	 */
 	public long getId();
+	
+	/**
+	 * Method to set the service category ID to the value passed to the method.
+	 * 
+	 * @param id contains the new service category ID value
+	 */
 	public void setId(long id);
+	
+	/**
+	 * Method to retrieve the current service category name
+	 * 
+	 * @return a String value containing the current service category name
+	 */
 	public String getCategoryName();
+	
+	/**
+	 * Method to set the service category name to the value passed to the method.
+	 * 
+	 * @param categoryName contains the new service category name value
+	 */
 	public void setCategoryName(String categoryName);
 }
