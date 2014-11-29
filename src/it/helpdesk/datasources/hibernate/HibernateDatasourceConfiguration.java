@@ -23,13 +23,32 @@ package it.helpdesk.datasources.hibernate;
 import it.helpdesk.ui.interfaces.IDatasourceConfiguration;
 import it.helpdesk.ui.interfaces.models.datasources.ITechnicianDatasource;
 
+/**
+ * Model class to handle the communication between the application and the database.
+ * 
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-11-29
+ */
 public class HibernateDatasourceConfiguration implements IDatasourceConfiguration {
+
+	/**
+	 * Contains an ITechnicianDatasource object.
+	 */
 	private ITechnicianDatasource datasource = null;
 	
+	/**
+	 * Default class constructor that will initialize the technician datasource. 
+	 */
 	public HibernateDatasourceConfiguration() {
 		datasource = new TechnicianDatasource();
 	}
 	
+	/**
+	 * Method to return the current ITechnicianDatasource object.
+	 * 
+	 * @return a ITechnicianDatasource object containing the current technician datasource
+	 */
 	@Override
 	public ITechnicianDatasource getTechnicianDatasource() {
 		return this.datasource;
