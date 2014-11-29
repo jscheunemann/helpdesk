@@ -20,9 +20,40 @@
 
 package it.helpdesk.ui.interfaces.models;
 
+/**
+ * Model class to handle the communication between the application and the database.
+ * 
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-11-29
+ */
 public interface IStatus {
+	
+	/**
+	 * Method to retrieve the current status ID value.
+	 * 
+	 * @return a long value containing the current status ID
+	 */
 	public long getId();
+	
+	/**
+	 * Method to set the status ID to the value passed to the method.
+	 * 
+	 * @param id contains the new status ID value
+	 */
 	public void setId(long id);
+	
+	/**
+	 * Method to retrieve the current status name value.
+	 * 
+	 * @return a String value containing the current status name
+	 */
 	public String getStatusName();
+	
+	/**
+	 * Method to set the status ID to the value passed to the method.
+	 * 
+	 * @param statusName contains the new status name value
+	 */
 	public void setStatusName(String statusName);
 }
