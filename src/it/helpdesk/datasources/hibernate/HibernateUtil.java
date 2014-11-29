@@ -25,12 +25,22 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
+/**
+ * Model class to handle the communication between the application and the database.
+ * 
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-11-29
+ */
 public class HibernateUtil {
 	
+	/**
+	 * Contains a SessionFactory object.
+	 */
 	private static final SessionFactory sessionFactory;
 
 	/**
-	 * build a SessionFactory
+	 * Process to build the SessionFactory object.
 	 */
 	static {
 	    try {
@@ -47,6 +57,7 @@ public class HibernateUtil {
 	}
 
 	/**
+	 * Method to retrieve the current SessionFactory object.
 	 * @return built SessionFactory
 	 */
 	public static SessionFactory getSessionFactory() {
