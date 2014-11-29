@@ -22,6 +22,19 @@ package it.helpdesk.ui.interfaces;
 
 import it.helpdesk.ui.interfaces.models.datasources.*;
 
+/**
+ * Class to handle the configuration of the GitHub datasource.
+ * 
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-11-29
+ */
 public interface IDatasourceConfiguration {
+	
+	/**
+	 * Class constructor to grab the datasource for the user.
+	 * 
+	 * @return an ITechnicianDatasource object
+	 */
 	public ITechnicianDatasource getTechnicianDatasource();
 }
