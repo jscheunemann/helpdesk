@@ -26,7 +26,19 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
+/**
+ * Model class to handle the communication between the application and the database.
+ * 
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-11-29
+ */
 public class Main {
+	
+	/**
+	 * Default constructor for the class.  The method determines whether the application is already
+	 * running, and if so it presents an error.
+	 */
 	public static void main(String[] args) {
 		String appId = Main.class.getName();
 		boolean alreadyRunning = false;
