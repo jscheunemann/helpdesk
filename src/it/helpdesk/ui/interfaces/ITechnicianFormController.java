@@ -22,9 +22,34 @@ package it.helpdesk.ui.interfaces;
 
 import it.helpdesk.ui.interfaces.models.ITechnician;
 
+/**
+ * Controller class to handle the communication between the model and the view classes.
+ * 
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-11-29
+ */
 public interface ITechnicianFormController {
+	/**
+	 * Method to open the technician form.
+	 */
 	public void openForm();
+	
+	/**
+	 * Method to close the technician form.
+	 */
 	public void closeForm();
+	
+	/**
+	 * Method containing code to be executed when the user clicks the save button 
+	 * on the technician form.
+	 */
 	public void saveButtonPressed();
+	
+	/**
+	 * Method to set the technician value to the object passed to method
+	 * 
+	 * @param technician contains an ITechnician object
+	 */
 	void setTechnician(ITechnician technician);
 }
