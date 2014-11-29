@@ -30,39 +30,56 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+/**
+ * View class that presents the user with an interactive menu.
+ *
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-11-29
+ */
 public class Menu extends JFrame {
+	
+	/**
+	 * Contains the serial number of the application.
+	 */
 	private static final long serialVersionUID = 1541453486039339656L;
 
+	/**
+	 * Default constructor for the class.  Initializes the user interface.
+	 */
 	public Menu() {
         initUI();
-    }
+	}
 
-    private void initUI() {
-        JMenuBar menubar = new JMenuBar();
-        ImageIcon icon = new ImageIcon("exit.png");
-
-        JMenu file = new JMenu("Main Menu");
-        file.setMnemonic(KeyEvent.VK_F);
-
-        JMenuItem eMenuItem = new JMenuItem("Exit", icon);
-        eMenuItem.setMnemonic(KeyEvent.VK_E);
-        eMenuItem.setToolTipText("Exit application");
-        eMenuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent event) {
-                System.exit(0);
-            }
-        });
-
-        file.add(eMenuItem);
-
-        menubar.add(file);
-
-        setJMenuBar(menubar);
-
-        setTitle("Welcome to Ticketing Tracking System");
-        setSize(456, 326);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-    }
+	/**
+	 * Method that handles the initialization of the user interface.
+	 */
+	private void initUI() {
+		JMenuBar menubar = new JMenuBar();
+		ImageIcon icon = new ImageIcon("exit.png");
+		
+		JMenu file = new JMenu("Main Menu");
+		file.setMnemonic(KeyEvent.VK_F);
+		
+		JMenuItem eMenuItem = new JMenuItem("Exit", icon);
+		eMenuItem.setMnemonic(KeyEvent.VK_E);
+		eMenuItem.setToolTipText("Exit application");
+		eMenuItem.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent event) {
+		        System.exit(0);
+		    }
+		});
+		
+		file.add(eMenuItem);
+		
+		menubar.add(file);
+		
+		setJMenuBar(menubar);
+		
+		setTitle("Welcome to Ticketing Tracking System");
+		setSize(456, 326);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+	}
 }
