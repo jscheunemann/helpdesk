@@ -20,11 +20,48 @@
 
 package it.helpdesk.ui.interfaces;
 
+/**
+ * Controller class to handle the communication between the model and the view classes.
+ * 
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-11-29
+ */
 public interface ILoginFormView {
+	
+	/**
+	 * Method to set the login form controller to the object passed to the method.
+	 * 
+	 * @param controller contains an ILoginFormController object
+	 */
 	public void setController(ILoginFormController controller);
+	
+	/**
+	 * Method to open the login form view.
+	 */
 	public void open();
+	
+	/**
+	 * Method to close the login form view.
+	 */
 	public void close();
+	
+	/**
+	 * Method to retrieve the username for the current user from the database.
+	 * 
+	 * @return a String value of the current user's username
+	 */
 	public String getUsername();
+	
+	/**
+	 * Method to retrieve the password for the current user from the database.
+	 * 
+	 * @return a String value of the current user's password
+	 */
 	public String getPassword();
+	
+	/**
+	 * Method to display the authentication error message, if one exists.
+	 */
 	public void showValidationErrorDialog();
 }
