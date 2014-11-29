@@ -25,33 +25,49 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 
-
+/**
+ * View class that allows the user to select sub-menu items within the application.
+ *
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-11-29
+ */
 public class Submenu extends JFrame {
+	
+	/**
+	 * Contains the serial version number of the application.
+	 */
 	private static final long serialVersionUID = -5886246414863162329L;
 
+	/**
+	 * Default class constructor which initializes the user interface.
+	 */
 	public Submenu() {
-        initUI();
-    }
+        	initUI();
+	}
     
-    private void initUI() {
-        JMenuBar menubar = new JMenuBar();
-        
-        JMenu filem = new JMenu("Tickets");
-        JMenu viewm = new JMenu("Current");
-        JMenu toolsm = new JMenu("Status");
-        JMenu helpm = new JMenu("Help");
-
-        menubar.add(filem);
-        menubar.add(viewm);
-        menubar.add(toolsm);        
-        menubar.add(Box.createHorizontalGlue());
-        menubar.add(helpm);
-
-        setJMenuBar(menubar);
-
-        setTitle("Welcom to Ticket Tracking App");
-        setSize(600, 200);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);        
-    }
+	/**
+	 * Method to initialize the application with the sub-menu options.
+	 */
+	private void initUI() {
+	        JMenuBar menubar = new JMenuBar();
+	        
+	        JMenu filem = new JMenu("Tickets");
+	        JMenu viewm = new JMenu("Current");
+	        JMenu toolsm = new JMenu("Status");
+	        JMenu helpm = new JMenu("Help");
+	
+	        menubar.add(filem);
+	        menubar.add(viewm);
+	        menubar.add(toolsm);        
+	        menubar.add(Box.createHorizontalGlue());
+	        menubar.add(helpm);
+	
+	        setJMenuBar(menubar);
+	
+	        setTitle("Welcom to Ticket Tracking App");
+	        setSize(600, 200);
+	        setLocationRelativeTo(null);
+	        setDefaultCloseOperation(EXIT_ON_CLOSE);        
+	}
 }
