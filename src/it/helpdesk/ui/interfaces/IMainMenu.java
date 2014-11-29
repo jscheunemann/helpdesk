@@ -20,13 +20,52 @@
 
 package it.helpdesk.ui.interfaces;
 
+/**
+ * Controller class to handle the communication between the model and the view classes.
+ * 
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-11-29
+ */
 public interface IMainMenu {
+	
+	/**
+	 * Method to disable the ticket menu option.
+	 */
 	public void disableTicketMenu();
+	
+	/**
+	 * Method to enable the ticket menu option.
+	 */
 	public void enableTicketMenu();
+	
+	/**
+	 * Method to disable the file menu option.
+	 */
 	public void disableFileMenu();
+	
+	/**
+	 * Method to enable the file menu option.
+	 */
 	public void enableFileMenu();
+	
+	/**
+	 * Method to diable the login menu option.
+	 */
 	public void disableLoginMenuItem();
+	
+	/**
+	 * Method to enable the login menu option.
+	 */
 	public void enableLoginMenuItem();
+	
+	/**
+	 * Method to disable the logout menu option.
+	 */
 	public void disableLogoutMenuItem();
+	
+	/**
+	 * Method to enable the logout menu option.
+	 */
 	public void enableLogoutMenuItem();
 }
