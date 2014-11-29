@@ -20,11 +20,46 @@
 
 package it.helpdesk.ui.interfaces;
 
+/**
+ * Controller class to handle the communication between the model and the view classes.
+ * 
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-11-29
+ */
 public interface IMain {
+	
+	/**
+	 * Method to open the login dialog page.
+	 */
 	public void openLoginDialog();
+	
+	/**
+	 * Method to open the logout dialog page.
+	 */
 	public void openLogoutDialog();
+	
+	/**
+	 * Method to open the create new ticket dialog page.
+	 */
 	public void openCreateNewTicketDialog();
+	
+	/**
+	 * Method to open the edit ticket dialog page.
+	 * 
+	 * @param ticketId contains the ticket ID of the ticket to be modified.
+	 */
 	public void openEditTicketDialog(int ticketId);
+	
+	/**
+	 * Method to retrieve the number of the current row being selected on the Active ticket view.
+	 * 
+	 * @return the number of the current row selected on the active ticket view
+	 */
 	public int getActiveSelectedRow();
+	
+	/**
+	 * Method to close the current dialog window.
+	 */
 	public void close();
 }
