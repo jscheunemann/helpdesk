@@ -20,7 +20,26 @@
 
 package it.helpdesk.ui.interfaces;
 
+/**
+ * Controller class to handle the communication between the model and the view classes.
+ * 
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-11-29
+ */
 public interface IViewConfiguration {
+	
+	/**
+	 * Method to retrieve the current login form view object.
+	 * 
+	 * @return an ILoginFormView object 
+	 */
 	public ILoginFormView getLoginFormView();
+	
+	/**
+	 * Method to retrieve the current technician form view object.
+	 * 
+	 * @return an ITechnicianFormView object 
+	 */
 	public ITechnicianFormView getTechnicianFormView();
 }
