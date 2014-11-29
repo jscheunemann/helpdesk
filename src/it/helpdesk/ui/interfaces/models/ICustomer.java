@@ -20,6 +20,13 @@
 
 package it.helpdesk.ui.interfaces.models;
 
+/**
+ * Model class to handle the communication between the application and the database.
+ * 
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-11-29
+ */
 public interface ICustomer extends IPerson {
 
 }
