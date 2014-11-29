@@ -26,57 +26,90 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Model class to handle the communication between the application and the database.
+ * 
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-11-29
+ */
 public class DBInterface {
+	/**
+	 * Array of Ticket objects containing the active tickets in the database.
+	 */
 	List<Ticket> activeTicketList;
+	
+	/**
+	 * Array of Ticket objects containing the inactive tickets in the database.
+	 */
 	List<Ticket> inActiveTicketList;
 	
+	/**
+	 * Default constructor for the class.  Initializes the array local variables.
+	 */
 	public DBInterface() {
 		activeTicketList = new ArrayList<Ticket>();
 		inActiveTicketList = new ArrayList<Ticket>();
 	}
 	
+	
+	/**.
+	 * Method that will show whether the application is currently connected to the database.
+	 * 
+	 * @return a boolean value showing whether the application is connected to the database
+	 */
 	public boolean connectDB() {
 		return true;
 	}
 	
+	/**
+	 * Method to create a new ticket in the database.
+	 * 
+	 * @param ticket contains a Ticket object with the new ticket's information
+	 */
 	public void addNewTicket(Ticket ticket)
 	{	
 		StatusEnum status =ticket.getStatus();
 		switch (status) {
-        case NEW: {
-        	activeTicketList.add(ticket);
-            break;
-        }	
-        case IN_PROGRESS: {
-        		activeTicketList.add(ticket);
-                break;
-        }
-        case WAIT_FOR_PROCESS: {
-        		activeTicketList.add(ticket);
-                break;
-        }
-        case COMPLETE: {
-    		inActiveTicketList.add(ticket);
-            break;
-        }
-        case WITHDRAWN: {
-    		inActiveTicketList.add(ticket);
-            break;
-        }
-        case DELETE: {
-    		inActiveTicketList.add(ticket);
-            break;
-        }
-        default: {
-        	activeTicketList.add(ticket);
-        	break;
-        }
+		        case NEW: {
+		        	activeTicketList.add(ticket);
+		            break;
+		        }	
+		        case IN_PROGRESS: {
+		        		activeTicketList.add(ticket);
+		                break;
+		        }
+		        case WAIT_FOR_PROCESS: {
+		        		activeTicketList.add(ticket);
+		                break;
+		        }
+		        case COMPLETE: {
+		    		inActiveTicketList.add(ticket);
+		            break;
+		        }
+		        case WITHDRAWN: {
+		    		inActiveTicketList.add(ticket);
+		            break;
+		        }
+		        case DELETE: {
+		    		inActiveTicketList.add(ticket);
+		            break;
+		        }
+		        default: {
+		        	activeTicketList.add(ticket);
+		        	break;
+		        }
 		}
 
 
 		
 	}
 	
+	/**
+	 * Method to update an existing active ticket in the database.
+	 * 
+	 * @param ticket contains a Ticket object with information on the ticket being updated
+	 */
 	public void updateActiveTicket(Ticket ticket)
 	{
 		Iterator<Ticket> itr = activeTicketList.iterator();
@@ -94,7 +127,11 @@ public class DBInterface {
 		}
 	}
 	
-	
+	/**
+	 * Method to update an existing inactive ticket in the database.
+	 * 
+	 * @param ticket contains a Ticket object with information on the ticket being updated
+	 */
 	public void updateInactiveTicket(Ticket ticket)
 	{
 		Iterator<Ticket> itr = inActiveTicketList.iterator();
@@ -112,11 +149,21 @@ public class DBInterface {
 		}
 	}
 	
+	/**
+	 * Method to query the database for the active tickets.
+	 * 
+	 * @return an array of active Ticket objects
+	 */
 	public List<Ticket> queryActiveTicket() {
 		
 		return activeTicketList;
 	}
 
+	/**
+	 * Method to query the database for the inactive tickets.
+	 * 
+	 * @return an array of inactive Ticket objects
+	 */
 	public List<Ticket> queryInactiveTicket() {
 		return inActiveTicketList;
 	}
