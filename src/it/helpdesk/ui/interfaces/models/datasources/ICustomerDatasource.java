@@ -24,7 +24,30 @@ import it.helpdesk.ui.interfaces.models.*;
 
 import java.util.List;
 
+/**
+ * Model class to handle the communication between the application and the database.
+ * 
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-11-29
+ */
 public interface ICustomerDatasource {
+	
+	/**
+	 * Method to retrieve a list of customers from the datasource.
+	 * 
+	 * @return an array of ICustomer objects containing information on the current customers
+	 */
 	public List<ICustomer> getCustomers();
+	
+	/**
+	 * Method to save a customer record to the datasource.
+	 * 
+	 * @param customer contains an ICustomer object of the current customer
+	 * @param firstName contains a String value of the customer's first name
+	 * @param lastName contains a String value of the customer's last name
+	 * @param phoneNumber contains a String value of the customer's phone number
+	 * @param emailAddress contains a String value of the customer's email address
+	 */
 	public void saveCustomer(ICustomer customer, String firstName, String lastName, String phoneNumber, String emailAddress);
 }
