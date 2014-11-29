@@ -24,7 +24,27 @@ import it.helpdesk.ui.interfaces.models.IServiceCategory;
 
 import java.util.List;
 
+/**
+ * Model class to handle the communication between the application and the database.
+ * 
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-11-29
+ */
 public interface IServiceCategoryDatasource {
+	
+	/**
+	 * Method to retrieve a list of service cateogories from the datasource.
+	 * 
+	 * @return an array of IServiceCategory objects containing information on the current service categories
+	 */
 	public List<IServiceCategory> getServiceCategories();
+	
+	/**
+	 * Method to save a new service category to the datasource.
+	 * 
+	 * @param serviceCategory an IServiceCategory object containing the new service category
+	 * @param categoryName a String value of the new service cateogry
+	 */
 	public void saveServiceCategory(IServiceCategory servieCategory, String categoryName);
 }
