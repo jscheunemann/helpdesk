@@ -26,6 +26,14 @@ import javax.persistence.Table;
 
 import it.helpdesk.ui.interfaces.models.ICustomer;
 
+/**
+ * Model class to handle the communication between the application and the database.
+ * 
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-11-29
+ */
+
 @Entity
 @PrimaryKeyJoinColumn(name="person_id")
 @Table(name="Customer")
