@@ -24,7 +24,27 @@ import java.util.List;
 
 import it.helpdesk.ui.interfaces.models.IPriority;
 
+/**
+ * Model class to handle the communication between the application and the database.
+ * 
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-11-29
+ */
 public interface IPriorityDatasource {
+	
+	/**
+	 * Method to retrieve a list of priorities from the datasource.
+	 * 
+	 * @return an array of IPriority objects containing information on the current priorities
+	 */
 	public List<IPriority> getPriorities();
+	
+	/**
+	 * Method to save a new priority to the datasource.
+	 * 
+	 * @param priority contains an IPriority object of the new priority
+	 * @param priorityName contains a String value of the new priority name
+	 */
 	public void savePriority(IPriority priority, String priorityName);
 }
