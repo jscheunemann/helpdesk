@@ -28,8 +28,20 @@ import org.hibernate.SessionFactory;
 import it.helpdesk.ui.interfaces.models.IServiceCategory;
 import it.helpdesk.ui.interfaces.models.datasources.IServiceCategoryDatasource;
 
+/**
+ * Model class to handle the communication between the application and the database.
+ * 
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-11-29
+ */
 public class ServiceCategoryDatasource implements IServiceCategoryDatasource {
 
+	/**
+	 * Method to retrieve an array of the current ticket service category.
+	 * 
+	 * @return an array of IServiceCategory objects containing the current ticket service categories.
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<IServiceCategory> getServiceCategories() {
@@ -43,6 +55,12 @@ public class ServiceCategoryDatasource implements IServiceCategoryDatasource {
 		return serviceCategories;
 	}
 
+	/**
+	 * Method to save the selected service category of the current ticket.
+	 * 
+	 * @param serviceCategory contains an IServiceCategory object
+	 * @param serviceCategoryName contains a String value with the service category name
+	 */
 	@Override
 	public void saveServiceCategory(IServiceCategory serviceCategory, String serviceCategoryName) {
 		boolean newServiceCategory = false;
