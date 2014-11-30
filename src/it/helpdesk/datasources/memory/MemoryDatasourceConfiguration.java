@@ -23,14 +23,33 @@ package it.helpdesk.datasources.memory;
 import it.helpdesk.ui.interfaces.*;
 import it.helpdesk.ui.interfaces.models.datasources.ITechnicianDatasource;
 
+/**
+ * Model class to handle the communication between the application and the database.
+ * 
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-11-29
+ */
 public class MemoryDatasourceConfiguration implements IDatasourceConfiguration {
+	
+	/**
+	 * Contains an ITechnicianDatasource object for the technician.
+	 */
 	ITechnicianDatasource datasource = null;
 	
+	/**
+	 * Default class constructor to build the technician datasource object.
+	 */
 	public MemoryDatasourceConfiguration() {
 		datasource = new TechnicianDatasource();
 		datasource.saveTechnician(null, "test", "test", "Jason", "Scheunemann", "999-999-9999", "jason.scheunemann@example.com");
 	}
 	
+	/**
+	 * Method to retrieve the current technician datasource.
+	 * 
+	 * @return an ITechnicianDatasource object referencing the current local object
+	 */
 	@Override
 	public ITechnicianDatasource getTechnicianDatasource() {
 		return datasource;
