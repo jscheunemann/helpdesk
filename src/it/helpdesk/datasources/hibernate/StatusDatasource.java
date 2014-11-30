@@ -28,8 +28,20 @@ import org.hibernate.SessionFactory;
 import it.helpdesk.ui.interfaces.models.IStatus;
 import it.helpdesk.ui.interfaces.models.datasources.IStatusDatasource;
 
+/**
+ * Model class to handle the communication between the application and the database.
+ * 
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-11-29
+ */
 public class StatusDatasource implements IStatusDatasource {
 
+	/**
+	 * Method to retrieve an array of the current ticket statuses.
+	 * 
+	 * @return an array of IStatus objects containing the current ticket statuses.
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<IStatus> getStatuses() {
@@ -43,6 +55,12 @@ public class StatusDatasource implements IStatusDatasource {
 		return statuses;
 	}
 
+	/**
+	 * Method to save the selected status of the current ticket.
+	 * 
+	 * @param status contains an IStatus object
+	 * @param statusName contains a String value with the status name
+	 */
 	@Override
 	public void saveStatus(IStatus status, String statusName) {
 		boolean newStatus = false;
