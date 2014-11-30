@@ -28,8 +28,20 @@ import org.hibernate.SessionFactory;
 import it.helpdesk.ui.interfaces.models.IPriority;
 import it.helpdesk.ui.interfaces.models.datasources.IPriorityDatasource;
 
+/**
+ * Model class to handle the communication between the application and the database.
+ * 
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-11-29
+ */
 public class PriorityDatasource implements IPriorityDatasource {
-
+	
+	/**
+	 * Method to retrieve an array of the current ticket priorities.
+	 * 
+	 * @return an array of IPriority objects containing the current ticket priorities.
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<IPriority> getPriorities() {
@@ -43,6 +55,12 @@ public class PriorityDatasource implements IPriorityDatasource {
 		return priorities;
 	}
 
+	/**
+	 * Method to save the selected priority of the current ticket.
+	 * 
+	 * @param priority contains an IPriority object
+	 * @param priorityName contains a String value with the priority name
+	 */
 	@Override
 	public void savePriority(IPriority priority, String priorityName) {
 		boolean newPriority = false;
