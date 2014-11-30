@@ -18,7 +18,7 @@
  * 
  */
 
-package it.helpdesk.datasources.hibernate;
+package it.helpdesk.datasources.hibernate.models;
 
 import javax.persistence.*;
 

@@ -18,13 +18,15 @@
  * 
  */
 
-package it.helpdesk.datasources.hibernate;
+package it.helpdesk.datasources.hibernate.datasources;
 
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import it.helpdesk.datasources.hibernate.HibernateUtil;
+import it.helpdesk.datasources.hibernate.models.Customer;
 import it.helpdesk.ui.interfaces.models.ICustomer;
 import it.helpdesk.ui.interfaces.models.datasources.ICustomerDatasource;
 

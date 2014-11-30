@@ -32,9 +32,44 @@ import it.helpdesk.ui.interfaces.models.datasources.*;
 public interface IDatasourceConfiguration {
 	
 	/**
-	 * Class constructor to grab the datasource for the user.
+	 * Method to retrieve the customer datasource
+	 * 
+	 * @return an ICustomerDatasource object
+	 */
+	public ICustomerDatasource getCustomerDatasource();
+	
+	/**
+	 * Method to retrieve the priority datasource
+	 * 
+	 * @return an IPriorityDatasource object
+	 */
+	public IPriorityDatasource getPriorityDatasource();
+	
+	/**
+	 * Method to retrieve the service category datasource
+	 * 
+	 * @return an IServiceCategoryDatasource object
+	 */
+	public IServiceCategoryDatasource getServiceCategoryDatasource();
+	
+	/**
+	 * Method to retrieve the status datasource
+	 * 
+	 * @return an IStatusDatasource object
+	 */
+	public IStatusDatasource getStatusDatasource();
+	
+	/**
+	 * Method to retrieve the technician datasource
 	 * 
 	 * @return an ITechnicianDatasource object
 	 */
 	public ITechnicianDatasource getTechnicianDatasource();
+	
+	/**
+	 * Method to retrieve the ticket datasource
+	 * 
+	 * @return an ITicketDatasource object
+	 */
+	public ITicketDatasource getTickeDatasource();
 }

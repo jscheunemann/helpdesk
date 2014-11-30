@@ -21,6 +21,7 @@
 package it.helpdesk.ui.interfaces.models;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Model class to handle the communication between the application and the database.
@@ -59,6 +60,20 @@ public interface ITicket {
 	public void setServiceCategory(IServiceCategory serviceCategory);
 	
 	/**
+	 * Method to get the ticket's priority
+	 * 
+	 * @return the priority of the ticket
+	 */
+	public IPriority getPriority();
+	
+	/**
+	 * Method to set the ticket's priority
+	 * 
+	 * @param the priority of the ticket
+	 */
+	public void setPriority(IPriority priority);
+	
+	/**
 	 * Method to retrieve the current status object.
 	 * 
 	 * @return an IStatus object containing the current ticket status 
@@ -73,32 +88,18 @@ public interface ITicket {
 	public void setStatus(IStatus status);
 	
 	/**
-	 * Method to retrieve the current operator object.
+	 * Method to retrieve the current technician
 	 * 
-	 * @return an ITechnician object containing the current operator 
+	 * @return an ITechnician object containing the current technician
 	 */
-	public ITechnician getOperator();
+	public ITechnician getTechnician();
 	
 	/**
 	 * Method to set the current ticket's operator
 	 * 
 	 * @param operator contains an ITechnician object for the ticket operator
 	 */
-	public void setOperator(ITechnician operator);
-	
-	/**
-	 * Method to retrieve the current assignee object.
-	 * 
-	 * @return an ITechnician object containing the current assignee 
-	 */
-	public ITechnician getAssignedTo();
-	
-	/**
-	 * Method to set the current ticket's assignee
-	 * 
-	 * @param assignedTo contains an ITechnician object for the ticket assignee
-	 */
-	public void setAssignedTo(ITechnician assignedTo);
+	public void setTechnician(ITechnician technician);
 	
 	/**
 	 * Method to retrieve the current ticket open date.
@@ -127,4 +128,46 @@ public interface ITicket {
 	 * @param completedOn contains the date the ticket was completed on
 	 */
 	public void setCompletedOn(Date completedOn);
+	
+	/**
+	 * Method to retrieve customer
+	 * 
+	 * @return the customer
+	 */
+	public ICustomer getCustomer();
+	
+	/**
+	 * Method to set the customer
+	 * 
+	 * @param the customer
+	 */
+	public void setCustomer(ICustomer customer);
+	
+	/**
+	 * Method to retrieve a summary of the issue reported
+	 * 
+	 * @return a summary of the issue reported
+	 */
+	public String getSummary();
+	
+	/**
+	 * Method to set the summary of issue reported
+	 * 
+	 * @param the summary of the issue reported
+	 */
+	public void setSummary(String summary);
+	
+	/**
+	 * Method to retrieve a list of log entries
+	 * 
+	 * @return a list of log entries
+	 */
+	public List<ILogEntry> getLogEntries();
+	
+	/**
+	 * Method to set the description of the remediation efforts
+	 * 
+	 * @param the description of the remediation efforts
+	 */
+	public void setLogEntries(List<ILogEntry> logEntries);
 }

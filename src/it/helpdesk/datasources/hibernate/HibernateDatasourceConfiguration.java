@@ -20,8 +20,14 @@
 
 package it.helpdesk.datasources.hibernate;
 
-import it.helpdesk.ui.interfaces.IDatasourceConfiguration;
-import it.helpdesk.ui.interfaces.models.datasources.ITechnicianDatasource;
+import it.helpdesk.datasources.hibernate.datasources.CustomerDatasource;
+import it.helpdesk.datasources.hibernate.datasources.PriorityDatasource;
+import it.helpdesk.datasources.hibernate.datasources.ServiceCategoryDatasource;
+import it.helpdesk.datasources.hibernate.datasources.StatusDatasource;
+import it.helpdesk.datasources.hibernate.datasources.TechnicianDatasource;
+import it.helpdesk.datasources.hibernate.datasources.TicketDatasource;
+import it.helpdesk.ui.interfaces.*;
+import it.helpdesk.ui.interfaces.models.datasources.*;
 
 /**
  * Model class to handle the communication between the application and the database.
@@ -31,26 +37,99 @@ import it.helpdesk.ui.interfaces.models.datasources.ITechnicianDatasource;
  * @since	2014-11-29
  */
 public class HibernateDatasourceConfiguration implements IDatasourceConfiguration {
-
+	/**
+	 * Contains n ICusotmerDatasource object.
+	 */
+	private ICustomerDatasource customerDatasource = null;
+	
+	/**
+	 * Contains an IPriorityDatasource object.
+	 */
+	private IPriorityDatasource priorityDatasource = null;
+	
+	/**
+	 * Contains an IServiceCategoryDatasource object.
+	 */
+	private IServiceCategoryDatasource serviceCategoryDatasource = null;
+	
+	/**
+	 * Contains an IStatusDatasource object.
+	 */
+	private IStatusDatasource statusDatasource = null;
+	
 	/**
 	 * Contains an ITechnicianDatasource object.
 	 */
-	private ITechnicianDatasource datasource = null;
+	private ITechnicianDatasource technicianDatasource = null;
 	
 	/**
-	 * Default class constructor that will initialize the technician datasource. 
+	 * Contains an ITicketDatasource object.
+	 */
+	private ITicketDatasource ticketDatasource = null;
+	
+	/**
+	 * Default class constructor.Instantiate all of the datasource objects.
 	 */
 	public HibernateDatasourceConfiguration() {
-		datasource = new TechnicianDatasource();
+		this.customerDatasource = new CustomerDatasource();
+		this.priorityDatasource = new PriorityDatasource();
+		this.serviceCategoryDatasource = new ServiceCategoryDatasource();
+		this.statusDatasource = new StatusDatasource();
+		this.technicianDatasource = new TechnicianDatasource();
+		this.ticketDatasource = new TicketDatasource();
+	}
+
+	/**
+	 * Method to return the current ICustomerDatasource object.
+	 * 
+	 * @return an ICustomerDatasource object containing the current customer datasource
+	 */
+	public ICustomerDatasource getCustomerDatasource() {
+		return this.customerDatasource;
+	}
+
+	/**
+	 * Method to return the current IPriorityDatasource object.
+	 * 
+	 * @return an IPriorityDatasource object containing the current priority datasource
+	 */
+	public IPriorityDatasource getPriorityDatasource() {
+		return this.priorityDatasource;
+	}
+
+	/**
+	 * Method to return the current IServiceCategoryDatasource object.
+	 * 
+	 * @return an IServiceCategoryDatasource object containing the current service category datasource
+	 */
+	public IServiceCategoryDatasource getServiceCategoryDatasource() {
+		return this.serviceCategoryDatasource;
+	}
+
+	/**
+	 * Method to return the current IStatusDatasource object.
+	 * 
+	 * @return an IStatusDatasource object containing the current status datasource
+	 */
+	public IStatusDatasource getStatusDatasource() {
+		return this.statusDatasource;
 	}
 	
 	/**
 	 * Method to return the current ITechnicianDatasource object.
 	 * 
-	 * @return a ITechnicianDatasource object containing the current technician datasource
+	 * @return an ITechnicianDatasource object containing the current technician datasource
 	 */
-	@Override
 	public ITechnicianDatasource getTechnicianDatasource() {
-		return this.datasource;
+		return this.technicianDatasource;
+	}
+
+	/**
+	 * Method to return the current ITicketDatasource object.
+	 * 
+	 * @return an ITicketDatasource object containing the current ticket datasource
+	 */
+	public ITicketDatasource getTickeDatasource() {
+		return this.ticketDatasource;
 	}
 }

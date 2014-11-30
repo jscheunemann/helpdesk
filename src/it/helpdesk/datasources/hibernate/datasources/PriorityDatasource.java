@@ -18,15 +18,17 @@
  * 
  */
 
-package it.helpdesk.datasources.hibernate;
+package it.helpdesk.datasources.hibernate.datasources;
 
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import it.helpdesk.ui.interfaces.models.IServiceCategory;
-import it.helpdesk.ui.interfaces.models.datasources.IServiceCategoryDatasource;
+import it.helpdesk.datasources.hibernate.HibernateUtil;
+import it.helpdesk.datasources.hibernate.models.Priority;
+import it.helpdesk.ui.interfaces.models.IPriority;
+import it.helpdesk.ui.interfaces.models.datasources.IPriorityDatasource;
 
 /**
  * Model class to handle the communication between the application and the database.
@@ -35,56 +37,55 @@ import it.helpdesk.ui.interfaces.models.datasources.IServiceCategoryDatasource;
  * @version	1.0
  * @since	2014-11-29
  */
-public class ServiceCategoryDatasource implements IServiceCategoryDatasource {
-
+public class PriorityDatasource implements IPriorityDatasource {
+	
 	/**
-	 * Method to retrieve an array of the current ticket service category.
+	 * Method to retrieve an array of the current ticket priorities.
 	 * 
-	 * @return an array of IServiceCategory objects containing the current ticket service categories.
+	 * @return an array of IPriority objects containing the current ticket priorities.
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<IServiceCategory> getServiceCategories() {
-		List<IServiceCategory> serviceCategories = null;
+	public List<IPriority> getPriorities() {
+		List<IPriority> priorities = null;
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 
-		serviceCategories = (List<IServiceCategory>) session.createQuery("from ServiceCategory").list();
+		priorities = (List<IPriority>) session.createQuery("from Priority").list();
 		session.close();
 
-		return serviceCategories;
+		return priorities;
 	}
 
 	/**
-	 * Method to save the selected service category of the current ticket.
+	 * Method to save the selected priority of the current ticket.
 	 * 
-	 * @param serviceCategory contains an IServiceCategory object
-	 * @param serviceCategoryName contains a String value with the service category name
+	 * @param priority contains an IPriority object
+	 * @param priorityName contains a String value with the priority name
 	 */
 	@Override
-	public void saveServiceCategory(IServiceCategory serviceCategory, String serviceCategoryName) {
-		boolean newServiceCategory = false;
+	public void savePriority(IPriority priority, String priorityName) {
+		boolean newPriority = false;
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 
-		if (serviceCategory == null) {
-			serviceCategory = new ServiceCategory();
-			newServiceCategory = true;
+		if (priority == null) {
+			priority = new Priority();
+			newPriority = true;
 		}
 		
-		serviceCategory.setCategoryName(serviceCategoryName);
+		priority.setPriorityName(priorityName);
 		
 		session.beginTransaction();
 		
-		if (newServiceCategory) {
-			session.save(serviceCategory);
+		if (newPriority) {
+			session.save(priority);
 		}
 		else {
-			session.update(serviceCategory);
+			session.update(priority);
 		}
 	
 		session.getTransaction().commit();
 		session.close();
 	}
-
 }

@@ -18,7 +18,7 @@
  * 
  */
 
-package it.helpdesk.datasources.hibernate;
+package it.helpdesk.datasources.hibernate.models;
 
 import it.helpdesk.ui.interfaces.models.ITechnician;
 
@@ -45,27 +45,6 @@ public class Technician extends Person implements ITechnician {
 	 * Contains a String value of the current user's password
 	 */
 	private String Password;
-	
-	/**
-	 * Class constructor to instantiate a new Technician object
-	 * 
-	 * @param id contains the ID of the current user's record
-	 * @param firstName contains the first name of the current user's record
-	 * @param lastName contains the last name of the current user's record
-	 * @param username contains the username of the current user's record
-	 * @param password contains the password of the current user's record
-	 * @param phoneNumber contains the phone number of the current user's record
-	 * @param emailAddress contains the email address of the current user's record
-	 */
-	public Technician(long id, String firstName, String lastName, String username, String password, String phoneNumber, String emailAddress) {
-		this.setId(id);
-		this.setUsername(username);
-		this.setFirstName(firstName);
-		this.setLastName(lastName);
-		this.setPhoneNumber(phoneNumber);
-		this.setPassword(password);
-		this.setEmailAddress(emailAddress);
-	}
 
 	/**
 	 * Default class constructor

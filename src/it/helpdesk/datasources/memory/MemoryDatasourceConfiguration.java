@@ -21,7 +21,12 @@
 package it.helpdesk.datasources.memory;
 
 import it.helpdesk.ui.interfaces.*;
+import it.helpdesk.ui.interfaces.models.datasources.ICustomerDatasource;
+import it.helpdesk.ui.interfaces.models.datasources.IPriorityDatasource;
+import it.helpdesk.ui.interfaces.models.datasources.IServiceCategoryDatasource;
+import it.helpdesk.ui.interfaces.models.datasources.IStatusDatasource;
 import it.helpdesk.ui.interfaces.models.datasources.ITechnicianDatasource;
+import it.helpdesk.ui.interfaces.models.datasources.ITicketDatasource;
 
 /**
  * Model class to handle the communication between the application and the database.
@@ -53,5 +58,35 @@ public class MemoryDatasourceConfiguration implements IDatasourceConfiguration {
 	@Override
 	public ITechnicianDatasource getTechnicianDatasource() {
 		return datasource;
+	}
+
+	@Override
+	public ICustomerDatasource getCustomerDatasource() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public IPriorityDatasource getPriorityDatasource() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public IServiceCategoryDatasource getServiceCategoryDatasource() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public IStatusDatasource getStatusDatasource() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ITicketDatasource getTickeDatasource() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

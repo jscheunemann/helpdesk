@@ -18,14 +18,14 @@
  * 
  */
 
-package it.helpdesk.datasources.hibernate;
+package it.helpdesk.datasources.hibernate.models;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import it.helpdesk.ui.interfaces.models.IPriority;
+import it.helpdesk.ui.interfaces.models.IServiceCategory;
 
 /**
  * Model class to handle the communication between the application and the database.
@@ -35,53 +35,54 @@ import it.helpdesk.ui.interfaces.models.IPriority;
  * @since	2014-11-29
  */
 @Entity
-@Table(name = "Priority")
-public class Priority implements IPriority {
+@Table(name = "ServiceCategory")
+public class ServiceCategory implements IServiceCategory {
+	
 	/**
-	 * Contains the ID of the current record's priority
+	 * Contains the ID of the current record's service category
 	 */
 	@Id
 	@GeneratedValue
 	private long id;
 	
 	/**
-	 * Contains the name of the current record's priority
+	 * Contains the name of the current record's service category
 	 */
-	private String priorityName;
-	
+	private String serviceCategory;
+
 	/**
-	 * Method to retrieve the ID of the current record's priority
+	 * Method to retrieve the current record's service category ID.
 	 * 
-	 * @return a long value containing the ID of the current record's priority
+	 * @return a long value of the current record's service category
 	 */
 	public long getId() {
 		return this.id;
 	}
 
 	/**
-	 * Method to set the ID of the current record's priority
+	 * Method to set the current record's service category ID.
 	 * 
-	 * @param id a long value containing the ID of the current record's priority
+	 * @param id a long value of the current record's service category
 	 */
 	public void setId(long id) {
 		this.id = id;
 	}
 
 	/**
-	 * Method to retrieve the name of the current record's priority
+	 * Method to retrieve the current record's service category name.
 	 * 
-	 * @return a String value containing the name of the current record's priority
+	 * @return a String value of the current record's service category
 	 */
-	public String getPriorityName() {
-		return this.priorityName;
+	public String getCategoryName() {
+		return this.serviceCategory;
 	}
 
 	/**
-	 * Method to set the name of the current record's priority
+	 * Method to set the current record's service category name.
 	 * 
-	 * @param priorityName a String value containing the name of the current record's priority
+	 * @param serviceCategory a String value of the current record's service category
 	 */
-	public void setPriorityName(String priorityName) {
-		this.priorityName = priorityName;
+	public void setCategoryName(String serviceCategory) {
+		this.serviceCategory = serviceCategory;
 	}
 }
