@@ -27,28 +27,60 @@ import javax.persistence.Table;
 
 import it.helpdesk.ui.interfaces.models.IStatus;
 
+/**
+ * Model class to handle the communication between the application and the database.
+ * 
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-11-29
+ */
 @Entity
 @Table(name = "Status")
 public class Status implements IStatus {
+	/**
+	 * Contains the ID of the current ticket's status.
+	 */
 	@Id
 	@GeneratedValue
 	private long id;
 	
+	/**
+	 * Contains the name of the current ticket's status.
+	 */
 	private String statusName;
 
-	
+	/**
+	 * Method to retrieve the current record's status ID.
+	 * 
+	 * @return a long value of the current record's status
+	 */
 	public long getId() {
 		return this.id;
 	}
 
+	/**
+	 * Method to set the current record's status ID.
+	 * 
+	 * @param id a long value of the current record's status
+	 */
 	public void setId(long id) {
 		this.id = id;
 	}
 
+	/**
+	 * Method to retrieve the current record's status name.
+	 * 
+	 * @return a String value of the current record's status
+	 */
 	public String getStatusName() {
 		return this.statusName;
 	}
 
+	/**
+	 * Method to set the current record's status name.
+	 * 
+	 * @param statusName a String value of the current record's status
+	 */
 	public void setStatusName(String statusName) {
 		this.statusName = statusName;
 	}
