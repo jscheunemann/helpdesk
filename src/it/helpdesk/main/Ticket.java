@@ -124,7 +124,7 @@ public class Ticket {
 					return 0;    			
 				case HARDWARE:
 					return 1;    			
-				case SOFTAWARE:
+				case SOFTWARE:
 					return 2;    			
 				case DATABASE:
 					return 3;  
