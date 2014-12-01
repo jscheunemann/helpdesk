@@ -253,6 +253,7 @@ public class MainForm extends JFrame implements IMain {
 			dbInterface.addNewTicket(newTicket);
 			uniqueTicketId++;
 			updateActiveTable();
+			updateInactiveTable();
 		}
 	}
 
@@ -279,6 +280,7 @@ public class MainForm extends JFrame implements IMain {
 		if(editTicket != null){
 			dbInterface.updateActiveTicket(editTicket);
 			updateActiveTable();
+			updateInactiveTable();
 		}
 	}
 
