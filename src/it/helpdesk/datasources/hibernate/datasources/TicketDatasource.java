@@ -23,59 +23,126 @@ package it.helpdesk.datasources.hibernate.datasources;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.*;
+
+import it.helpdesk.datasources.hibernate.HibernateUtil;
 import it.helpdesk.ui.interfaces.models.*;
 import it.helpdesk.ui.interfaces.models.datasources.ITicketDatasource;
 
 public class TicketDatasource implements ITicketDatasource{
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ITicket> getTickets() {
-		// TODO Auto-generated method stub
-		return null;
+			List<ITicket> tickets = null;
+			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+			Session session = sessionFactory.openSession();
+
+			tickets = (List<ITicket>) session.createQuery("from Ticket").list();
+			session.close();
+
+			return tickets;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ITicket> getOpenTickets() {
-		// TODO Auto-generated method stub
-		return null;
+		List<ITicket> tickets = null;
+		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = sessionFactory.openSession();
+
+		tickets = (List<ITicket>) session.createQuery("from Ticket where completed_on is null").list();
+		session.close();
+
+		return tickets;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ITicket> getClosedTickets() {
-		// TODO Auto-generated method stub
-		return null;
+		List<ITicket> tickets = null;
+		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = sessionFactory.openSession();
+
+		tickets = (List<ITicket>) session.createQuery("from Ticket where completed_on is not null").list();
+		session.close();
+
+		return tickets;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ITicket> getTicketsByTechnician(ITechnician technician) {
-		// TODO Auto-generated method stub
-		return null;
+		List<ITicket> tickets = null;
+		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		
+		Query query = session.createQuery("from Ticket where technician_id = :id");
+		query.setParameter("id", technician.getId());
+		
+		tickets = (List<ITicket>) query.list();
+		
+		session.close();
+
+		return tickets;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ITicket> getOpenTicketsByTechnician(ITechnician technician) {
-		// TODO Auto-generated method stub
-		return null;
+		List<ITicket> tickets = null;
+		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		
+		Query query = session.createQuery("from Ticket where completed_on is null and technician_id = :id");
+		query.setParameter("id", technician.getId());
+		
+		tickets = (List<ITicket>) query.list();
+		
+		session.close();
+
+		return tickets;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ITicket> getClosedTicketsByTechnician(ITechnician technician) {
-		// TODO Auto-generated method stub
-		return null;
+		List<ITicket> tickets = null;
+		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		
+		Query query = session.createQuery("from Ticket where completed_on is not null and technician_id = :id");
+		query.setParameter("id", technician.getId());
+		
+		tickets = (List<ITicket>) query.list();
+		
+		session.close();
+
+		return tickets;
 	}
 
 	@Override
 	public ITicket getTicketById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		ITicket ticket = null;
+		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		
+		Query query = session.createQuery("from Ticket where id = :id");
+		query.setParameter("id", id);
+		
+		ticket = (ITicket) query.list().get(0);
+		
+		session.close();
+
+		return ticket;
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public void saveTicket(ITicket ticket, IServiceCategory serviceCategory,
 			IPriority priority, IStatus status, ITechnician technician,
 			Date openedOn, Date closedOn, ICustomer customer, String summary,
 			List logEntries) {
-		// TODO Auto-generated method stub
 		
 	}
 }
