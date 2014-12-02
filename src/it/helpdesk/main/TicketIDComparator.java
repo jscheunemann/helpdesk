@@ -22,9 +22,22 @@ package it.helpdesk.main;
 
 import java.util.Comparator;
 
+/**
+ * TicketIDComparator class comparator class of ticket using ID as the key
+ *
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-12-01
+ */
 public class TicketIDComparator implements Comparator<Ticket>{
 
 	@Override
+	/**
+	 * Method used to compare between 2 tickets.
+	 * @param o1 contains object Ticket to compare
+	 * @param o2 contains object Ticket to compare
+	 * 
+	 */
 	public int compare(Ticket o1, Ticket o2) {
 		// TODO Auto-generated method stub
 		return (int) (o1.getID() - o2.getID());

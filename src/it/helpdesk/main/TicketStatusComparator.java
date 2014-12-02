@@ -22,9 +22,22 @@ package it.helpdesk.main;
 
 import java.util.Comparator;
 
+/**
+ * TicketStatusComparator class comparator class of ticket using status as the key
+ *
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-12-01
+ */
 public class TicketStatusComparator implements Comparator<Ticket>{
 
 	@Override
+	/**
+	 * Method used to compare between 2 tickets.
+	 * @param o1 contains object Ticket to compare
+	 * @param o2 contains object Ticket to compare
+	 * 
+	 */
 	public int compare(Ticket o1, Ticket o2) {
 		// TODO Auto-generated method stub
 		return Ticket.StatusEnum.toInt(o1.getStatus()) - Ticket.StatusEnum.toInt(o2.getStatus());

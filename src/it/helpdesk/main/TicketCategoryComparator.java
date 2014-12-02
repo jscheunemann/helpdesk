@@ -22,9 +22,22 @@ package it.helpdesk.main;
 
 import java.util.Comparator;
 
+/**
+ * TicketCategoryComparator class comparator class of ticket using category as the key
+ *
+ * @author	Helpdesk Tracker Team
+ * @version	1.0
+ * @since	2014-12-01
+ */
 public class TicketCategoryComparator  implements Comparator<Ticket>{
 
 	@Override
+	/**
+	 * Method used to compare between 2 tickets.
+	 * @param o1 contains object Ticket to compare
+	 * @param o2 contains object Ticket to compare
+	 * 
+	 */
 	public int compare(Ticket o1, Ticket o2) {
 		// TODO Auto-generated method stub
 		return Ticket.ServiceCatEnum.toInt(o1.getServiceCat()) - Ticket.ServiceCatEnum.toInt(o2.getServiceCat());
