@@ -432,9 +432,9 @@ public class AddEditTicket extends JDialog {
 		txtFldSummary.setText(ticket.getSummary());
 		txtFldComplDate.setText(String.valueOf(ticket.getCompleteDate()));
 	
-		cbBoxPriority.setSelectedItem(ticket.getPriority());
-		cbBoxSerCategory.setSelectedItem(ticket.getServiceCat());
-		cbBoxStatus.setSelectedItem(ticket.getStatus());
+		cbBoxPriority.setSelectedIndex(Ticket.PriorityEnum.toInt(ticket.getPriority()));
+		cbBoxSerCategory.setSelectedIndex(Ticket.ServiceCatEnum.toInt(ticket.getServiceCat()));
+		cbBoxStatus.setSelectedIndex(Ticket.StatusEnum.toInt(ticket.getStatus()));
 		
 		txtAreaLog.setText(ticket.getLog());
 		txtAreaDescription.setText(ticket.getDescription());
