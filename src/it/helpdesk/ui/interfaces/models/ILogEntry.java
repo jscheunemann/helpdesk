@@ -38,6 +38,20 @@ public interface ILogEntry {
 	public void setId(long id);
 	
 	/**
+	 * Method to get the ticket id
+	 * 
+	 * @return the ticket id
+	 */
+	public long getTicketId();
+	
+	/**
+	 * Method to set the ticket id
+	 * 
+	 * @param the ticket id
+	 */
+	public void setTicketId(long ticketId);
+	
+	/**
 	 * Method to get the date the log entry was created
 	 * 
 	 * @return the date the log entry was created

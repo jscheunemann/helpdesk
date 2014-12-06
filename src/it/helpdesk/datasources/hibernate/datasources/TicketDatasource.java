@@ -26,13 +26,13 @@ import java.util.List;
 import org.hibernate.*;
 
 import it.helpdesk.datasources.hibernate.HibernateUtil;
+import it.helpdesk.datasources.hibernate.models.Ticket;
 import it.helpdesk.ui.interfaces.models.*;
 import it.helpdesk.ui.interfaces.models.datasources.ITicketDatasource;
 
 public class TicketDatasource implements ITicketDatasource{
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public List<ITicket> getTickets() {
 			List<ITicket> tickets = null;
 			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -45,7 +45,6 @@ public class TicketDatasource implements ITicketDatasource{
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public List<ITicket> getOpenTickets() {
 		List<ITicket> tickets = null;
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -58,7 +57,6 @@ public class TicketDatasource implements ITicketDatasource{
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public List<ITicket> getClosedTickets() {
 		List<ITicket> tickets = null;
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -71,7 +69,6 @@ public class TicketDatasource implements ITicketDatasource{
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public List<ITicket> getTicketsByTechnician(ITechnician technician) {
 		List<ITicket> tickets = null;
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -88,7 +85,6 @@ public class TicketDatasource implements ITicketDatasource{
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public List<ITicket> getOpenTicketsByTechnician(ITechnician technician) {
 		List<ITicket> tickets = null;
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -105,7 +101,6 @@ public class TicketDatasource implements ITicketDatasource{
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public List<ITicket> getClosedTicketsByTechnician(ITechnician technician) {
 		List<ITicket> tickets = null;
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -121,7 +116,6 @@ public class TicketDatasource implements ITicketDatasource{
 		return tickets;
 	}
 
-	@Override
 	public ITicket getTicketById(long id) {
 		ITicket ticket = null;
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -138,11 +132,39 @@ public class TicketDatasource implements ITicketDatasource{
 	}
 
 	@SuppressWarnings("rawtypes")
-	@Override
-	public void saveTicket(ITicket ticket, IServiceCategory serviceCategory,
+	public void saveTicket(ITicket ticket, ITechnician openedBy, IServiceCategory serviceCategory,
 			IPriority priority, IStatus status, ITechnician technician,
-			Date openedOn, Date closedOn, ICustomer customer, String summary,
-			List logEntries) {
+			Date openedOn, Date closedOn, ICustomer customer, String summary) {
 		
+		boolean newTicket = false;
+		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = sessionFactory.openSession();
+
+		if (ticket == null) {
+			ticket = new Ticket();
+			newTicket = true;
+		}
+		
+		ticket.setOpenedBy(openedBy);
+		ticket.setServiceCategory(serviceCategory);
+		ticket.setPriority(priority);
+		ticket.setStatus(status);
+		ticket.setTechnician(technician);
+		ticket.setOpenedOn(openedOn);
+		ticket.setCompletedOn(closedOn);
+		ticket.setCustomer(customer);
+		ticket.setSummary(summary);
+		
+		session.beginTransaction();
+		
+		if (newTicket) {
+			session.save(ticket);
+		}
+		else {
+			session.update(ticket);
+		}
+	
+		session.getTransaction().commit();
+		session.close();
 	}
 }

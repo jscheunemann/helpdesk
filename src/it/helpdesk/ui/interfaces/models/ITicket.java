@@ -46,6 +46,20 @@ public interface ITicket {
 	public void setId(long id);
 	
 	/**
+	 * Method to set who opened the ticket
+	 * 
+	 * @param the technician that opened the ticket
+	 */
+	public void setOpenedBy(ITechnician technician);
+	
+	/**
+	 * Method to get who opened the ticket
+	 * 
+	 * @return the technician that opened the ticket
+	 */
+	public ITechnician getOpenedBy();
+	
+	/**
 	 * Method to retrieve the current service category object.
 	 * 
 	 * @return an IServiceCategory object containing the current ticket service category 
@@ -170,4 +184,11 @@ public interface ITicket {
 	 * @param the description of the remediation efforts
 	 */
 	public void setLogEntries(List<ILogEntry> logEntries);
+	
+	/**
+	 * Method to add log entry to ticket
+	 * 
+	 * @param the log entry to add to the ticket
+	 */
+	public void addLogEntry(Date date, ITechnician technician, String description);
 }

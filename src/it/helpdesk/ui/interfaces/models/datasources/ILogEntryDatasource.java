@@ -21,19 +21,13 @@
 package it.helpdesk.ui.interfaces.models.datasources;
 
 import java.util.Date;
+import java.util.List;
 
 import it.helpdesk.ui.interfaces.models.ILogEntry;
 import it.helpdesk.ui.interfaces.models.ITechnician;
 import it.helpdesk.ui.interfaces.models.ITicket;
 
 public interface ILogEntryDatasource {
-	/**
-	 * Method to retrieve log entries for the specified ticket
-	 * 
-	 * @param ticket
-	 * @return
-	 */
-	public ILogEntry getLogEntryByTicket(ITicket ticket);
 	
 	/**
 	 * Method to save log entry
@@ -44,6 +38,7 @@ public interface ILogEntryDatasource {
 	 * @param a description of the log entry
 	 */
 	public void saveLogEntry(ILogEntry logEntry,
+							 ITicket ticket,
 							 Date dateEntered, 
 							 ITechnician technician, 
 							 String logEntryDescription);

@@ -25,6 +25,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import it.helpdesk.datasources.hibernate.datasources.LogEntryDatasource;
 import it.helpdesk.ui.interfaces.models.ICustomer;
 import it.helpdesk.ui.interfaces.models.IPriority;
 import it.helpdesk.ui.interfaces.models.IServiceCategory;
@@ -49,6 +50,7 @@ public class Ticket implements ITicket {
 	@GeneratedValue
 	private long id;
 	
+	private Technician openedBy;
 	private ServiceCategory serviceCategory;
 	private Priority priority;
 	private Status status;
@@ -57,6 +59,13 @@ public class Ticket implements ITicket {
 	private Date completedOn;
 	private Customer customer;
 	private String summary;
+	
+	@OneToMany
+    @JoinTable(
+            name="Ticket_Log_Entries",
+            joinColumns = @JoinColumn( name="ticket_id"),
+            inverseJoinColumns = @JoinColumn( name="log_entry_id")
+    )
 	private List<LogEntry> logEntries;
 	
 	
@@ -76,6 +85,24 @@ public class Ticket implements ITicket {
 	 */
 	public void setId(long id) {
 		this.id = id;
+	}
+	
+	/**
+	 * Method to set who opened the ticket
+	 * 
+	 * @param the technician that opened the ticket
+	 */
+	public void setOpenedBy(ITechnician technician) {
+		this.openedBy = (Technician) technician;
+	}
+	
+	/**
+	 * Method to get who opened the ticket
+	 * 
+	 * @return the technician that opened the ticket
+	 */
+	public ITechnician getOpenedBy() {
+		return this.openedBy;
 	}
 
 	/**
@@ -240,5 +267,20 @@ public class Ticket implements ITicket {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void setLogEntries(List logEntries) {
 		this.logEntries = logEntries;
+	}
+
+	/**
+	 * Method to add log entry to ticket
+	 * 
+	 * @param the date the entry was made
+	 * @param the technician making the entry
+	 * @param the description of the log entry
+	 */
+	@Override
+	public void addLogEntry(Date date, ITechnician technician,
+			String description) {
+		LogEntryDatasource logEntryDatasource = new LogEntryDatasource();
+		
+		logEntryDatasource.saveLogEntry(null, this, date, technician, description);
 	}
 }

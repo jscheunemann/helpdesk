@@ -117,6 +117,11 @@ public interface ITicketFormView {
 	 */
 	public void setDateOpened(String dateEntered);
 	
+	/**
+	 * Method to set the client first name
+	 * 
+	 * @param clientFirstName
+	 */
 	public void setClientFirstName(String clientFirstName);
 	
 	public String getClientFirstName();

@@ -35,6 +35,7 @@ public class LogEntry implements ILogEntry {
 	@GeneratedValue
 	private long id;
 	
+	private long ticketId;
 	private Date dateEntered;
 	private Technician technician;
 	private String description;
@@ -55,6 +56,24 @@ public class LogEntry implements ILogEntry {
 	 */
 	public void setId(long id) {
 		this.id = id;
+	}
+	
+	/**
+	 * Method to get the ticket id
+	 * 
+	 * @return the ticket id
+	 */
+	public long getTicketId() {
+		return this.ticketId;
+	}
+	
+	/**
+	 * Method to set the ticket id
+	 * 
+	 * @param the ticket id
+	 */
+	public void setTicketId(long ticketId) {
+		this.ticketId = ticketId;
 	}
 
 	/**

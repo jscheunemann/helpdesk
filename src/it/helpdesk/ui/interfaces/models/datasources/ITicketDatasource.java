@@ -82,7 +82,7 @@ public interface ITicketDatasource {
 	 * @param the ticket information to be persisted
 	 */
 	@SuppressWarnings("rawtypes")
-	public void saveTicket(ITicket ticket, IServiceCategory serviceCategory, IPriority priority,
+	public void saveTicket(ITicket ticket, ITechnician openedBy, IServiceCategory serviceCategory, IPriority priority,
 			IStatus status, ITechnician technician, Date openedOn, Date closedOn, ICustomer customer,
-			String summary, List logEntries);
+			String summary);
 }
