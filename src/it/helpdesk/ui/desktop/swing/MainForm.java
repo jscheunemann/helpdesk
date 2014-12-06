@@ -32,6 +32,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.table.*;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -154,6 +155,16 @@ public class MainForm extends JFrame implements IMain {
 				}
 			}
 		});
+		JTableHeader activeHeader = tableActiveTicket.getTableHeader();
+		activeHeader.setUpdateTableInRealTime(true);
+		activeHeader.addMouseListener(new MouseAdapter(){
+			public void mouseClicked(MouseEvent e){
+				int colNum = tableActiveTicket.columnAtPoint(e.getPoint());
+				System.out.println(colNum);
+				sortTable(colNum, true);
+				}
+		});
+		
 		JPanel pnlInactiveTicket = new JPanel();
 		tabbedPane.addTab("Archive Tickets", null, pnlInactiveTicket, null);
 		pnlInactiveTicket.setLayout(layout);
@@ -253,7 +264,9 @@ public class MainForm extends JFrame implements IMain {
 			dbInterface.addNewTicket(newTicket);
 			uniqueTicketId++;
 			updateActiveTable();
+			updateInactiveTable();
 		}
+		
 	}
 
 	/**
@@ -279,6 +292,7 @@ public class MainForm extends JFrame implements IMain {
 		if(editTicket != null){
 			dbInterface.updateActiveTicket(editTicket);
 			updateActiveTable();
+			updateInactiveTable();
 		}
 	}
 
@@ -303,40 +317,57 @@ public class MainForm extends JFrame implements IMain {
 
 		List<Ticket> currentTicketList = dbInterface.queryActiveTicket();
 
-		int a = model.getRowCount();
-		int b = (int) currentTicketList.size();
-
-		if (a < b) {
-			for (int i = 0; i < (b - a); i++)
-				model.addRow(new Object[] { null, null, null, null, null, null, null }); // Add
-			// more
-			// rows
-		}
-
-		for (int i = 0; i < a; i++) { // Clear table
-
-			model.setValueAt("", i, 0);
-			model.setValueAt("", i, 1);
-			model.setValueAt("", i, 2);
-			model.setValueAt("", i, 3);
-			model.setValueAt("", i, 4);
-			model.setValueAt("", i, 5);
-		}
-
-		if (b > 0) {
-
-			for (int i = 0; i < b; i++) { // UPdate values into table
-
-				model.setValueAt(currentTicketList.get(i).getID(), i,0 );
-				model.setValueAt(currentTicketList.get(i).getPriority(), i,1 );
-				model.setValueAt(currentTicketList.get(i).getStatus(), i,2 );
-				model.setValueAt(currentTicketList.get(i).getServiceCat(), i,3 );
-				model.setValueAt(currentTicketList.get(i).getClient(), i,4 );
-				model.setValueAt(currentTicketList.get(i).getSummary(), i,5 );
-				model.setValueAt(currentTicketList.get(i).getOpenedDate(), i,6 );
-
+		int newSize = (int) currentTicketList.size();
+		int rowIndex =0;
+		while(rowIndex < newSize){  
+			if(!(rowIndex < model.getRowCount())){ //Adds row if needed
+				model.addRow(new Object[] { null, null, null, null, null, null, null });
 			}
+			// Updates existing row if a row already exists. If new row was created, that will be updated here. 
+			model.setValueAt(currentTicketList.get(rowIndex).getID(), rowIndex,0 );
+			model.setValueAt(currentTicketList.get(rowIndex).getPriority(), rowIndex,1 );
+			model.setValueAt(currentTicketList.get(rowIndex).getStatus(), rowIndex,2 );
+			model.setValueAt(currentTicketList.get(rowIndex).getServiceCat(), rowIndex,3 );
+			model.setValueAt(currentTicketList.get(rowIndex).getClient(), rowIndex,4 );
+			model.setValueAt(currentTicketList.get(rowIndex).getSummary(), rowIndex,5 );
+			model.setValueAt(currentTicketList.get(rowIndex).getOpenedDate(), rowIndex,6 );
+			rowIndex++;
 		}
+		
+//		int a = model.getRowCount();
+//		int b = (int) currentTicketList.size();
+//
+//		if (a < b) {
+//			for (int i = 0; i < (b - a); i++)
+//				model.addRow(new Object[] { null, null, null, null, null, null, null }); // Add
+//			// more
+//			// rows
+//		}
+//
+//		for (int i = 0; i < a; i++) { // Clear table
+//
+//			model.setValueAt("", i, 0);
+//			model.setValueAt("", i, 1);
+//			model.setValueAt("", i, 2);
+//			model.setValueAt("", i, 3);
+//			model.setValueAt("", i, 4);
+//			model.setValueAt("", i, 5);
+//		}
+//
+//		if (b > 0) {
+//
+//			for (int i = 0; i < b; i++) { // UPdate values into table
+//
+//				model.setValueAt(currentTicketList.get(i).getID(), i,0 );
+//				model.setValueAt(currentTicketList.get(i).getPriority(), i,1 );
+//				model.setValueAt(currentTicketList.get(i).getStatus(), i,2 );
+//				model.setValueAt(currentTicketList.get(i).getServiceCat(), i,3 );
+//				model.setValueAt(currentTicketList.get(i).getClient(), i,4 );
+//				model.setValueAt(currentTicketList.get(i).getSummary(), i,5 );
+//				model.setValueAt(currentTicketList.get(i).getOpenedDate(), i,6 );
+//
+//			}
+//		}
 	}
 	
 	/**
@@ -391,5 +422,36 @@ public class MainForm extends JFrame implements IMain {
 	public int getInactiveSelectedRow() {
 		int selectedRow = tableInactiveTicket.getSelectedRow();
 		return Integer.valueOf(tableInactiveTicket.getValueAt(selectedRow, 0).toString());
+	}
+	
+	/**
+	 * Method to sort the view of active ticket list.
+	 * 
+	 */
+	public void sortTable(int column, boolean active) {
+		switch(column){
+		case 0:
+			dbInterface.sortByID(active);
+			break;
+		case 1:
+			dbInterface.sortByPriority(active);
+			break;
+		case 2:
+			dbInterface.sortByStatus(active);
+			break;
+		case 3:
+			dbInterface.sortByCategory(active);
+			break;
+		case 4:
+			dbInterface.sortByClient(active);
+			break;
+		case 6:
+			dbInterface.sortByOpenedDate(active);
+			break;
+		}
+		if(active)
+			updateActiveTable();
+		else
+			updateInactiveTable();
 	}
 }

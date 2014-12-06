@@ -23,6 +23,7 @@ package it.helpdesk.main;
 import it.helpdesk.main.Ticket.StatusEnum;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -167,4 +168,78 @@ public class DBInterface {
 	public List<Ticket> queryInactiveTicket() {
 		return inActiveTicketList;
 	}
+	
+	/**
+	 * Method to sort ticket list by ID.
+	 * @param active boolean select between active and inactive list
+	 * 
+	 */ 	
+	public void sortByID(boolean active) {
+		if(active)
+			Collections.sort(activeTicketList, new TicketIDComparator());
+		else
+			Collections.sort(inActiveTicketList, new TicketIDComparator());
+	}
+	
+	/**
+	 * Method to sort ticket list by priority.
+	 * @param active boolean select between active and inactive list
+	 * 
+	 */ 	
+	public void sortByPriority(boolean active) {
+		if(active)
+			Collections.sort(activeTicketList, new TicketPriorityComparator());		
+		else
+			Collections.sort(inActiveTicketList, new TicketPriorityComparator());		
+	}
+	
+	/**
+	 * Method to sort ticket list by status.
+	 * @param active boolean select between active and inactive list
+	 * 
+	 */ 	
+	public void sortByStatus(boolean active) {
+		if(active)
+			Collections.sort(activeTicketList, new TicketStatusComparator());		
+		else
+			Collections.sort(inActiveTicketList, new TicketStatusComparator());		
+	}
+
+	/**
+	 * Method to sort ticket list by category.
+	 * @param active boolean select between active and inactive list
+	 * 
+	 */ 	
+	public void sortByCategory(boolean active) {
+		if(active)
+			Collections.sort(activeTicketList, new TicketCategoryComparator());		
+		else
+			Collections.sort(inActiveTicketList, new TicketCategoryComparator());					
+	}
+
+	/**
+	 * Method to sort ticket list by client name.
+	 * @param active boolean select between active and inactive list
+	 * 
+	 */ 	
+	public void sortByClient(boolean active) {
+		if(active)
+			Collections.sort(activeTicketList, new TicketClientComparator());		
+		else
+			Collections.sort(inActiveTicketList, new TicketClientComparator());		
+			
+	}
+
+	/**
+	 * Method to sort ticket list by opened date.
+	 * @param active boolean select between active and inactive list
+	 * 
+	 */ 	
+	public void sortByOpenedDate(boolean active) {
+		if(active)
+			Collections.sort(activeTicketList, new TicketDateComparator());		
+		else
+			Collections.sort(inActiveTicketList, new TicketDateComparator());		
+	}
+	
 }

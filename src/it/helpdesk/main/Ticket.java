@@ -58,27 +58,28 @@ public class Ticket {
 			
 			return null;
 		}
-	}
 
-	/**
-	 * Method to return the index value of the priority passed to the method.
-	 * 
-	 * @param j contains a PriorityEnum reference
-	 * @return  an int value of the PriorityEnum reference
-	 */
-	public static int toInt(PriorityEnum j){
-		switch(j) {
-			case LOW: 
-				return 0;    			
-			case MEDIUM:
-				return 1;    			
-			case HIGH:
-				return 2;    			
-			case URGENT:
-				return 3;   		
+		/**
+		 * Method to return the index value of the priority passed to the method.
+		 * 
+		 * @param j contains a PriorityEnum reference
+		 * @return  an int value of the PriorityEnum reference
+		 */
+		public static int toInt(PriorityEnum j){
+			switch(j) {
+				case LOW: 
+					return 0;    			
+				case MEDIUM:
+					return 1;    			
+				case HIGH:
+					return 2;    			
+				case URGENT:
+					return 3;   		
+			}
+
+			return 0;
 		}
-
-		return 0;
+		
 	}
 
 	/**
