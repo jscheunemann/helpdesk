@@ -113,18 +113,92 @@ public class DBInterface {
 	 */
 	public void updateActiveTicket(Ticket ticket)
 	{
-		Iterator<Ticket> itr = activeTicketList.iterator();
-		
-		while(itr.hasNext()){
-			Ticket t = (Ticket) itr.next();
-			if(ticket.getID() == t.getID()){
-			}
-		}
-		for(int i = 0; i < activeTicketList.size(); i++){
-			if(activeTicketList.get(i).getID() == ticket.getID()){
-				activeTicketList.set(i, ticket);
-				break;
-			}
+		StatusEnum status =ticket.getStatus();
+		switch (status) {
+		        case NEW: {
+		        	// remove ticket from inactive if it is there
+		        	inActiveTicketList.remove(ticket); 
+		        	// find and update listing in active table if it's there
+		        	if(activeTicketList.contains(ticket)){
+		        		activeTicketList.set(activeTicketList.indexOf(ticket), ticket);
+		        	}else{
+		        		// Otherwise add it new to the active list
+		        		activeTicketList.add(ticket);
+		        	}
+		            break;
+		        }	
+		        case IN_PROGRESS: {
+		        	// remove ticket from inactive if it is there
+		        	inActiveTicketList.remove(ticket); 
+		        	// find and update listing in active table if it's there
+		        	if(activeTicketList.contains(ticket)){
+		        		activeTicketList.set(activeTicketList.indexOf(ticket), ticket);
+		        	}else{
+		        		// Otherwise add it new to the active list
+		        		activeTicketList.add(ticket);
+		        	}
+		            break;
+		        }
+		        case WAIT_FOR_PROCESS: {
+		        	// remove ticket from inactive if it is there
+		        	inActiveTicketList.remove(ticket); 
+		        	// find and update listing in active table if it's there
+		        	if(activeTicketList.contains(ticket)){
+		        		activeTicketList.set(activeTicketList.indexOf(ticket), ticket);
+		        	}else{
+		        		// Otherwise add it new to the active list
+		        		activeTicketList.add(ticket);
+		        	}
+		                break;
+		        }
+		        case COMPLETE: {
+		        	// remove ticket from active if it is there
+		        	activeTicketList.remove(ticket); 
+		        	// find and update listing in inActive table if it's there
+		        	if(inActiveTicketList.contains(ticket)){
+		        		inActiveTicketList.set(inActiveTicketList.indexOf(ticket), ticket);
+		        	}else{
+		        		// Otherwise add it new to the inActive list
+		        		inActiveTicketList.add(ticket);
+		        	}
+		            break;
+		        }
+		        case WITHDRAWN: {
+		        	// remove ticket from active if it is there
+		        	activeTicketList.remove(ticket); 
+		        	// find and update listing in inActive table if it's there
+		        	if(inActiveTicketList.contains(ticket)){
+		        		inActiveTicketList.set(inActiveTicketList.indexOf(ticket), ticket);
+		        	}else{
+		        		// Otherwise add it new to the inActive list
+		        		inActiveTicketList.add(ticket);
+		        	}
+		            break;
+		        }
+		        case DELETE: {
+		        	// remove ticket from active if it is there
+		        	activeTicketList.remove(ticket); 
+		        	// find and update listing in inActive table if it's there
+		        	if(inActiveTicketList.contains(ticket)){
+		        		inActiveTicketList.set(inActiveTicketList.indexOf(ticket), ticket);
+		        	}else{
+		        		// Otherwise add it new to the inActive list
+		        		inActiveTicketList.add(ticket);
+		        	}
+		            break;
+		        }
+		        default: {
+		        	// remove ticket from inactive if it is there
+		        	inActiveTicketList.remove(ticket); 
+		        	// find and update listing in active table if it's there
+		        	if(activeTicketList.contains(ticket)){
+		        		activeTicketList.set(activeTicketList.indexOf(ticket), ticket);
+		        	}else{
+		        		// Otherwise add it new to the active list
+		        		activeTicketList.add(ticket);
+		        	}
+		        	break;
+		        }
 		}
 		
 	}
@@ -136,18 +210,92 @@ public class DBInterface {
 	 */
 	public void updateInactiveTicket(Ticket ticket)
 	{
-		Iterator<Ticket> itr = inActiveTicketList.iterator();
-		
-		while(itr.hasNext()){
-			Ticket t = (Ticket) itr.next();
-			if(ticket.getID() == t.getID()){
-			}
-		}
-		for(int i = 0; i < inActiveTicketList.size(); i++){
-			if(inActiveTicketList.get(i).getID() == ticket.getID()){
-				inActiveTicketList.set(i, ticket);
-				break;
-			}
+		StatusEnum status =ticket.getStatus();
+		switch (status) {
+		        case NEW: {
+		        	// remove ticket from inactive if it is there
+		        	inActiveTicketList.remove(ticket); 
+		        	// find and update listing in active table if it's there
+		        	if(activeTicketList.contains(ticket)){
+		        		activeTicketList.set(activeTicketList.indexOf(ticket), ticket);
+		        	}else{
+		        		// Otherwise add it new to the active list
+		        		activeTicketList.add(ticket);
+		        	}
+		            break;
+		        }	
+		        case IN_PROGRESS: {
+		        	// remove ticket from inactive if it is there
+		        	inActiveTicketList.remove(ticket); 
+		        	// find and update listing in active table if it's there
+		        	if(activeTicketList.contains(ticket)){
+		        		activeTicketList.set(activeTicketList.indexOf(ticket), ticket);
+		        	}else{
+		        		// Otherwise add it new to the active list
+		        		activeTicketList.add(ticket);
+		        	}
+		            break;
+		        }
+		        case WAIT_FOR_PROCESS: {
+		        	// remove ticket from inactive if it is there
+		        	inActiveTicketList.remove(ticket); 
+		        	// find and update listing in active table if it's there
+		        	if(activeTicketList.contains(ticket)){
+		        		activeTicketList.set(activeTicketList.indexOf(ticket), ticket);
+		        	}else{
+		        		// Otherwise add it new to the active list
+		        		activeTicketList.add(ticket);
+		        	}
+		                break;
+		        }
+		        case COMPLETE: {
+		        	// remove ticket from active if it is there
+		        	activeTicketList.remove(ticket); 
+		        	// find and update listing in inActive table if it's there
+		        	if(inActiveTicketList.contains(ticket)){
+		        		inActiveTicketList.set(inActiveTicketList.indexOf(ticket), ticket);
+		        	}else{
+		        		// Otherwise add it new to the inActive list
+		        		inActiveTicketList.add(ticket);
+		        	}
+		            break;
+		        }
+		        case WITHDRAWN: {
+		        	// remove ticket from active if it is there
+		        	activeTicketList.remove(ticket); 
+		        	// find and update listing in inActive table if it's there
+		        	if(inActiveTicketList.contains(ticket)){
+		        		inActiveTicketList.set(inActiveTicketList.indexOf(ticket), ticket);
+		        	}else{
+		        		// Otherwise add it new to the inActive list
+		        		inActiveTicketList.add(ticket);
+		        	}
+		            break;
+		        }
+		        case DELETE: {
+		        	// remove ticket from active if it is there
+		        	activeTicketList.remove(ticket); 
+		        	// find and update listing in inActive table if it's there
+		        	if(inActiveTicketList.contains(ticket)){
+		        		inActiveTicketList.set(inActiveTicketList.indexOf(ticket), ticket);
+		        	}else{
+		        		// Otherwise add it new to the inActive list
+		        		inActiveTicketList.add(ticket);
+		        	}
+		            break;
+		        }
+		        default: {
+		        	// remove ticket from inactive if it is there
+		        	inActiveTicketList.remove(ticket); 
+		        	// find and update listing in active table if it's there
+		        	if(activeTicketList.contains(ticket)){
+		        		activeTicketList.set(activeTicketList.indexOf(ticket), ticket);
+		        	}else{
+		        		// Otherwise add it new to the active list
+		        		activeTicketList.add(ticket);
+		        	}
+		        	break;
+		        }
 		}
 	}
 	
