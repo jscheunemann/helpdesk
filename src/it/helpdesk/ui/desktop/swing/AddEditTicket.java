@@ -24,6 +24,8 @@ import it.helpdesk.main.Ticket;
 import it.helpdesk.main.Ticket.PriorityEnum;
 import it.helpdesk.main.Ticket.ServiceCatEnum;
 import it.helpdesk.main.Ticket.StatusEnum;
+import it.helpdesk.ui.interfaces.ITicketFormController;
+import it.helpdesk.ui.interfaces.ITicketFormView;
 
 import java.awt.Dialog;
 
@@ -47,7 +49,9 @@ import javax.swing.JTextArea;
 import java.awt.Color;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 
@@ -62,11 +66,16 @@ import java.awt.event.ActionListener;
  * @version	1.0
  * @since	2014-11-26
  */
-public class AddEditTicket extends JDialog {
+public class AddEditTicket extends JDialog implements ITicketFormView {
 	/**
 	 * Variable contains static version number of the page
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * Variable for the view's controller
+	 */
+	private ITicketFormController controller;
 	
 	/**
 	 * Variable contains a JPanel used for the content pane
@@ -272,7 +281,6 @@ public class AddEditTicket extends JDialog {
 		
 		
 		cbBoxPriority = new JComboBox<String>();
-		cbBoxPriority.setModel(new DefaultComboBoxModel<String>(new String[] {"Low ", "Medium ", "High ", "Urgent"}));
 		cbBoxPriority.setBounds(440, 167, 206, 20);
 		pnl1.add(cbBoxPriority);
 		
@@ -306,12 +314,10 @@ public class AddEditTicket extends JDialog {
 		pnl1.add(btnAddInformation);
 		
 		cbBoxSerCategory = new JComboBox<String>();
-		cbBoxSerCategory.setModel(new DefaultComboBoxModel<String>(new String[] {"Access Issue", "Hardware", "Software", "Database", "Software Defect", "Inquiry"}));
 		cbBoxSerCategory.setBounds(131, 167, 203, 20);
 		pnl1.add(cbBoxSerCategory);
 		
 		cbBoxStatus = new JComboBox<String>();
-		cbBoxStatus.setModel(new DefaultComboBoxModel<String>(new String[] {"New ", "In Progress", "Wait for Process", "Withdrawn ", "Complete ", "Delete"}));
 		cbBoxStatus.setBounds(131, 198, 203, 20);
 		pnl1.add(cbBoxStatus);
 		
@@ -384,6 +390,8 @@ public class AddEditTicket extends JDialog {
 		panel.add(lblCreateTicket);
 		
 		this.setLocationRelativeTo(parent);
+		
+		this.open();
 	}
 	
 	/**
@@ -438,5 +446,211 @@ public class AddEditTicket extends JDialog {
 		
 		txtAreaLog.setText(ticket.getLog());
 		txtAreaDescription.setText(ticket.getDescription());
+	}
+
+	@Override
+	public void setController(ITicketFormController controller) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void open() {
+		List<String> statuses = new ArrayList<String>();
+		statuses.add("New");
+		statuses.add("In Progress");
+		statuses.add("Wait For Process");
+		statuses.add("Withdrawn");
+		statuses.add("Complete");
+		statuses.add("Delet");
+		
+		this.setStatuses(statuses);
+		
+		List<String> priorities = new ArrayList<String>();
+		priorities.add("Low");
+		priorities.add("Medium");
+		priorities.add("High");
+		priorities.add("Urgent");
+
+		this.setPriorities(priorities);
+		
+		List<String> serviceCategories = new ArrayList<String>();
+		serviceCategories.add("Access Issue");
+		serviceCategories.add("Hardware");
+		serviceCategories.add("Software");
+		serviceCategories.add("Database");
+		serviceCategories.add("Software Defect");
+		serviceCategories.add("Inquity");
+
+		this.setServiceCategories(serviceCategories);
+	}
+
+	@Override
+	public void close() {
+		this.dispose();
+	}
+
+	@Override
+	public void saveButtonPressed() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void cancelButtonPressed() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addInformationPressed() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setServiceCategories(List<String> categories) {
+		for (String category : categories) {
+			this.cbBoxSerCategory.addItem(category);
+		}
+	}
+
+	@Override
+	public void setPriorities(List<String> priorities) {
+		for (String priority : priorities) {
+			this.cbBoxPriority.addItem(priority);
+		}
+	}
+
+	@Override
+	public void setStatuses(List<String> statuses) {
+		for (String status : statuses) {
+			this.cbBoxStatus.addItem(status);
+		}
+	}
+
+	@Override
+	public void setSelectedServiceCategory(String selectedServiceCategory) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getSelectedServiceCategory() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSelectedPriority(String selectedPriority) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getSelectedPriority() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSelectedStatus(String selectedStatus) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getSelectedStatus() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setDateOpened(String dateEntered) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setClientFirstName(String clientFirstName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getClientFirstName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setClientLastName(String clientLastName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getClientLastName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setClientPhoneNumber(String clientPhoneNumber) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getClientPhoneNumber() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setClientEmailAddress(String clientEmailAddress) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getClientEmailAddress() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSummary(String summary) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getSummary() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getInformationToAddText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setLogText(String logText) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showValidationErrorDialog() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setViewTitle(String title) {
+		this.setTitle(title);
 	}
 }

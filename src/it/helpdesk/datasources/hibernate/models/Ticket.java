@@ -63,8 +63,8 @@ public class Ticket implements ITicket {
 	@OneToMany
     @JoinTable(
             name="Ticket_Log_Entries",
-            joinColumns = @JoinColumn( name="ticket_id"),
-            inverseJoinColumns = @JoinColumn( name="log_entry_id")
+            joinColumns = @JoinColumn(name="ticket_id"),
+            inverseJoinColumns = @JoinColumn(name="log_entry_id")
     )
 	private List<LogEntry> logEntries;
 	
