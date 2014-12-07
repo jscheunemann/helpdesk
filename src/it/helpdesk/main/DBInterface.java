@@ -38,12 +38,12 @@ public class DBInterface {
 	/**
 	 * Array of Ticket objects containing the active tickets in the database.
 	 */
-	List<Ticket> activeTicketList;
+	ArrayList<Ticket> activeTicketList;
 	
 	/**
 	 * Array of Ticket objects containing the inactive tickets in the database.
 	 */
-	List<Ticket> inActiveTicketList;
+	ArrayList<Ticket> inActiveTicketList;
 	
 	/**
 	 * Default constructor for the class.  Initializes the array local variables.
