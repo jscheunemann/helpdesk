@@ -424,9 +424,8 @@ public class MainForm extends JFrame implements IMain {
 			dbInterface.sortByOpenedDate(active);
 			break;
 		}
-		if(active)
-			updateActiveTable();
-		else
-			updateInactiveTable();
+		
+		updateActiveTable();
+		updateInactiveTable();
 	}
 }

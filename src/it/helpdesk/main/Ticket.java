@@ -487,4 +487,16 @@ public class Ticket {
 	public void setLog(String Log){
 		log = Log;
 	}
+	
+	/**
+	 * Compares two tickets to see if they are the same ticket. 
+	 * @return Returns true if the tickets have the same Ticket ID, False otherwise. 
+	 */
+	public boolean equals(Ticket ticket){
+		if(this.getID()== ticket.getID()){
+			return true;
+		}
+		return false;
+		
+	}
 }
