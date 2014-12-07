@@ -36,7 +36,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * View class containing the Main form for the application containg the list of 
+ * View class containing the Main form for the application containing the list of 
  * Active and Archive tickets.
  *
  * @author	Helpdesk Tracker Team
@@ -156,7 +156,6 @@ public class MainForm extends JFrame implements IMain {
 			}
 		});
 		JTableHeader activeHeader = tableActiveTicket.getTableHeader();
-		activeHeader.setUpdateTableInRealTime(true);
 		activeHeader.addMouseListener(new MouseAdapter(){
 			public void mouseClicked(MouseEvent e){
 				int colNum = tableActiveTicket.columnAtPoint(e.getPoint());
@@ -334,40 +333,6 @@ public class MainForm extends JFrame implements IMain {
 			rowIndex++;
 		}
 		
-//		int a = model.getRowCount();
-//		int b = (int) currentTicketList.size();
-//
-//		if (a < b) {
-//			for (int i = 0; i < (b - a); i++)
-//				model.addRow(new Object[] { null, null, null, null, null, null, null }); // Add
-//			// more
-//			// rows
-//		}
-//
-//		for (int i = 0; i < a; i++) { // Clear table
-//
-//			model.setValueAt("", i, 0);
-//			model.setValueAt("", i, 1);
-//			model.setValueAt("", i, 2);
-//			model.setValueAt("", i, 3);
-//			model.setValueAt("", i, 4);
-//			model.setValueAt("", i, 5);
-//		}
-//
-//		if (b > 0) {
-//
-//			for (int i = 0; i < b; i++) { // UPdate values into table
-//
-//				model.setValueAt(currentTicketList.get(i).getID(), i,0 );
-//				model.setValueAt(currentTicketList.get(i).getPriority(), i,1 );
-//				model.setValueAt(currentTicketList.get(i).getStatus(), i,2 );
-//				model.setValueAt(currentTicketList.get(i).getServiceCat(), i,3 );
-//				model.setValueAt(currentTicketList.get(i).getClient(), i,4 );
-//				model.setValueAt(currentTicketList.get(i).getSummary(), i,5 );
-//				model.setValueAt(currentTicketList.get(i).getOpenedDate(), i,6 );
-//
-//			}
-//		}
 	}
 	
 	/**
