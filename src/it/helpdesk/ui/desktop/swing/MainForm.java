@@ -30,6 +30,8 @@ import java.awt.event.*;
 
 import javax.swing.*;
 import javax.swing.border.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.table.*;
 
 import java.util.Collections;
@@ -167,6 +169,13 @@ public class MainForm extends JFrame implements IMain {
 		JPanel pnlInactiveTicket = new JPanel();
 		tabbedPane.addTab("Archive Tickets", null, pnlInactiveTicket, null);
 		pnlInactiveTicket.setLayout(layout);
+		
+		tabbedPane.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent event){
+				updateActiveTable();
+				updateInactiveTable();
+			}
+		});
 
 		JScrollPane scrollPane = new JScrollPane();
 		pnlInactiveTicket.add(scrollPane);
@@ -262,10 +271,10 @@ public class MainForm extends JFrame implements IMain {
 		if(newTicket != null){
 			dbInterface.addNewTicket(newTicket);
 			uniqueTicketId++;
-			updateActiveTable();
-			updateInactiveTable();
+			
 		}
-		
+		updateActiveTable();
+		updateInactiveTable();
 	}
 
 	/**
@@ -290,9 +299,10 @@ public class MainForm extends JFrame implements IMain {
 		Ticket editTicket = newTicketDialog.getSaveTicket();
 		if(editTicket != null){
 			dbInterface.updateActiveTicket(editTicket);
-			updateActiveTable();
-			updateInactiveTable();
+			
 		}
+		updateActiveTable();
+		updateInactiveTable();
 	}
 
 	/**
