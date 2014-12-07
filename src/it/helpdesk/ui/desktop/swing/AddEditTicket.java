@@ -462,7 +462,7 @@ public class AddEditTicket extends JDialog implements ITicketFormView {
 		statuses.add("Wait For Process");
 		statuses.add("Withdrawn");
 		statuses.add("Complete");
-		statuses.add("Delet");
+		statuses.add("Delete");
 		
 		this.setStatuses(statuses);
 		
