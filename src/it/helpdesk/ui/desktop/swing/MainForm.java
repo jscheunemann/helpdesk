@@ -323,7 +323,6 @@ public class MainForm extends JFrame implements IMain {
 		// to right
 		DefaultTableModel model = (DefaultTableModel) tableActiveTicket
 				.getModel(); // Set value to table
-
 		List<Ticket> currentTicketList = dbInterface.queryActiveTicket();
 
 		int newSize = (int) currentTicketList.size();
