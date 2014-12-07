@@ -492,9 +492,11 @@ public class Ticket {
 	 * Compares two tickets to see if they are the same ticket. 
 	 * @return Returns true if the tickets have the same Ticket ID, False otherwise. 
 	 */
-	public boolean equals(Ticket ticket){
-		if(this.getID()== ticket.getID()){
+	public boolean equals(Object object){
+		if(this.getClass() ==  object.getClass()) {
+		if(this.getID()== ((Ticket)object).getID()){
 			return true;
+		}
 		}
 		return false;
 		
