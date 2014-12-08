@@ -212,21 +212,25 @@ public class AddEditTicket extends JDialog implements ITicketFormView {
 		txtFldOpenedDate.setColumns(10);
 		pnl1.add(txtFldOpenedDate);
 		
-		JLabel lblClient = new JLabel("Client");
-		lblClient.setBounds(33, 80, 88, 14);
-		lblClient.setHorizontalAlignment(SwingConstants.RIGHT);
-		pnl1.add(lblClient);
+		JLabel lblClientFirst = new JLabel("Client First Name");
+		lblClientFirst.setBounds(33, 80, 88, 14);
+		lblClientFirst.setHorizontalAlignment(SwingConstants.RIGHT);
+		pnl1.add(lblClientFirst);
 		
-//		txtFldClient = new JTextField();
-//		txtFldClient.setBounds(131, 75, 515, 20);
-//		txtFldClient.setColumns(10);
-//		pnl1.add(txtFldClient);
+		txtFldClientFirstName = new JTextField();
+		txtFldClientFirstName.setBounds(131, 75, 203, 20);
+		txtFldClientFirstName.setColumns(10);
+		pnl1.add(txtFldClientFirstName);
 		
-		
-		
-		
-		
-		
+		JLabel lblClientLast = new JLabel("Last Name");
+		lblClientLast.setBounds(344, 80, 88, 14);
+		lblClientLast.setHorizontalAlignment(SwingConstants.RIGHT);
+		pnl1.add(lblClientLast);
+
+		txtFldClientLastName = new JTextField();
+		txtFldClientLastName.setBounds(442, 75, 203, 20);
+		txtFldClientLastName.setColumns(10);
+		pnl1.add(txtFldClientLastName);		
 		
 		JLabel lblClientPhone = new JLabel("Client Phone");
 		lblClientPhone.setBounds(33, 109, 88, 14);
