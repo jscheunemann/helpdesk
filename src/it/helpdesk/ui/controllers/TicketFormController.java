@@ -2,12 +2,20 @@ package it.helpdesk.ui.controllers;
 
 import java.text.SimpleDateFormat;
 
+import it.helpdesk.datasources.hibernate.models.Customer;
+import it.helpdesk.datasources.hibernate.models.Priority;
+import it.helpdesk.datasources.hibernate.models.ServiceCategory;
+import it.helpdesk.datasources.hibernate.models.Status;
 import it.helpdesk.ui.interfaces.IDatasourceConfiguration;
 import it.helpdesk.ui.interfaces.ILoginFormView;
 import it.helpdesk.ui.interfaces.ITicketFormController;
 import it.helpdesk.ui.interfaces.ITicketFormView;
 import it.helpdesk.ui.interfaces.IViewConfiguration;
+import it.helpdesk.ui.interfaces.models.ICustomer;
 import it.helpdesk.ui.interfaces.models.ILogEntry;
+import it.helpdesk.ui.interfaces.models.IPriority;
+import it.helpdesk.ui.interfaces.models.IServiceCategory;
+import it.helpdesk.ui.interfaces.models.IStatus;
 import it.helpdesk.ui.interfaces.models.ITicket;
 import it.helpdesk.ui.interfaces.models.datasources.ITechnicianDatasource;
 import it.helpdesk.ui.interfaces.models.datasources.ITicketDatasource;
@@ -85,13 +93,32 @@ public class TicketFormController implements ITicketFormController {
 
 	@Override
 	public void saveButtonPressed() {
-		// TODO Auto-generated method stub
+		ICustomer customer = new Customer();
+		customer.setFirstName(this.view.getClientFirstName());
+		customer.setLastName(this.view.getClientLastName());
+		customer.setEmailAddress(this.view.getClientEmailAddress());
+		customer.setPhoneNumber(this.view.getClientPhoneNumber());
 		
+		this.ticket.setCustomer(customer);
+		this.ticket.setSummary(this.view.getSummary());
+		
+		IServiceCategory serviceCat = new ServiceCategory();
+		serviceCat.setCategoryName(this.view.getSelectedServiceCategory());
+		this.ticket.setServiceCategory(serviceCat);
+		
+		IPriority priority = new Priority();
+		priority.setPriorityName(this.view.getSelectedPriority());
+		this.ticket.setPriority(priority);
+		
+		IStatus status = new Status();
+		status.setStatusName(this.view.getSelectedStatus());
+		this.ticket.setStatus(status);
+		// TODO still need to fill out the rest of ticket data		
 	}
 
 	@Override
 	public void setTicket(ITicket ticket) {
-		// TODO Auto-generated method stub
+		this.ticket = ticket;
 		
 	}
 }
