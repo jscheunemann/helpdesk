@@ -78,6 +78,11 @@ public class AddEditTicket extends JDialog implements ITicketFormView {
 	private ITicketFormController controller;
 	
 	/**
+	 * Variable for the view's window
+	 */
+	private JDialog window;
+	
+	/**
 	 * Variable contains a JPanel used for the content pane
 	 */
 	private JPanel contentPane;
@@ -98,9 +103,14 @@ public class AddEditTicket extends JDialog implements ITicketFormView {
 	private JTextField txtFldOpenedDate;
 	
 	/**
-	 * Variable contains a JTextField holding the client's name
+	 * Variable contains a JTextField holding the client's first name
 	 */
-	private JTextField txtFldClient;
+	private JTextField txtFldClientFirstName;
+	
+	/**
+	 * Variable contains a JTextField holding the client's last name
+	 */
+	private JTextField txtFldClientLastName;
 	
 	/**
 	 * Variable contains a JTextField holding the client's phone number
@@ -146,11 +156,6 @@ public class AddEditTicket extends JDialog implements ITicketFormView {
 	 * Variable contains a JTextArea holding the ticket update information
 	 */
 	private JTextArea txtAreaDescription;
-
-	/**
-	 * Contains a Ticket object
-	 */
-	private Ticket saveTicket;
 	
 	/**
 	 * Class constructor for the Add/Edit ticket View page.
@@ -159,13 +164,13 @@ public class AddEditTicket extends JDialog implements ITicketFormView {
 	 * @param ticketId contains the Ticket ID of the current ticket
 	 * @param newTicket contains a boolean value indicating whether this is a new ticket 
 	 */
-	public AddEditTicket(JFrame parent, int ticketId, boolean newTicket) {
-		super(parent, "", Dialog.ModalityType.DOCUMENT_MODAL);
-		setTitle("Helpdesk Ticket Tracker");
-		setBounds(100, 100, 687, 652);
+	public AddEditTicket(JFrame parent) {
+		window = new JDialog(parent, "", Dialog.ModalityType.APPLICATION_MODAL);
+		window.setTitle("Helpdesk Ticket Tracker");
+		window.setBounds(100, 100, 687, 652);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		window.setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JPanel pnl1 = new JPanel();
@@ -183,7 +188,7 @@ public class AddEditTicket extends JDialog implements ITicketFormView {
 		txtFldTicketID.setBounds(131, 11, 515, 20);
 		pnl1.add(txtFldTicketID);
 		txtFldTicketID.setColumns(10);
-		txtFldTicketID.setText(String.valueOf(ticketId));
+		txtFldTicketID.setText(String.valueOf(0));
 		
 		JLabel lblOpenedBy = new JLabel("Opened By");
 		lblOpenedBy.setBounds(33, 47, 88, 14);
@@ -212,10 +217,16 @@ public class AddEditTicket extends JDialog implements ITicketFormView {
 		lblClient.setHorizontalAlignment(SwingConstants.RIGHT);
 		pnl1.add(lblClient);
 		
-		txtFldClient = new JTextField();
-		txtFldClient.setBounds(131, 75, 515, 20);
-		txtFldClient.setColumns(10);
-		pnl1.add(txtFldClient);
+//		txtFldClient = new JTextField();
+//		txtFldClient.setBounds(131, 75, 515, 20);
+//		txtFldClient.setColumns(10);
+//		pnl1.add(txtFldClient);
+		
+		
+		
+		
+		
+		
 		
 		JLabel lblClientPhone = new JLabel("Client Phone");
 		lblClientPhone.setBounds(33, 109, 88, 14);
@@ -353,8 +364,7 @@ public class AddEditTicket extends JDialog implements ITicketFormView {
 		btnSave.setBounds(473, 11, 80, 26);
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				saveTicket();
-				AddEditTicket.this.dispose();
+				AddEditTicket.this.saveButtonPressed();
 			}
 		});
 		pnl2.add(btnSave);
@@ -376,82 +386,22 @@ public class AddEditTicket extends JDialog implements ITicketFormView {
 		panel.setBounds(0, 0, this.getWidth(), 58);
 		contentPane.add(panel);
 		panel.setLayout(null);
-		
-		String nameLbl;
-		if(newTicket)
-			nameLbl = "New Helpdesk Ticket ";
-		else
-			nameLbl = "Update Helpdesk Ticket ";
 			
+		String nameLbl = "this title";
 		JLabel lblCreateTicket = new JLabel(nameLbl);
 		lblCreateTicket.setForeground(Color.WHITE);
 		lblCreateTicket.setFont(new Font(lblCreateTicket.getName(), Font.PLAIN, lblCreateTicket.getFont().getSize() * 2));
 		lblCreateTicket.setBounds(15, 15, this.getSize().width, 30);
 		panel.add(lblCreateTicket);
 		
-		this.setLocationRelativeTo(parent);
+		window.setLocationRelativeTo(parent);
 		
 		this.open();
-	}
-	
-	/**
-	 * Method saves the ticket information provided by the user into a Ticket object.
-	 */
-	public void saveTicket() {
-		saveTicket = new Ticket();
-		saveTicket.setID(Long.valueOf((txtFldTicketID).getText())) ;			
-		//saveTicket.setOpenedBy(txtFldOpenedBy.toString());
-		saveTicket.setOpenedDate(new Date());
-		saveTicket.setClient(txtFldClient.getText());
-		saveTicket.setClientEmail(txtFldClientEmail.getText());
-		saveTicket.setClientPhone(txtFldClientPhone.getText());
-		//saveTicket.setCompleteDate(Date.valueOf(txtFldComplDate.toString()));
-		saveTicket.setPriority(PriorityEnum.fromInt(cbBoxPriority.getSelectedIndex()));
-		saveTicket.setServiceCat(ServiceCatEnum.fromInt(cbBoxSerCategory.getSelectedIndex()));
-		saveTicket.setStatus(StatusEnum.fromInt(cbBoxStatus.getSelectedIndex()));
-		saveTicket.setDescription(txtAreaDescription.getText());
-		saveTicket.setLog(txtAreaLog.getText());
-		saveTicket.setSummary(txtFldSummary.getText());	
-	}
-	
-	/**
-	 * Method requesting the local ticket object.
-	 * 
-	 * @return copy of the local Ticket object
-	 */
-	public Ticket getSaveTicket()
-	{
-		return saveTicket;
-	}	
-	
-	/**
-	 * Method to display the current ticket information.
-	 * 
-	 * @param ticket contains a Ticket object
-	 */
-	public void displayTicketInfo(Ticket ticket){
-		txtFldTicketID.setText(String.valueOf(ticket.getID()));
-		txtFldOpenedBy.setText(ticket.getOpenedBy());
-		txtFldOpenedDate.setText(String.valueOf(ticket.getOpenedDate()));
-		txtFldClient.setText(ticket.getClient());
-		txtFldClientPhone.setText(ticket.getClientPhone());		
-		txtFldClientEmail.setText(ticket.getClientEmail());
-		
-		txtFldSummary.setText(ticket.getSummary());
-		txtFldComplDate.setText(String.valueOf(ticket.getCompleteDate()));
-	
-		cbBoxPriority.setSelectedIndex(Ticket.PriorityEnum.toInt(ticket.getPriority()));
-		cbBoxSerCategory.setSelectedIndex(Ticket.ServiceCatEnum.toInt(ticket.getServiceCat()));
-		cbBoxStatus.setSelectedIndex(Ticket.StatusEnum.toInt(ticket.getStatus()));
-		
-		txtAreaLog.setText(ticket.getLog());
-		txtAreaDescription.setText(ticket.getDescription());
 	}
 
 	@Override
 	public void setController(ITicketFormController controller) {
-		// TODO Auto-generated method stub
-		
+		this.controller = controller;
 	}
 
 	@Override
@@ -483,6 +433,7 @@ public class AddEditTicket extends JDialog implements ITicketFormView {
 		serviceCategories.add("Inquity");
 
 		this.setServiceCategories(serviceCategories);
+		this.window.setVisible(true);
 	}
 
 	@Override
@@ -585,62 +536,52 @@ public class AddEditTicket extends JDialog implements ITicketFormView {
 
 	@Override
 	public void setClientLastName(String clientLastName) {
-		// TODO Auto-generated method stub
-		
+		this.txtFldClientLastName.setText(clientLastName);
 	}
 
 	@Override
 	public String getClientLastName() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.txtFldClientLastName.getText();
 	}
 
 	@Override
 	public void setClientPhoneNumber(String clientPhoneNumber) {
-		// TODO Auto-generated method stub
-		
+		this.txtFldClientPhone.setText(clientPhoneNumber);
 	}
 
 	@Override
 	public String getClientPhoneNumber() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.txtFldClientPhone.getText();
 	}
 
 	@Override
 	public void setClientEmailAddress(String clientEmailAddress) {
-		// TODO Auto-generated method stub
-		
+		this.txtFldClientEmail.setText(clientEmailAddress);
 	}
 
 	@Override
 	public String getClientEmailAddress() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.txtFldClientEmail.getText();
 	}
 
 	@Override
 	public void setSummary(String summary) {
-		// TODO Auto-generated method stub
-		
+		this.txtFldSummary.setText(summary);
 	}
 
 	@Override
 	public String getSummary() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.txtFldSummary.getText();
 	}
 
 	@Override
 	public String getInformationToAddText() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.txtAreaDescription.getText();
 	}
 
 	@Override
 	public void setLogText(String logText) {
-		// TODO Auto-generated method stub
-		
+		this.txtAreaLog.setText(logText);
 	}
 
 	@Override

@@ -129,7 +129,7 @@ public class HibernateDatasourceConfiguration implements IDatasourceConfiguratio
 	 * 
 	 * @return an ITicketDatasource object containing the current ticket datasource
 	 */
-	public ITicketDatasource getTickeDatasource() {
+	public ITicketDatasource getTicketDatasource() {
 		return this.ticketDatasource;
 	}
 }

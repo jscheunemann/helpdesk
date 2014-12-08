@@ -1,17 +1,56 @@
 package it.helpdesk.ui.controllers;
 
 import java.text.SimpleDateFormat;
+
+import it.helpdesk.ui.interfaces.IDatasourceConfiguration;
+import it.helpdesk.ui.interfaces.ILoginFormView;
 import it.helpdesk.ui.interfaces.ITicketFormController;
 import it.helpdesk.ui.interfaces.ITicketFormView;
+import it.helpdesk.ui.interfaces.IViewConfiguration;
 import it.helpdesk.ui.interfaces.models.ILogEntry;
 import it.helpdesk.ui.interfaces.models.ITicket;
+import it.helpdesk.ui.interfaces.models.datasources.ITechnicianDatasource;
+import it.helpdesk.ui.interfaces.models.datasources.ITicketDatasource;
 
 public class TicketFormController implements ITicketFormController {
-	ITicket ticket;
-	ITicketFormView view;
+	/**
+	 * Contains an IViewConfiguration object.
+	 */
+	private IViewConfiguration viewConfiguration;
 	
-	public TicketFormController() {
-		//this.view = new AddEditTicket();
+	/**
+	 * Contains an IDatasourceConfiguration object.
+	 */
+	private IDatasourceConfiguration datasourceConfiguration;
+	
+	/**
+	 * Contains an ITechnicianDatasource object.
+	 */
+	private ITicketFormView view;
+	
+	/**
+	 * Contains an ITechnicianDatasource object.
+	 */
+	private ITicketDatasource datasource;
+	
+	/**
+	 * Variable for ticket adding/editing
+	 */
+	private ITicket ticket;
+	
+	/**
+	 * Constructor for ticket form controller
+	 * 
+	 * @param the view configuration class
+	 * @param the datasource configuration class
+	 */
+	
+	public TicketFormController(IViewConfiguration viewConfiguration, IDatasourceConfiguration datasourceConfiguration) {
+		this.viewConfiguration = viewConfiguration;
+		this.datasourceConfiguration = datasourceConfiguration;
+		this.view = viewConfiguration.getTicketFormView();
+		this.view.setController(this);
+		this.datasource = datasourceConfiguration.getTicketDatasource();
 	}
 
 	@Override
@@ -55,5 +94,4 @@ public class TicketFormController implements ITicketFormController {
 		// TODO Auto-generated method stub
 		
 	}
-
 }

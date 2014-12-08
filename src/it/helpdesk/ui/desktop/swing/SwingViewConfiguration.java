@@ -66,4 +66,12 @@ public class SwingViewConfiguration implements IViewConfiguration {
 	public ITechnicianFormView getTechnicianFormView() {
 		return new TechnicianFormView(parentWindow);
 	}
+
+	/**
+	 * Method to instantiate a new ITcketFormView object using the local JFrame object
+	 */
+	@Override
+	public ITicketFormView getTicketFormView() {
+		return new AddEditTicket(parentWindow);
+	}
 }

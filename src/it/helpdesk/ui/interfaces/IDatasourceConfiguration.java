@@ -71,5 +71,5 @@ public interface IDatasourceConfiguration {
 	 * 
 	 * @return an ITicketDatasource object
 	 */
-	public ITicketDatasource getTickeDatasource();
+	public ITicketDatasource getTicketDatasource();
 }

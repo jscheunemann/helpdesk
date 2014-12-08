@@ -42,4 +42,11 @@ public interface IViewConfiguration {
 	 * @return an ITechnicianFormView object 
 	 */
 	public ITechnicianFormView getTechnicianFormView();
+	
+	/**
+	 * Method to retrieve the current ticket form view object.
+	 * 
+	 * @return an ITicketFormView object
+	 */
+	public ITicketFormView getTicketFormView();
 }

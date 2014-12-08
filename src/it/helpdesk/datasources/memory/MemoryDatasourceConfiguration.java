@@ -85,7 +85,7 @@ public class MemoryDatasourceConfiguration implements IDatasourceConfiguration {
 	}
 
 	@Override
-	public ITicketDatasource getTickeDatasource() {
+	public ITicketDatasource getTicketDatasource() {
 		// TODO Auto-generated method stub
 		return null;
 	}

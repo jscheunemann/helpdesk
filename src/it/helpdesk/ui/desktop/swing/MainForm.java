@@ -23,6 +23,7 @@ package it.helpdesk.ui.desktop.swing;
 import it.helpdesk.datasources.hibernate.HibernateDatasourceConfiguration;
 import it.helpdesk.main.*;
 import it.helpdesk.ui.controllers.LoginFormController;
+import it.helpdesk.ui.controllers.TicketFormController;
 import it.helpdesk.ui.interfaces.*;
 
 import java.awt.*;
@@ -265,16 +266,8 @@ public class MainForm extends JFrame implements IMain {
 	 */
 	@Override
 	public void openCreateNewTicketDialog() {
-		AddEditTicket newTicketDialog = new AddEditTicket(this, uniqueTicketId, true);
-		newTicketDialog.setVisible(true);
-		Ticket newTicket = newTicketDialog.getSaveTicket();
-		if(newTicket != null){
-			dbInterface.addNewTicket(newTicket);
-			uniqueTicketId++;
-			
-		}
-		updateActiveTable();
-		updateInactiveTable();
+		ITicketFormController controller = new TicketFormController(viewConfiguration, datasourceConfiguration);
+		controller.openForm();
 	}
 
 	/**
@@ -282,25 +275,11 @@ public class MainForm extends JFrame implements IMain {
 	 */
 	@Override
 	public void openEditTicketDialog(int ticketId) {
-		AddEditTicket newTicketDialog = new AddEditTicket(this, ticketId, false);
-		int editedTicketIdx = 0;
-		List<Ticket> currentTicketList = dbInterface.queryActiveTicket();
-		if(currentTicketList != null){
-			for(int i = 0; i < currentTicketList.size(); i++){
-				Ticket t = currentTicketList.get(i);
-				if(t.getID() == ticketId){
-					editedTicketIdx = i;
-					newTicketDialog.displayTicketInfo(t);
-					break;
-				}
-			}
-		}
-		newTicketDialog.setVisible(true);
-		Ticket editTicket = newTicketDialog.getSaveTicket();
-		if(editTicket != null){
-			dbInterface.updateActiveTicket(editTicket);
-			
-		}
+		ITicketFormController controller = new TicketFormController(viewConfiguration, datasourceConfiguration);
+		//TODO: Add the code to set the controller's ticket
+		//controller.setTicket(ticket);
+		controller.openForm();
+		
 		updateActiveTable();
 		updateInactiveTable();
 	}
