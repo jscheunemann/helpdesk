@@ -453,8 +453,7 @@ public class AddEditTicket extends JDialog implements ITicketFormView {
 
 	@Override
 	public void cancelButtonPressed() {
-		// TODO Auto-generated method stub
-		
+		this.close();
 	}
 
 	@Override
@@ -486,56 +485,83 @@ public class AddEditTicket extends JDialog implements ITicketFormView {
 
 	@Override
 	public void setSelectedServiceCategory(String selectedServiceCategory) {
-		// TODO Auto-generated method stub
-		
+		int index = 0;
+		if(selectedServiceCategory.equalsIgnoreCase("Access Issue"))
+			index = 0;
+		else if(selectedServiceCategory.equalsIgnoreCase("Hardware"))
+			index = 1;
+		else if(selectedServiceCategory.equalsIgnoreCase("Software"))
+			index = 2;
+		else if(selectedServiceCategory.equalsIgnoreCase("Database"))
+			index = 3;
+		else if(selectedServiceCategory.equalsIgnoreCase("Software Defect"))
+			index = 4;
+		else if(selectedServiceCategory.equalsIgnoreCase("Inquity"))
+			index = 5;
+		this.cbBoxSerCategory.setSelectedIndex(index);
 	}
 
 	@Override
 	public String getSelectedServiceCategory() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.cbBoxSerCategory.getSelectedItem().toString();
 	}
 
 	@Override
 	public void setSelectedPriority(String selectedPriority) {
-		// TODO Auto-generated method stub
+		int index = 0;
+		if(selectedPriority.equalsIgnoreCase("Low"))
+			index = 0;
+		else if(selectedPriority.equalsIgnoreCase("Medium"))
+			index = 1;
+		else if(selectedPriority.equalsIgnoreCase("High"))
+			index = 2;
+		else if(selectedPriority.equalsIgnoreCase("Urgent"))
+			index = 3;
+		this.cbBoxPriority.setSelectedIndex(index);
 		
 	}
 
 	@Override
 	public String getSelectedPriority() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.cbBoxPriority.getSelectedItem().toString();
 	}
 
 	@Override
 	public void setSelectedStatus(String selectedStatus) {
-		// TODO Auto-generated method stub
-		
+		int index = 0;
+		if(selectedStatus.equalsIgnoreCase("New"))
+			index = 0;
+		else if(selectedStatus.equalsIgnoreCase("In Progress"))
+			index = 1;
+		else if(selectedStatus.equalsIgnoreCase("Wait For Process"))
+			index = 2;
+		else if(selectedStatus.equalsIgnoreCase("Withdrawn"))
+			index = 3;
+		else if(selectedStatus.equalsIgnoreCase("Complete"))
+			index = 4;
+		else if(selectedStatus.equalsIgnoreCase("Delete"))
+			index = 5;
+		this.cbBoxStatus.setSelectedIndex(index);		
 	}
 
 	@Override
 	public String getSelectedStatus() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.cbBoxStatus.getSelectedItem().toString();
 	}
 
 	@Override
 	public void setDateOpened(String dateEntered) {
-		// TODO Auto-generated method stub
-		
+		this.txtFldOpenedDate.setText(dateEntered);
 	}
 
 	@Override
 	public void setClientFirstName(String clientFirstName) {
-		// TODO Auto-generated method stub
-		
+		this.txtFldClientFirstName.setText(clientFirstName);
 	}
 
 	@Override
 	public String getClientFirstName() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.txtFldClientFirstName.getText();
 	}
 
 	@Override
