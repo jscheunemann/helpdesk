@@ -20,6 +20,10 @@
 
 package it.helpdesk.ui.desktop.swing;
 
+import it.helpdesk.main.Ticket;
+import it.helpdesk.main.Ticket.PriorityEnum;
+import it.helpdesk.main.Ticket.ServiceCatEnum;
+import it.helpdesk.main.Ticket.StatusEnum;
 import it.helpdesk.ui.interfaces.ITicketFormController;
 import it.helpdesk.ui.interfaces.ITicketFormView;
 
@@ -35,6 +39,7 @@ import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -42,8 +47,13 @@ import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 
 import java.awt.Color;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import javax.swing.DefaultComboBoxModel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -202,26 +212,26 @@ public class AddEditTicket extends JDialog implements ITicketFormView {
 		txtFldOpenedDate.setColumns(10);
 		pnl1.add(txtFldOpenedDate);
 		
-		JLabel lblClientFirstName = new JLabel("Client First Name");
-		lblClientFirstName.setBounds(3, 75, 120, 14);
-		lblClientFirstName.setHorizontalAlignment(SwingConstants.RIGHT);
-		pnl1.add(lblClientFirstName);
+		JLabel lblClientFirst = new JLabel("Client First Name");
+		lblClientFirst.setBounds(33, 80, 88, 14);
+		lblClientFirst.setHorizontalAlignment(SwingConstants.RIGHT);
+		pnl1.add(lblClientFirst);
 		
 		txtFldClientFirstName = new JTextField();
 		txtFldClientFirstName.setBounds(131, 75, 203, 20);
 		txtFldClientFirstName.setColumns(10);
 		pnl1.add(txtFldClientFirstName);
 		
-		JLabel lblClientLastName = new JLabel("Last Name");
-		lblClientLastName.setBounds(344, 75, 88, 14);
-		lblClientLastName.setHorizontalAlignment(SwingConstants.RIGHT);
-		pnl1.add(lblClientLastName);
-		
+		JLabel lblClientLast = new JLabel("Last Name");
+		lblClientLast.setBounds(344, 80, 88, 14);
+		lblClientLast.setHorizontalAlignment(SwingConstants.RIGHT);
+		pnl1.add(lblClientLast);
+
 		txtFldClientLastName = new JTextField();
-		txtFldClientLastName.setBounds(440, 75, 203, 20);
+		txtFldClientLastName.setBounds(442, 75, 203, 20);
 		txtFldClientLastName.setColumns(10);
-		pnl1.add(txtFldClientLastName);
-				
+		pnl1.add(txtFldClientLastName);		
+		
 		JLabel lblClientPhone = new JLabel("Client Phone");
 		lblClientPhone.setBounds(33, 109, 88, 14);
 		lblClientPhone.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -283,6 +293,8 @@ public class AddEditTicket extends JDialog implements ITicketFormView {
 		lblDescription.setHorizontalAlignment(SwingConstants.RIGHT);
 		pnl1.add(lblDescription);
 		
+		
+		
 		cbBoxPriority = new JComboBox<String>();
 		cbBoxPriority.setBounds(440, 167, 206, 20);
 		pnl1.add(cbBoxPriority);
@@ -290,7 +302,27 @@ public class AddEditTicket extends JDialog implements ITicketFormView {
 		JButton btnAddInformation = new JButton("Add Information");
 		btnAddInformation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				AddEditTicket.this.addInformationPressed();
+				
+				//JTextField txtLogInfo = new JTextField();
+				String s = (String)JOptionPane.showInputDialog(
+									AddEditTicket.this,
+				                    "",
+				                    "Add Information",
+				                    JOptionPane.PLAIN_MESSAGE,
+				                    null,
+				                    null,
+				                    "");
+
+				//If a string was returned, say so.
+				if ((s != null) && (s.length() > 0)) {
+					DateFormat dateFormat = new SimpleDateFormat("YYYY/MM/dd HH:mm:ss");
+					// Current date + log string
+					String logStr = dateFormat.format(new Date()) + " : " + s + "\n";
+					txtAreaLog.append(logStr);
+					return;
+				}
+
+				
 			}
 		});
 		btnAddInformation.setBounds(131, 344, 196, 26);
@@ -308,6 +340,7 @@ public class AddEditTicket extends JDialog implements ITicketFormView {
 		lblLog.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblLog.setBounds(66, 369, 55, 14);
 		pnl1.add(lblLog);
+		
 				
 		txtAreaLog = new JTextArea();
 		txtAreaLog.setLineWrap(true);
@@ -322,6 +355,8 @@ public class AddEditTicket extends JDialog implements ITicketFormView {
 		txtAreaDescription.setLineWrap(true);
 		txtAreaDescription.setBounds(131, 252, 515, 92);
 		pnl1.add(txtAreaDescription);
+		
+		
 		
 		JPanel pnl2 = new JPanel();
 		pnl2.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -344,11 +379,10 @@ public class AddEditTicket extends JDialog implements ITicketFormView {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				AddEditTicket.this.cancelButtonPressed();
+				AddEditTicket.this.dispose();
 			}
 			
 		});
-		
 		pnl2.add(btnCancel);
 		
 		JPanel panel = new JPanel();
@@ -365,6 +399,8 @@ public class AddEditTicket extends JDialog implements ITicketFormView {
 		panel.add(lblCreateTicket);
 		
 		window.setLocationRelativeTo(parent);
+		
+		this.open();
 	}
 
 	@Override
@@ -406,7 +442,7 @@ public class AddEditTicket extends JDialog implements ITicketFormView {
 
 	@Override
 	public void close() {
-		this.window.dispose();
+		this.dispose();
 	}
 
 	@Override
@@ -417,7 +453,7 @@ public class AddEditTicket extends JDialog implements ITicketFormView {
 
 	@Override
 	public void cancelButtonPressed() {
-		controller.closeForm();
+		this.close();
 	}
 
 	@Override
@@ -449,32 +485,68 @@ public class AddEditTicket extends JDialog implements ITicketFormView {
 
 	@Override
 	public void setSelectedServiceCategory(String selectedServiceCategory) {
-		this.cbBoxSerCategory.setSelectedItem(selectedServiceCategory);
+		int index = 0;
+		if(selectedServiceCategory.equalsIgnoreCase("Access Issue"))
+			index = 0;
+		else if(selectedServiceCategory.equalsIgnoreCase("Hardware"))
+			index = 1;
+		else if(selectedServiceCategory.equalsIgnoreCase("Software"))
+			index = 2;
+		else if(selectedServiceCategory.equalsIgnoreCase("Database"))
+			index = 3;
+		else if(selectedServiceCategory.equalsIgnoreCase("Software Defect"))
+			index = 4;
+		else if(selectedServiceCategory.equalsIgnoreCase("Inquity"))
+			index = 5;
+		this.cbBoxSerCategory.setSelectedIndex(index);
 	}
 
 	@Override
 	public String getSelectedServiceCategory() {
-		return (String) this.cbBoxSerCategory.getSelectedItem();
+		return this.cbBoxSerCategory.getSelectedItem().toString();
 	}
 
 	@Override
 	public void setSelectedPriority(String selectedPriority) {
-		this.cbBoxPriority.setSelectedItem(selectedPriority);
+		int index = 0;
+		if(selectedPriority.equalsIgnoreCase("Low"))
+			index = 0;
+		else if(selectedPriority.equalsIgnoreCase("Medium"))
+			index = 1;
+		else if(selectedPriority.equalsIgnoreCase("High"))
+			index = 2;
+		else if(selectedPriority.equalsIgnoreCase("Urgent"))
+			index = 3;
+		this.cbBoxPriority.setSelectedIndex(index);
+		
 	}
 
 	@Override
 	public String getSelectedPriority() {
-		return (String) this.cbBoxPriority.getSelectedItem();
+		return this.cbBoxPriority.getSelectedItem().toString();
 	}
 
 	@Override
 	public void setSelectedStatus(String selectedStatus) {
-		this.cbBoxStatus.setSelectedItem(selectedStatus);
+		int index = 0;
+		if(selectedStatus.equalsIgnoreCase("New"))
+			index = 0;
+		else if(selectedStatus.equalsIgnoreCase("In Progress"))
+			index = 1;
+		else if(selectedStatus.equalsIgnoreCase("Wait For Process"))
+			index = 2;
+		else if(selectedStatus.equalsIgnoreCase("Withdrawn"))
+			index = 3;
+		else if(selectedStatus.equalsIgnoreCase("Complete"))
+			index = 4;
+		else if(selectedStatus.equalsIgnoreCase("Delete"))
+			index = 5;
+		this.cbBoxStatus.setSelectedIndex(index);		
 	}
 
 	@Override
 	public String getSelectedStatus() {
-		return (String) this.cbBoxStatus.getSelectedItem();
+		return this.cbBoxStatus.getSelectedItem().toString();
 	}
 
 	@Override
