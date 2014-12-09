@@ -20,10 +20,6 @@
 
 package it.helpdesk.ui.desktop.swing;
 
-import it.helpdesk.main.Ticket;
-import it.helpdesk.main.Ticket.PriorityEnum;
-import it.helpdesk.main.Ticket.ServiceCatEnum;
-import it.helpdesk.main.Ticket.StatusEnum;
 import it.helpdesk.ui.interfaces.ITicketFormController;
 import it.helpdesk.ui.interfaces.ITicketFormView;
 
@@ -39,7 +35,6 @@ import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -47,13 +42,8 @@ import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 
 import java.awt.Color;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-import javax.swing.DefaultComboBoxModel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -212,22 +202,26 @@ public class AddEditTicket extends JDialog implements ITicketFormView {
 		txtFldOpenedDate.setColumns(10);
 		pnl1.add(txtFldOpenedDate);
 		
-		JLabel lblClient = new JLabel("Client");
-		lblClient.setBounds(33, 80, 88, 14);
-		lblClient.setHorizontalAlignment(SwingConstants.RIGHT);
-		pnl1.add(lblClient);
+		JLabel lblClientFirstName = new JLabel("Client First Name");
+		lblClientFirstName.setBounds(3, 75, 120, 14);
+		lblClientFirstName.setHorizontalAlignment(SwingConstants.RIGHT);
+		pnl1.add(lblClientFirstName);
 		
-//		txtFldClient = new JTextField();
-//		txtFldClient.setBounds(131, 75, 515, 20);
-//		txtFldClient.setColumns(10);
-//		pnl1.add(txtFldClient);
+		txtFldClientFirstName = new JTextField();
+		txtFldClientFirstName.setBounds(131, 75, 203, 20);
+		txtFldClientFirstName.setColumns(10);
+		pnl1.add(txtFldClientFirstName);
 		
+		JLabel lblClientLastName = new JLabel("Last Name");
+		lblClientLastName.setBounds(344, 75, 88, 14);
+		lblClientLastName.setHorizontalAlignment(SwingConstants.RIGHT);
+		pnl1.add(lblClientLastName);
 		
-		
-		
-		
-		
-		
+		txtFldClientLastName = new JTextField();
+		txtFldClientLastName.setBounds(440, 75, 203, 20);
+		txtFldClientLastName.setColumns(10);
+		pnl1.add(txtFldClientLastName);
+				
 		JLabel lblClientPhone = new JLabel("Client Phone");
 		lblClientPhone.setBounds(33, 109, 88, 14);
 		lblClientPhone.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -289,8 +283,6 @@ public class AddEditTicket extends JDialog implements ITicketFormView {
 		lblDescription.setHorizontalAlignment(SwingConstants.RIGHT);
 		pnl1.add(lblDescription);
 		
-		
-		
 		cbBoxPriority = new JComboBox<String>();
 		cbBoxPriority.setBounds(440, 167, 206, 20);
 		pnl1.add(cbBoxPriority);
@@ -298,27 +290,7 @@ public class AddEditTicket extends JDialog implements ITicketFormView {
 		JButton btnAddInformation = new JButton("Add Information");
 		btnAddInformation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				//JTextField txtLogInfo = new JTextField();
-				String s = (String)JOptionPane.showInputDialog(
-									AddEditTicket.this,
-				                    "",
-				                    "Add Information",
-				                    JOptionPane.PLAIN_MESSAGE,
-				                    null,
-				                    null,
-				                    "");
-
-				//If a string was returned, say so.
-				if ((s != null) && (s.length() > 0)) {
-					DateFormat dateFormat = new SimpleDateFormat("YYYY/MM/dd HH:mm:ss");
-					// Current date + log string
-					String logStr = dateFormat.format(new Date()) + " : " + s + "\n";
-					txtAreaLog.append(logStr);
-					return;
-				}
-
-				
+				AddEditTicket.this.addInformationPressed();
 			}
 		});
 		btnAddInformation.setBounds(131, 344, 196, 26);
@@ -336,7 +308,6 @@ public class AddEditTicket extends JDialog implements ITicketFormView {
 		lblLog.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblLog.setBounds(66, 369, 55, 14);
 		pnl1.add(lblLog);
-		
 				
 		txtAreaLog = new JTextArea();
 		txtAreaLog.setLineWrap(true);
@@ -351,8 +322,6 @@ public class AddEditTicket extends JDialog implements ITicketFormView {
 		txtAreaDescription.setLineWrap(true);
 		txtAreaDescription.setBounds(131, 252, 515, 92);
 		pnl1.add(txtAreaDescription);
-		
-		
 		
 		JPanel pnl2 = new JPanel();
 		pnl2.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -375,10 +344,11 @@ public class AddEditTicket extends JDialog implements ITicketFormView {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				AddEditTicket.this.dispose();
+				AddEditTicket.this.cancelButtonPressed();
 			}
 			
 		});
+		
 		pnl2.add(btnCancel);
 		
 		JPanel panel = new JPanel();
@@ -395,8 +365,6 @@ public class AddEditTicket extends JDialog implements ITicketFormView {
 		panel.add(lblCreateTicket);
 		
 		window.setLocationRelativeTo(parent);
-		
-		this.open();
 	}
 
 	@Override
@@ -438,7 +406,7 @@ public class AddEditTicket extends JDialog implements ITicketFormView {
 
 	@Override
 	public void close() {
-		this.dispose();
+		this.window.dispose();
 	}
 
 	@Override
@@ -449,8 +417,7 @@ public class AddEditTicket extends JDialog implements ITicketFormView {
 
 	@Override
 	public void cancelButtonPressed() {
-		// TODO Auto-generated method stub
-		
+		controller.closeForm();
 	}
 
 	@Override
@@ -482,56 +449,47 @@ public class AddEditTicket extends JDialog implements ITicketFormView {
 
 	@Override
 	public void setSelectedServiceCategory(String selectedServiceCategory) {
-		// TODO Auto-generated method stub
-		
+		this.cbBoxSerCategory.setSelectedItem(selectedServiceCategory);
 	}
 
 	@Override
 	public String getSelectedServiceCategory() {
-		// TODO Auto-generated method stub
-		return null;
+		return (String) this.cbBoxSerCategory.getSelectedItem();
 	}
 
 	@Override
 	public void setSelectedPriority(String selectedPriority) {
-		// TODO Auto-generated method stub
-		
+		this.cbBoxPriority.setSelectedItem(selectedPriority);
 	}
 
 	@Override
 	public String getSelectedPriority() {
-		// TODO Auto-generated method stub
-		return null;
+		return (String) this.cbBoxPriority.getSelectedItem();
 	}
 
 	@Override
 	public void setSelectedStatus(String selectedStatus) {
-		// TODO Auto-generated method stub
-		
+		this.cbBoxStatus.setSelectedItem(selectedStatus);
 	}
 
 	@Override
 	public String getSelectedStatus() {
-		// TODO Auto-generated method stub
-		return null;
+		return (String) this.cbBoxStatus.getSelectedItem();
 	}
 
 	@Override
 	public void setDateOpened(String dateEntered) {
-		// TODO Auto-generated method stub
-		
+		this.txtFldOpenedDate.setText(dateEntered);
 	}
 
 	@Override
 	public void setClientFirstName(String clientFirstName) {
-		// TODO Auto-generated method stub
-		
+		this.txtFldClientFirstName.setText(clientFirstName);
 	}
 
 	@Override
 	public String getClientFirstName() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.txtFldClientFirstName.getText();
 	}
 
 	@Override

@@ -1,13 +1,17 @@
 package it.helpdesk.ui.controllers;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
+import it.helpdesk.datasources.hibernate.models.Customer;
 import it.helpdesk.ui.interfaces.IDatasourceConfiguration;
 import it.helpdesk.ui.interfaces.ILoginFormView;
 import it.helpdesk.ui.interfaces.ITicketFormController;
 import it.helpdesk.ui.interfaces.ITicketFormView;
 import it.helpdesk.ui.interfaces.IViewConfiguration;
+import it.helpdesk.ui.interfaces.models.ICustomer;
 import it.helpdesk.ui.interfaces.models.ILogEntry;
+import it.helpdesk.ui.interfaces.models.ITechnician;
 import it.helpdesk.ui.interfaces.models.ITicket;
 import it.helpdesk.ui.interfaces.models.datasources.ITechnicianDatasource;
 import it.helpdesk.ui.interfaces.models.datasources.ITicketDatasource;
@@ -17,6 +21,11 @@ public class TicketFormController implements ITicketFormController {
 	 * Contains an IViewConfiguration object.
 	 */
 	private IViewConfiguration viewConfiguration;
+	
+	/**
+	 * Contains the logged in technician object
+	 */
+	private ITechnician technician;
 	
 	/**
 	 * Contains an IDatasourceConfiguration object.
@@ -52,6 +61,10 @@ public class TicketFormController implements ITicketFormController {
 		this.view.setController(this);
 		this.datasource = datasourceConfiguration.getTicketDatasource();
 	}
+	
+	public void setLoggedInTechnician(ITechnician technician) {
+		this.technician = technician;
+	}
 
 	@Override
 	public void openForm() {
@@ -69,12 +82,15 @@ public class TicketFormController implements ITicketFormController {
 			this.view.setSelectedPriority(ticket.getPriority().getPriorityName());
 			this.view.setSelectedStatus(ticket.getStatus().getStatusName());
 			
+			String logText = "";
+			
 			for (ILogEntry logEntry : ticket.getLogEntries()) {
-				
+				String.format("%s:");
 			}
 				
 			//this.view.setLogText(logText);
 		}
+		
 		this.view.open();
 	}
 
@@ -85,13 +101,33 @@ public class TicketFormController implements ITicketFormController {
 
 	@Override
 	public void saveButtonPressed() {
-		// TODO Auto-generated method stub
-		
+//		ITechnician openedBy = this.technician;
+//		Date openedOn = new Date();
+//		Date closedOn = null;
+//		
+//		Customer customer = new Customer();
+//		
+//		
+//		if (ticket != null) {
+//			openedBy = ticket.getOpenedBy();
+//			openedOn = ticket.getOpenedOn();
+//			closedOn = ticket.getCompletedOn();
+//		}
+//		
+//		this.datasource.saveTicket(ticket,
+//				openedBy,
+//				this.view.getSelectedServiceCategory(),
+//				this.view.getSelectedPriority(),
+//				this.view.getSelectedStatus(),
+//				technician, 
+//				openedOn, 
+//				closedOn,
+//				customer,
+//				this.view.getSummary());
 	}
 
 	@Override
 	public void setTicket(ITicket ticket) {
-		// TODO Auto-generated method stub
-		
+		this.ticket = ticket;
 	}
 }
