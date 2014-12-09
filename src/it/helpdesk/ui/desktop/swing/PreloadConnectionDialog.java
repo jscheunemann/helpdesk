@@ -1,7 +1,5 @@
 package it.helpdesk.ui.desktop.swing;
 
-import java.awt.Dialog;
-
 import it.helpdesk.datasources.hibernate.HibernateDatasourceConfiguration;
 import it.helpdesk.ui.interfaces.IDatasourceConfiguration;
 

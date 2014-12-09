@@ -37,12 +37,7 @@ import java.awt.event.ActionListener;
  * @version	1.0
  * @since	2014-11-26
  */
-public class TicketFormView implements ITicketFormView {
-	/**
-	 * Variable contains static version number of the page
-	 */
-	private static final long serialVersionUID = 1L;
-	
+public class TicketFormView implements ITicketFormView {	
 	/**
 	 * Variable for the view's controller
 	 */
