@@ -20,7 +20,9 @@
 
 package it.helpdesk.ui.controllers;
 
+import it.helpdesk.main.ApplicationState;
 import it.helpdesk.ui.interfaces.*;
+import it.helpdesk.ui.interfaces.models.ITechnician;
 import it.helpdesk.ui.interfaces.models.datasources.*;
 
 /**
@@ -35,22 +37,27 @@ public class LoginFormController implements ILoginFormController {
 	 * Contains an IViewConfiguration object.
 	 */
 	private IViewConfiguration viewConfiguration;
-	
+
 	/**
 	 * Contains an IDatasourceConfiguration object.
 	 */
 	private IDatasourceConfiguration datasourceConfiguration;
-	
+
 	/**
 	 * Contains an ITechnicianDatasource object.
 	 */
 	private ILoginFormView view;
-	
+
 	/**
 	 * Contains an ITechnicianDatasource object.
 	 */
 	private ITechnicianDatasource datasource;
-	
+
+	/**
+	 * Contains logged in technician
+	 */
+	private ITechnician loggedInTechnician;
+
 	/**
 	 * Constructor for the LoginFormController class.
 	 * 
@@ -78,7 +85,12 @@ public class LoginFormController implements ILoginFormController {
 	 */
 	@Override
 	public void closeForm() {
-		view.close();
+		if (this.loggedInTechnician == null) {
+			System.exit(0);
+		}
+		else {
+			this.view.close();
+		}
 	}
 
 	/**
@@ -86,11 +98,15 @@ public class LoginFormController implements ILoginFormController {
 	 */
 	@Override
 	public void requestAuthentication() {
-		if (datasource.checkPassword(view.getUsername(), view.getPassword())) {
-			this.view.close();
+		if (this.view.getUsername().equals("") || this.view.getPassword().equals("")) {
+			this.view.showValidationErrorDialog("Invalid Credentials", "Unable to verify credentials");
+		}
+		else if (datasource.checkPassword(view.getUsername(), view.getPassword())) {
+			ApplicationState.getInstance().setLoggedInTechnician(this.loggedInTechnician = datasource.getTechnicianByUsername(this.view.getUsername()));
+			this.closeForm();
 		}
 		else {
-			this.view.showValidationErrorDialog();
+			this.view.showValidationErrorDialog("Invalid Credentials", "Unable to verify credentials");
 		}
 	}
 

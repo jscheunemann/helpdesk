@@ -352,10 +352,13 @@ public class TechnicianFormView implements ITechnicianFormView {
 	}
 
 	/**
-	 * Method to display validation error messages encountered during setup.
+	 * Method to show a error message in a dialog
+	 * 
+	 * @param the title of the dialog
+	 * @param the message to display
 	 */
 	@Override
-	public void showValidationErrorDialog() {
-		
+	public void showValidationErrorDialog(String title, String message) {
+		JOptionPane.showMessageDialog(this.window.getParent(), message, title, JOptionPane.ERROR_MESSAGE);
 	}
 }

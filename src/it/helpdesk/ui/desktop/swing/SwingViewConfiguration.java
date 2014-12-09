@@ -72,6 +72,6 @@ public class SwingViewConfiguration implements IViewConfiguration {
 	 */
 	@Override
 	public ITicketFormView getTicketFormView() {
-		return new AddEditTicket(parentWindow);
+		return new TicketFormView(parentWindow);
 	}
 }

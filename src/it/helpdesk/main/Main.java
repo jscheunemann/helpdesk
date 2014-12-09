@@ -81,7 +81,7 @@ public class Main {
 
 						@Override
 						public void windowClosing(WindowEvent e) {
-							e.getWindow().dispose();
+							System.exit(0);
 						}
 					});
 				}

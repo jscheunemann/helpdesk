@@ -16,6 +16,7 @@ import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -25,7 +26,6 @@ import javax.swing.JTextArea;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -37,7 +37,7 @@ import java.awt.event.ActionListener;
  * @version	1.0
  * @since	2014-11-26
  */
-public class TicketFormView extends JDialog implements ITicketFormView {
+public class TicketFormView implements ITicketFormView {
 	/**
 	 * Variable contains static version number of the page
 	 */
@@ -334,7 +334,7 @@ public class TicketFormView extends JDialog implements ITicketFormView {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(47, 79, 79));
-		panel.setBounds(0, 0, this.getWidth(), 58);
+		panel.setBounds(0, 0, this.window.getWidth(), 58);
 		contentPane.add(panel);
 		panel.setLayout(null);
 			
@@ -342,7 +342,7 @@ public class TicketFormView extends JDialog implements ITicketFormView {
 		JLabel lblCreateTicket = new JLabel(nameLbl);
 		lblCreateTicket.setForeground(Color.WHITE);
 		lblCreateTicket.setFont(new Font(lblCreateTicket.getName(), Font.PLAIN, lblCreateTicket.getFont().getSize() * 2));
-		lblCreateTicket.setBounds(15, 15, this.getSize().width, 30);
+		lblCreateTicket.setBounds(15, 15, this.window.getSize().width, 30);
 		panel.add(lblCreateTicket);
 		
 		window.setLocationRelativeTo(parent);
@@ -524,14 +524,19 @@ public class TicketFormView extends JDialog implements ITicketFormView {
 	}
 
 	@Override
-	public void showValidationErrorDialog(String message) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void setViewTitle(String title) {
-		this.setTitle(title);
+		this.window.setTitle(title);
+	}
+	
+	/**
+	 * Method to show a error message in a dialog
+	 * 
+	 * @param the title of the dialog
+	 * @param the message to display
+	 */
+	@Override
+	public void showValidationErrorDialog(String title, String message) {
+		JOptionPane.showMessageDialog(this.window.getParent(), message, title, JOptionPane.ERROR_MESSAGE);
 	}
 }
 

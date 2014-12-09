@@ -63,5 +63,5 @@ public interface ILoginFormView {
 	/**
 	 * Method to display the authentication error message, if one exists.
 	 */
-	public void showValidationErrorDialog();
+	public void showValidationErrorDialog(String title, String message);
 }

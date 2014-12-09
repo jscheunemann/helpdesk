@@ -131,7 +131,7 @@ public interface ITechnicianFormView {
 	public void setEmailAddress(String emailAddress);
 	
 	/**
-	 * Method to show any validation error messages to the user
+	 * Method to display the authentication error message, if one exists.
 	 */
-	public void showValidationErrorDialog();
+	public void showValidationErrorDialog(String title, String message);
 }

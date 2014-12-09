@@ -211,14 +211,14 @@ public interface ITicketFormView {
 	public void setLogText(String logText);
 	
 	/**
-	 * Method to show any validation error messages to the user
+	 * Method to display the authentication error message, if one exists.
 	 */
-	public void showValidationErrorDialog(String message);
-	
+	public void showValidationErrorDialog(String title, String message);
+
 	/**
-	 * Method to set the view's title
+	 * Method to set the title of the ticket form
 	 * 
-	 * @param the view's title
+	 * @param the title
 	 */
-	public void setViewTitle(String title);
+	void setViewTitle(String title);
 }

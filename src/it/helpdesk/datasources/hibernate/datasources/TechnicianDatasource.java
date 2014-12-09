@@ -61,7 +61,7 @@ public class TechnicianDatasource implements ITechnicianDatasource {
 	 * Method to save a new user to the database
 	 * 
 	 * @param technician contains an ITechnician object for the new user
-	 * @param technicianname contains a String value containing the technician's name
+	 * @param username contains a String value containing the technician's username
 	 * @param password contains a String value containing the new user's password
 	 * @param firstName contains a String value containing the new user's first name
 	 * @param lastName contains a String value containing the new user's last name
@@ -69,7 +69,7 @@ public class TechnicianDatasource implements ITechnicianDatasource {
 	 * @param emailAddress contains a String value containing the new user's email address
 	 */
 	@Override
-	public void saveTechnician(ITechnician technician, String technicianname, String password, String firstName, String lastName, String phoneNumber, String emailAddress) {
+	public void saveTechnician(ITechnician technician, String username, String password, String firstName, String lastName, String phoneNumber, String emailAddress) {
 		boolean newUser = false;
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
@@ -79,7 +79,7 @@ public class TechnicianDatasource implements ITechnicianDatasource {
 			newUser = true;
 		}
 		
-		technician.setUsername(technicianname);
+		technician.setUsername(username);
 		technician.setPassword(password);
 		technician.setFirstName(firstName);
 		technician.setLastName(lastName);

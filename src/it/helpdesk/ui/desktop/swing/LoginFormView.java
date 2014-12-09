@@ -27,9 +27,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import java.awt.AWTException;
 import java.awt.Dialog;
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.Point;
+import java.awt.Robot;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -40,9 +43,11 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
- * View class that allows the user to login to the applicaiton or request access.
+ * View class that allows the user to login to the application or request access.
  *
  * @author	Helpdesk Tracker Team
  * @version	1.0
@@ -155,18 +160,62 @@ public class LoginFormView implements ILoginFormView {
 	 */
 	@Override
 	public void open() {
-		btnSignIn.addActionListener(new ActionListener() {
+		this.window.addWindowListener(new WindowAdapter() { 
+			public void windowClosing(WindowEvent e) { 
+				LoginFormView.this.controller.closeForm();
+			}
+		});
+		
+		this.usernameTextBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Point p = LoginFormView.this.btnSignIn.getLocationOnScreen();
+			    Robot r;
+				try {
+					r = new Robot();
+					r.mouseMove(p.x + LoginFormView.this.btnSignIn.getWidth() / 2, p.y + LoginFormView.this.btnSignIn.getHeight() / 2);
+			    
+				} catch (AWTException ex) {
+					// TODO Auto-generated catch block
+					ex.printStackTrace();
+				}
+			    
+				LoginFormView.this.btnSignIn.doClick();
+			}
+		});
+		
+		this.passwordTextBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Point p = LoginFormView.this.btnSignIn.getLocationOnScreen();
+			    Robot r;
+				try {
+					r = new Robot();
+					r.mouseMove(p.x + LoginFormView.this.btnSignIn.getWidth() / 2, p.y + LoginFormView.this.btnSignIn.getHeight() / 2);
+			    
+				} catch (AWTException ex) {
+					// TODO Auto-generated catch block
+					ex.printStackTrace();
+				}
+				
+				LoginFormView.this.btnSignIn.doClick();
+			}
+		});
+		
+		this.btnSignIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				LoginFormView.this.controller.requestAuthentication();
 			}
 		});
 		
-		btnCreateNewAccount.addActionListener(new ActionListener() {
+		this.btnCreateNewAccount.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				LoginFormView.this.controller.openCreateUserForm();
 			}
 		});
-		window.setVisible(true);
+		
+		PreloadConnectionDialog dialog = new PreloadConnectionDialog(this.window);
+		dialog.execute();
+		
+		this.window.setVisible(true);
 	}
 
 	/**
@@ -198,11 +247,17 @@ public class LoginFormView implements ILoginFormView {
 	}
 	
 	/**
-	 * Method to show a error message if the credentials supplied are not found in 
-	 * the database.
+	 * Method to show a error message in a dialog
+	 * 
+	 * @param the title of the dialog
+	 * @param the message to display
 	 */
 	@Override
-	public void showValidationErrorDialog() {
-		JOptionPane.showMessageDialog(this.window, "Login failed, please try again.", "Login Error!", JOptionPane.ERROR_MESSAGE);
+	public void showValidationErrorDialog(String title, String message) {
+		JOptionPane.showMessageDialog(this.window.getParent(), message, title, JOptionPane.ERROR_MESSAGE);
+	}
+	
+	public JDialog getWindow() {
+		return this.window;
 	}
 }

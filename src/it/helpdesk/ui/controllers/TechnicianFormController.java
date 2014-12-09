@@ -100,15 +100,15 @@ public class TechnicianFormController implements ITechnicianFormController {
 	@Override
 	public void saveButtonPressed() {
 		if (this.view.getFirstName().equals("") || this.view.getLastName().equals("")) {
-			this.view.showValidationErrorDialog(); 
+			this.view.showValidationErrorDialog("Error!", "Required information missing"); 
 		}
 		else {
 			this.datasource.saveTechnician(technician,
 					this.view.getUsername(),
 					this.view.getPassword(),
 					this.view.getFirstName(),
-					this.view.getPhoneNumber(),
 					this.view.getLastName(),
+					this.view.getPhoneNumber(),
 					this.view.getEmailAddress());
 
 			this.view.close();

@@ -20,6 +20,7 @@
 
 package it.helpdesk.ui.interfaces;
 
+import it.helpdesk.ui.interfaces.models.ITechnician;
 import it.helpdesk.ui.interfaces.models.ITicket;
 
 public interface ITicketFormController {
