@@ -35,7 +35,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.*;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -87,11 +86,6 @@ public class MainForm extends JFrame implements IMain {
 	 * Contains a JTable object holding a list of active tickets.
 	 */
 	private JTable tableActiveTicket;
-	
-	/**
-	 * Contains a unique ticket ID to be used by the application.
-	 */
-	private int uniqueTicketId = 1;
 	
 	
 	/**

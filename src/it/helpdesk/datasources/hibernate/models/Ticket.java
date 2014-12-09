@@ -27,9 +27,6 @@ import javax.persistence.*;
 
 import it.helpdesk.datasources.hibernate.datasources.LogEntryDatasource;
 import it.helpdesk.ui.interfaces.models.ICustomer;
-import it.helpdesk.ui.interfaces.models.IPriority;
-import it.helpdesk.ui.interfaces.models.IServiceCategory;
-import it.helpdesk.ui.interfaces.models.IStatus;
 import it.helpdesk.ui.interfaces.models.ITechnician;
 import it.helpdesk.ui.interfaces.models.ITicket;
 
@@ -51,9 +48,9 @@ public class Ticket implements ITicket {
 	private long id;
 	
 	private Technician openedBy;
-	private ServiceCategory serviceCategory;
-	private Priority priority;
-	private Status status;
+	private String serviceCategory;
+	private String priority;
+	private String status;
 	private Technician technician;
 	private Date openedOn;
 	private Date completedOn;
@@ -110,7 +107,7 @@ public class Ticket implements ITicket {
 	 * 
 	 * @return the service category of the current record
 	 */
-	public IServiceCategory getServiceCategory() {
+	public String getServiceCategory() {
 		return this.serviceCategory;
 	}
 
@@ -119,8 +116,8 @@ public class Ticket implements ITicket {
 	 * 
 	 * @param the service category of the current record
 	 */
-	public void setServiceCategory(IServiceCategory serviceCategory) {
-		this.serviceCategory = (ServiceCategory) serviceCategory;
+	public void setServiceCategory(String serviceCategory) {
+		this.serviceCategory = serviceCategory;
 	}
 
 	/**
@@ -128,7 +125,7 @@ public class Ticket implements ITicket {
 	 * 
 	 * @return the priority of the current record
 	 */
-	public IPriority getPriority() {
+	public String getPriority() {
 		return this.priority;
 	}
 
@@ -137,8 +134,8 @@ public class Ticket implements ITicket {
 	 * 
 	 * @param the priority of the current record
 	 */
-	public void setPriority(IPriority priority) {
-		this.priority = (Priority) priority;
+	public void setPriority(String priority) {
+		this.priority = priority;
 	}
 
 	/**
@@ -146,7 +143,7 @@ public class Ticket implements ITicket {
 	 * 
 	 * @return the status of the current record
 	 */
-	public IStatus getStatus() {
+	public String getStatus() {
 		return this.status;
 	}
 
@@ -155,8 +152,8 @@ public class Ticket implements ITicket {
 	 * 
 	 * @param the status of the current record
 	 */
-	public void setStatus(IStatus status) {
-		this.status = (Status) status;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	/**

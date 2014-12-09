@@ -64,42 +64,42 @@ public interface ITicket {
 	 * 
 	 * @return an IServiceCategory object containing the current ticket service category 
 	 */
-	public IServiceCategory getServiceCategory();
+	public String getServiceCategory();
 	
 	/**
 	 * Method to set the current ticket's service category
 	 * 
 	 * @param serviceCategory contains an IServiceCategory object for the ticket service category
 	 */
-	public void setServiceCategory(IServiceCategory serviceCategory);
+	public void setServiceCategory(String serviceCategory);
 	
 	/**
 	 * Method to get the ticket's priority
 	 * 
 	 * @return the priority of the ticket
 	 */
-	public IPriority getPriority();
+	public String getPriority();
 	
 	/**
 	 * Method to set the ticket's priority
 	 * 
 	 * @param the priority of the ticket
 	 */
-	public void setPriority(IPriority priority);
+	public void setPriority(String priority);
 	
 	/**
 	 * Method to retrieve the current status object.
 	 * 
 	 * @return an IStatus object containing the current ticket status 
 	 */
-	public IStatus getStatus();
+	public String getStatus();
 	
 	/**
 	 * Method to set the current ticket's status
 	 * 
 	 * @param status contains an IStatus object for the ticket status
 	 */
-	public void setStatus(IStatus status);
+	public void setStatus(String status);
 	
 	/**
 	 * Method to retrieve the current technician

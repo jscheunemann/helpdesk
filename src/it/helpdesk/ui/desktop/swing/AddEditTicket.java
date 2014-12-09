@@ -543,7 +543,7 @@ public class AddEditTicket extends JDialog implements ITicketFormView {
 	}
 
 	@Override
-	public void showValidationErrorDialog() {
+	public void showValidationErrorDialog(String message) {
 		// TODO Auto-generated method stub
 		
 	}

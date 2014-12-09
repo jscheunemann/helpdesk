@@ -213,7 +213,7 @@ public interface ITicketFormView {
 	/**
 	 * Method to show any validation error messages to the user
 	 */
-	public void showValidationErrorDialog();
+	public void showValidationErrorDialog(String message);
 	
 	/**
 	 * Method to set the view's title
