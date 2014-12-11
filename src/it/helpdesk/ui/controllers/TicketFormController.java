@@ -100,7 +100,10 @@ public class TicketFormController implements ITicketFormController {
 		this.view.close();
 	}
 
-	@Override
+	/**
+	 * Method handles Save Button press by taking items from the view and saving it to the database. 
+	 * If all of the required fields in the ticket were not completed, the user will recieve an error message. 
+	 */
 	public void saveButtonPressed() {
 		ITechnician openedBy = ApplicationState.getInstance().getLoggedInTechnician();
 		ITechnician technician = ApplicationState.getInstance().getLoggedInTechnician();
@@ -111,15 +114,16 @@ public class TicketFormController implements ITicketFormController {
 		
 		String saveMessage = "";
 		
-		
 		if(checkTicketFields(saveMessage)){
 			if (ticket != null) {
 				openedBy = ticket.getOpenedBy();
 				openedOn = ticket.getOpenedOn();
 				closedOn = ticket.getCompletedOn();
-				customer = ticket.getCustomer();
 			}
-			
+			customer.setFirstName(this.view.getClientFirstName());
+			customer.setLastName(this.view.getClientLastName());
+			customer.setEmailAddress(this.view.getClientEmailAddress());
+			customer.setPhoneNumber(this.view.getClientPhoneNumber());
 			this.datasource.saveTicket(ticket,
 					openedBy,
 					this.view.getSelectedServiceCategory(),
@@ -152,36 +156,39 @@ public class TicketFormController implements ITicketFormController {
 	private boolean checkTicketFields(String saveMessage) {
 		boolean complete = true;
 		
-		ICustomer customer = ticket.getCustomer();
-		if(customer.getFirstName()==""){
+		if(this.view.getClientFirstName().equals("")){
 			complete = false;
-			saveMessage = saveMessage + "Client First Name must be completed.\n";
+			saveMessage += "Client First Name must be completed.\n";
 		}
-		if(customer.getLastName()==""){
+		if(this.view.getClientLastName().equals("")){
 			complete = false;
-			saveMessage = saveMessage + "Client Last Name must be completed.\n";
+			saveMessage += "Client Last Name must be completed.\n";
 		}
-		if(customer.getPhoneNumber()==""&& customer.getEmailAddress()==""){
+		if(this.view.getClientPhoneNumber().equals("")&& this.view.getClientEmailAddress().equals("")){
 			complete = false;
-			saveMessage = saveMessage + "Either Client Phone or Client Email must be completed.\n";
+			saveMessage += "Either Client Phone or Client Email must be completed.\n";
 		}
-		if(ticket.getSummary()==""){
+		if(this.view.getSummary().equals("")){
 			complete = false;
-			saveMessage = saveMessage + "Summary field must be completed.\n";
+			saveMessage += "Summary field must be completed.\n";
 		}
-		if(ticket.getServiceCategory()==""){
+		if(this.view.getSelectedServiceCategory().equals("")){
 			complete = false;
-			saveMessage = saveMessage + "You must select a Service Category.\n";
-		}
-		
-		if(ticket.getPriority()==null){
-			complete = false;
-			saveMessage = saveMessage + "You must select a Priority.\n";
+			saveMessage += "You must select a Service Category.\n";
 		}
 		
-		if(ticket.getDescription()==""){
+		if(this.view.getSelectedPriority().equals("")){
 			complete = false;
-			saveMessage = saveMessage + "You must enter a Ticket Description.\n";
+			saveMessage += "You must select a Priority.\n";
+		}
+		
+		if(this.view.getDescription().equals("")){
+			complete = false;
+			saveMessage += "You must enter a Ticket Description.\n";
+		}
+		
+		if(complete){
+			saveMessage = "Ticket Save Successful"; //If all the fields were completed, message will say successful
 		}
 		
 		return complete;
