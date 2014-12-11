@@ -188,7 +188,8 @@ public class TicketFormController implements ITicketFormController {
 		}
 		
 		if(complete){
-			saveMessage.replace(0, saveMessage.length()-1,"Ticket Save Successful"); //If all the fields were completed, message will say successful
+			saveMessage.setLength(0);
+			saveMessage.append("Ticket Save Successful"); //If all the fields were completed, message will say successful
 		}
 		
 		return complete;
