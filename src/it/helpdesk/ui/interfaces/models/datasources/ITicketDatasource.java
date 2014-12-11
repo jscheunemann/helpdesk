@@ -81,7 +81,7 @@ public interface ITicketDatasource {
 	 * 
 	 * @param the ticket information to be persisted
 	 */
-	public void saveTicket(ITicket ticket, ITechnician openedBy, String serviceCategory, String priority,
+	public ITicket saveTicket(ITicket ticket, ITechnician openedBy, String serviceCategory, String priority,
 			String status, ITechnician technician, Date openedOn, Date closedOn, ICustomer customer,
 			String summary);
 }

@@ -131,7 +131,7 @@ public class TicketDatasource implements ITicketDatasource{
 		return ticket;
 	}
 
-	public void saveTicket(ITicket ticket, ITechnician openedBy, String serviceCategory,
+	public ITicket saveTicket(ITicket ticket, ITechnician openedBy, String serviceCategory,
 			String priority, String status, ITechnician technician,
 			Date openedOn, Date closedOn, ICustomer customer, String summary) {
 		
@@ -165,5 +165,7 @@ public class TicketDatasource implements ITicketDatasource{
 	
 		session.getTransaction().commit();
 		session.close();
+		
+		return ticket;
 	}
 }
