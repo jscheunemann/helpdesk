@@ -1,6 +1,5 @@
 package it.helpdesk.ui.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -43,6 +42,8 @@ public class MainFormController implements IMainFormController {
 	
 	private List<ITicket> inactiveTickets;
 	
+	private long selectedTicketId = 0;
+	
 	public MainFormController(IViewConfiguration viewConfiguration, IDatasourceConfiguration datasourceConfiguration) {
 		this.viewConfiguration = viewConfiguration;
 		this.datasourceConfiguration = datasourceConfiguration;
@@ -76,6 +77,11 @@ public class MainFormController implements IMainFormController {
 	@Override
 	public void openTicketForm() {
 		ITicketFormController ticketFormController = new TicketFormController(this.viewConfiguration, this.datasourceConfiguration);
+		
+		if (this.selectedTicketId > 0) {
+			ticketFormController.setTicket(this.datasource.getTicketById(selectedTicketId));
+		}
+		
 		ticketFormController.openForm();
 	}
 
@@ -104,5 +110,15 @@ public class MainFormController implements IMainFormController {
 	public void clearInactiveTicketView() {
 		inactiveTickets.clear();
 		this.view.displayInactiveTickets(inactiveTickets);
+	}
+
+	@Override
+	public void updateSelectedTicket(long id) {
+		this.selectedTicketId = id;
+	}
+
+	@Override
+	public void clearSelectedTicket() {
+		this.selectedTicketId = 0;
 	}
 }

@@ -68,4 +68,8 @@ public interface IMainMenu {
 	 * Method to enable the logout menu option.
 	 */
 	public void enableLogoutMenuItem();
+	
+	public void disableEditTicketMenuItem();
+	
+	public void enableEditTicketMenuItem();
 }

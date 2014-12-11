@@ -9,4 +9,6 @@ public interface IMainFormController {
 	public void openLoginForm();
 	public void clearActiveTicketView();
 	public void clearInactiveTicketView();
+	public void updateSelectedTicket(long id);
+	public void clearSelectedTicket();
 }

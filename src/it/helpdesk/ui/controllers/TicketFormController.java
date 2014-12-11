@@ -65,14 +65,17 @@ public class TicketFormController implements ITicketFormController {
 		if (this.datasource == null) {
 			this.datasource = datasourceConfiguration.getTicketDatasource();
 		}
-		
+
 		//this.ticket = datasource.getTicketById(6);
 
 		if (ticket != null) {
-			SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-			String date = sdf.format(ticket.getOpenedOn()); 
-			this.view.setDateOpened(date);
-
+			if (ticket.getOpenedOn() != null) {
+				SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+				String date = sdf.format(ticket.getOpenedOn()); 
+				this.view.setDateOpened(date);
+			}
+			
+			this.view.setId(String.valueOf(ticket.getId()));
 			this.view.setClientEmailAddress(ticket.getCustomer().getEmailAddress());
 			this.view.setClientFirstName(ticket.getCustomer().getFirstName());
 			this.view.setClientLastName(ticket.getCustomer().getLastName());
@@ -115,9 +118,9 @@ public class TicketFormController implements ITicketFormController {
 		Date closedOn = null;
 
 		ICustomer customer = new Customer();
-		
+
 		StringBuilder saveMessage = new StringBuilder("");
-		
+
 		if(checkTicketFields(saveMessage)){
 			if (ticket != null) {
 				openedBy = ticket.getOpenedBy();
@@ -128,7 +131,7 @@ public class TicketFormController implements ITicketFormController {
 			customer.setLastName(this.view.getClientLastName());
 			customer.setEmailAddress(this.view.getClientEmailAddress());
 			customer.setPhoneNumber(this.view.getClientPhoneNumber());
-			
+
 			this.ticket = this.datasource.saveTicket(ticket,
 					openedBy,
 					this.view.getSelectedServiceCategory(),
@@ -140,17 +143,17 @@ public class TicketFormController implements ITicketFormController {
 					customer,
 					this.view.getDescription(),
 					this.view.getSummary());
-			
-			
-			
+
+
+
 			this.addLogEntry(newTicket, technician, openedBy, openedOn, closedOn, customer);
-			
+
 			this.view.showValidationSuccessDialog("Save Successful", saveMessage.toString());
 		} else{
 			this.view.showValidationErrorDialog("Save Failed", saveMessage.toString());
 		}
 	}
-	
+
 	/**
 	 * Checks to make sure the ticket field are completed correctly. 
 	 * If all of the required fields are completed the method returns true. Otherwise it returns false. 
@@ -161,7 +164,7 @@ public class TicketFormController implements ITicketFormController {
 	 */
 	private boolean checkTicketFields(StringBuilder saveMessage) {
 		boolean complete = true;
-		
+
 		if(this.view.getClientFirstName().equals("")){
 			complete = false;
 			saveMessage.append("Client First Name must be completed.\n");
@@ -182,22 +185,22 @@ public class TicketFormController implements ITicketFormController {
 			complete = false;
 			saveMessage.append("You must select a Service Category.\n");
 		}
-		
+
 		if(this.view.getSelectedPriority().equals("")){
 			complete = false;
 			saveMessage.append("You must select a Priority.\n");
 		}
-		
+
 		if(this.view.getDescription().equals("")){
 			complete = false;
 			saveMessage.append("You must enter a Ticket Description.\n");
 		}
-		
+
 		if(complete){
 			saveMessage.setLength(0);
 			saveMessage.append("Ticket Save Successful"); //If all the fields were completed, message will say successful
 		}
-		
+
 		return complete;
 	}
 
@@ -206,7 +209,7 @@ public class TicketFormController implements ITicketFormController {
 	 */
 	private void addLogEntry(boolean newTicket, ITechnician technician, ITechnician openedBy, Date openedOn, Date closedOn, ICustomer customer){
 		ILogEntryDatasource logEntryDatasource = new LogEntryDatasource();
-		
+
 		if (!newTicket) {
 			if (!this.view.getClientFirstName().equals(customer.getFirstName())) {
 				logEntryDatasource.saveLogEntry(null, ticket, new Date(), technician,
@@ -242,7 +245,7 @@ public class TicketFormController implements ITicketFormController {
 								ticket.getSummary(),
 								this.view.getSummary()));
 			}
-			
+
 			if (!this.view.getSelectedServiceCategory().equals(ticket.getServiceCategory())) {
 				logEntryDatasource.saveLogEntry(null, ticket, new Date(), technician,
 						String.format("Selected service category changed from %s to %s.", 
@@ -256,13 +259,13 @@ public class TicketFormController implements ITicketFormController {
 								ticket.getPriority(),
 								this.view.getSelectedPriority()));
 			}
-			
+
 			if (!this.view.getSelectedStatus().equals(ticket.getStatus())) {
 				logEntryDatasource.saveLogEntry(null, ticket, new Date(), technician,
 						String.format("Status changed from %s to %s.", 
 								ticket.getStatus(),
 								this.view.getSelectedStatus()));
-				
+
 				if (this.view.getSelectedStatus().equalsIgnoreCase("Complete")) {
 					closedOn = new Date();
 				}

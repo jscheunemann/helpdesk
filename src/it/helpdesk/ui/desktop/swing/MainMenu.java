@@ -203,7 +203,11 @@ public class MainMenu extends JMenuBar implements IMainMenu {
 		loginMenuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				MainMenu.this.controller.clearActiveTicketView();
+				MainMenu.this.controller.clearInactiveTicketView();
 				MainMenu.this.controller.openLoginForm();
+				MainMenu.this.controller.loadActiveTickets();
+				MainMenu.this.controller.loadInactiveTickets();
 			}
 		});
 		
@@ -213,6 +217,8 @@ public class MainMenu extends JMenuBar implements IMainMenu {
 				MainMenu.this.controller.clearActiveTicketView();
 				MainMenu.this.controller.clearInactiveTicketView();
 				MainMenu.this.controller.openLoginForm();
+				MainMenu.this.controller.loadActiveTickets();
+				MainMenu.this.controller.loadInactiveTickets();
 			}
 		});
 		
@@ -224,12 +230,18 @@ public class MainMenu extends JMenuBar implements IMainMenu {
 		
 		updateTicketMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-	
-//				int selectedRow = MainMenu.this.parentWindow.getActiveSelectedRow();
-//				
-//				if(selectedRow >= 0)
-//					MainMenu.this.controller.openTicketForm();
+				MainMenu.this.controller.openTicketForm();
 			}
 		});
+	}
+
+	@Override
+	public void disableEditTicketMenuItem() {
+		this.updateTicketMenuItem.setEnabled(false);
+	}
+
+	@Override
+	public void enableEditTicketMenuItem() {
+		this.updateTicketMenuItem.setEnabled(true);
 	}
 }

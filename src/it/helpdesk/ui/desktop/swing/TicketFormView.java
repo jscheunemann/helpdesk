@@ -556,6 +556,16 @@ public class TicketFormView implements ITicketFormView {
 		JOptionPane.showMessageDialog(this.window.getParent(), message, title, JOptionPane.OK_OPTION);
 	}
 
+	@Override
+	public void setId(String id) {
+		txtFldTicketID.setText(id);
+	}
+
+	@Override
+	public String getId() {
+		return txtFldTicketID.getText();
+	}
+
 	
 }
 

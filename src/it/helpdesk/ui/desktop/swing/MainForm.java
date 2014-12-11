@@ -56,11 +56,6 @@ public class MainForm implements IMainFormView {
 	private IMainMenu mainMenu;
 
 	/**
-	 * Variables reflects whether this is the first load of the page.
-	 */
-	private boolean firstLoad = true;
-
-	/**
 	 * Contains a DBInterface object.
 	 */
 	private DBInterface dbInterface = new DBInterface();
@@ -127,25 +122,7 @@ public class MainForm implements IMainFormView {
 
 		tableActiveTicket.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tableActiveTicket.setEnabled(false);
-		tableActiveTicket.addMouseListener(new MouseAdapter(){
-			public void mouseClicked(MouseEvent e){
-				int rowNum = tableActiveTicket.rowAtPoint(e.getPoint());
-				tableActiveTicket.clearSelection();
-				tableActiveTicket.addRowSelectionInterval(rowNum, rowNum);
-				// Right click or double click 
-				if(SwingUtilities.isRightMouseButton(e) == true
-						|| e.getClickCount() == 2){
-					DefaultTableModel model = (DefaultTableModel) tableActiveTicket
-							.getModel(); // Set value to table
-					Object id = model.getValueAt(rowNum, 0);
-					if(id != null){
-						int ticketId = Integer.valueOf(id.toString());
-
-						MainForm.this.controller.openTicketForm();
-					}
-				}
-			}
-		});
+		
 		JTableHeader activeHeader = tableActiveTicket.getTableHeader();
 		activeHeader.addMouseListener(new MouseAdapter(){
 			public void mouseClicked(MouseEvent e){
@@ -161,8 +138,8 @@ public class MainForm implements IMainFormView {
 
 		tabbedPane.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent event){
-				updateActiveTable();
-				updateInactiveTable();
+//				updateActiveTable();
+//				updateInactiveTable();
 			}
 		});
 
@@ -182,26 +159,6 @@ public class MainForm implements IMainFormView {
 
 		tableInactiveTicket.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tableInactiveTicket.setEnabled(false);
-		tableInactiveTicket.addMouseListener(new MouseAdapter(){
-			public void mouseClicked(MouseEvent e){
-				int rowNum = tableInactiveTicket.rowAtPoint(e.getPoint());
-				tableInactiveTicket.clearSelection();
-				tableInactiveTicket.addRowSelectionInterval(rowNum, rowNum);
-				// Right click or double click 
-				if(SwingUtilities.isRightMouseButton(e) == true
-						|| e.getClickCount() == 2){
-					DefaultTableModel model = (DefaultTableModel) tableInactiveTicket
-							.getModel(); // Set value to table
-					Object id = model.getValueAt(rowNum, 0);
-					if(id != null){
-
-						int ticketId = Integer.valueOf(id.toString());
-
-						MainForm.this.controller.openTicketForm();
-					}
-				}
-			}
-		});
 
 		this.window.pack();
 
@@ -209,20 +166,6 @@ public class MainForm implements IMainFormView {
 
 		this.window.setJMenuBar((JMenuBar) mainMenu);
 		this.window.setLocationByPlatform(true);
-	}
-
-	/**
-	 * Method used to display the active ticket in the JTable object.
-	 */
-	public void displayActiveTickets() {
-
-	}
-
-	/**
-	 * Method used to display the archived ticket in the JTable object.
-	 */
-	public void displayInactiveTickets() {
-
 	}
 
 	/**
@@ -258,37 +201,6 @@ public class MainForm implements IMainFormView {
 	}
 
 	/**
-	 * Method to update the active ticket table.
-	 */
-	public void updateActiveTable(){
-		DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) tableActiveTicket
-				.getDefaultRenderer(String.class);
-		renderer.setHorizontalAlignment(JLabel.RIGHT); // Format value in table
-		// to right
-		DefaultTableModel model = (DefaultTableModel) tableActiveTicket
-				.getModel(); // Set value to table
-		List<Ticket> currentTicketList = dbInterface.queryActiveTicket();
-
-		int newSize = (int) currentTicketList.size();
-		int rowIndex =0;
-		while(rowIndex < newSize){  
-			if(!(rowIndex < model.getRowCount())){ //Adds row if needed
-				model.addRow(new Object[] { null, null, null, null, null, null, null });
-			}
-			// Updates existing row if a row already exists. If new row was created, that will be updated here. 
-			model.setValueAt(currentTicketList.get(rowIndex).getID(), rowIndex,0 );
-			model.setValueAt(currentTicketList.get(rowIndex).getPriority(), rowIndex,1 );
-			model.setValueAt(currentTicketList.get(rowIndex).getStatus(), rowIndex,2 );
-			model.setValueAt(currentTicketList.get(rowIndex).getServiceCat(), rowIndex,3 );
-			model.setValueAt(currentTicketList.get(rowIndex).getClient(), rowIndex,4 );
-			model.setValueAt(currentTicketList.get(rowIndex).getSummary(), rowIndex,5 );
-			model.setValueAt(currentTicketList.get(rowIndex).getOpenedDate(), rowIndex,6 );
-			rowIndex++;
-		}
-
-	}
-
-	/**
 	 * Method to grab the selected ticket ID and return it to the calling method.
 	 * 
 	 * @return ID for the currently selected ticket
@@ -296,37 +208,6 @@ public class MainForm implements IMainFormView {
 	public int getActiveSelectedRow() {
 		int selectedRow = tableActiveTicket.getSelectedRow();
 		return Integer.valueOf(tableActiveTicket.getValueAt(selectedRow, 0).toString());
-	}
-
-	/**
-	 * Method to update the active ticket table.
-	 */
-	public void updateInactiveTable(){
-		DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) tableInactiveTicket
-				.getDefaultRenderer(String.class);
-		renderer.setHorizontalAlignment(JLabel.RIGHT); // Format value in table
-		// to right
-		DefaultTableModel model = (DefaultTableModel) tableInactiveTicket
-				.getModel(); // Set value to table
-
-		List<Ticket> currentTicketList = dbInterface.queryInactiveTicket();
-
-		int newSize = (int) currentTicketList.size();
-		int rowIndex =0;
-		while(rowIndex < newSize){  
-			if(!(rowIndex < model.getRowCount())){ //Adds row if needed
-				model.addRow(new Object[] { null, null, null, null, null, null, null });
-			}
-			// Updates existing row if a row already exists. If new row was created, that will be updated here. 
-			model.setValueAt(currentTicketList.get(rowIndex).getID(), rowIndex,0 );
-			model.setValueAt(currentTicketList.get(rowIndex).getPriority(), rowIndex,1 );
-			model.setValueAt(currentTicketList.get(rowIndex).getStatus(), rowIndex,2 );
-			model.setValueAt(currentTicketList.get(rowIndex).getServiceCat(), rowIndex,3 );
-			model.setValueAt(currentTicketList.get(rowIndex).getClient(), rowIndex,4 );
-			model.setValueAt(currentTicketList.get(rowIndex).getSummary(), rowIndex,5 );
-			model.setValueAt(currentTicketList.get(rowIndex).getOpenedDate(), rowIndex,6 );
-			rowIndex++;
-		}
 	}
 
 
@@ -365,9 +246,6 @@ public class MainForm implements IMainFormView {
 			dbInterface.sortByOpenedDate(active);
 			break;
 		}
-
-		updateActiveTable();
-		updateInactiveTable();
 	}
 
 	@Override
@@ -379,13 +257,45 @@ public class MainForm implements IMainFormView {
 	public void open() {
 		((MainFormController)this.controller).setApplicationParentFrame(this.window);
 		((MainMenu) this.mainMenu).setController(this.controller);
+		this.mainMenu.disableEditTicketMenuItem();
 
 		this.window.addComponentListener(new ComponentAdapter() {
 			public void componentShown(ComponentEvent e) {
 				MainForm.this.openLoginForm();
 				MainForm.this.controller.loadActiveTickets();
 				MainForm.this.controller.loadInactiveTickets();
-				firstLoad = false;
+			}
+		});
+		
+		tableActiveTicket.addMouseListener(new MouseAdapter(){
+			public void mouseClicked(MouseEvent e){
+				int rowNum = tableActiveTicket.rowAtPoint(e.getPoint());
+				tableActiveTicket.clearSelection();
+				tableActiveTicket.addRowSelectionInterval(rowNum, rowNum);
+				// Right click or double click 
+				if(SwingUtilities.isRightMouseButton(e) == true || e.getClickCount() == 2) {
+					DefaultTableModel model = (DefaultTableModel) tableActiveTicket.getModel(); // Set value to table
+					Object id = model.getValueAt(rowNum, 0);
+					if(id != null){
+						MainForm.this.controller.updateSelectedTicket((Long) id);
+						MainForm.this.mainMenu.enableEditTicketMenuItem();
+
+						MainForm.this.controller.openTicketForm();
+					}
+				}
+				else if (SwingUtilities.isLeftMouseButton(e) == true) {
+					DefaultTableModel model = (DefaultTableModel) tableActiveTicket.getModel(); // Set value to table
+					Object id = model.getValueAt(rowNum, 0);
+					
+					if(id != null){
+						MainForm.this.controller.updateSelectedTicket((Long) id);
+						MainForm.this.mainMenu.enableEditTicketMenuItem();
+					}
+				}
+				else {
+					MainForm.this.controller.clearSelectedTicket();
+					MainForm.this.mainMenu.disableEditTicketMenuItem();
+				}
 			}
 		});
 
@@ -399,6 +309,12 @@ public class MainForm implements IMainFormView {
 		renderer.setHorizontalAlignment(JLabel.RIGHT); // Format value in table
 		// to right
 		DefaultTableModel model = (DefaultTableModel) tableActiveTicket.getModel();
+		
+		int rowCount = model.getRowCount();
+		//Remove rows one by one from the end of the table
+		for (int i = rowCount - 1; i >= 0; i--) {
+		    model.removeRow(i);
+		}
 
 		int rowIndex =0;
 
@@ -424,8 +340,14 @@ public class MainForm implements IMainFormView {
 		renderer.setHorizontalAlignment(JLabel.RIGHT); // Format value in table
 		// to right
 		DefaultTableModel model = (DefaultTableModel) tableInactiveTicket.getModel();
+		
+		int rowCount = model.getRowCount();
+		//Remove rows one by one from the end of the table
+		for (int i = rowCount - 1; i >= 0; i--) {
+		    model.removeRow(i);
+		}
 
-		int rowIndex =0;
+		int rowIndex = 0;
 
 		for (ITicket ticket : inactiveTickets) {
 			model.addRow(new Object[] { null, null, null, null, null, null, null });

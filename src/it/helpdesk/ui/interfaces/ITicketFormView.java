@@ -56,6 +56,10 @@ public interface ITicketFormView {
 	 */
 	public void addInformationPressed();
 	
+	public void setId(String id);
+	
+	public String getId();
+	
 	/**
 	 * Method to set the applicable service categories
 	 * 
