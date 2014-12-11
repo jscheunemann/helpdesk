@@ -38,6 +38,10 @@ public class SwingViewConfiguration implements IViewConfiguration {
 	 */
 	JFrame parentWindow;
 	
+	public SwingViewConfiguration() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	/**
 	 * Class constructor that sets the local JFrame object to the parent window object.
 	 * 
@@ -45,6 +49,10 @@ public class SwingViewConfiguration implements IViewConfiguration {
 	 */
 	public SwingViewConfiguration(JFrame parentWindow) {
 		this.parentWindow = parentWindow;
+	}
+	
+	public void setApplicationRootView(JFrame window) {
+		this.parentWindow = window;
 	}
 	
 	/**
@@ -73,5 +81,14 @@ public class SwingViewConfiguration implements IViewConfiguration {
 	@Override
 	public ITicketFormView getTicketFormView() {
 		return new TicketFormView(parentWindow);
+	}
+
+	@Override
+	public IMainFormView getMainFormView() {
+		return new MainForm();
+	}
+	
+	public void setApplicationParentFrame(JFrame frame) {
+		this.parentWindow = frame;
 	}
 }

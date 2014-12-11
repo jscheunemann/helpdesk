@@ -29,7 +29,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
 
-import it.helpdesk.ui.interfaces.IMain;
+import it.helpdesk.ui.interfaces.IMainFormController;
 import it.helpdesk.ui.interfaces.IMainMenu;
 
 /**
@@ -49,7 +49,7 @@ public class MainMenu extends JMenuBar implements IMainMenu {
 	/**
 	 * Contains an IMain object.
 	 */
-	private IMain parentWindow;
+	private IMainFormController controller;
 	
 	/**
 	 * Contains a JMenu object containing the file menu.
@@ -75,14 +75,17 @@ public class MainMenu extends JMenuBar implements IMainMenu {
 	 * Contains a JMenuItem object to allow the user to exit the application.
 	 */
 	private JMenuItem exitMenuItem;
+	
+	private JMenuItem newTicketMenuItem;
+	
+	private JMenuItem updateTicketMenuItem;
 
 	/**
 	 * Class constructor to build the main menu toolbar and the available options.
 	 * 
 	 * @param parentWindow a reference to the IMain parent object
 	 */
-	public MainMenu(IMain parentWindow) {
-		this.parentWindow = parentWindow;
+	public MainMenu() {
 		fileMenu = new JMenu("File");
 
 		JMenuItem settingsMenuItem = new JMenuItem("Setting");
@@ -92,23 +95,9 @@ public class MainMenu extends JMenuBar implements IMainMenu {
 
 		loginMenuItem = new JMenuItem("Login");
 		
-		loginMenuItem.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				MainMenu.this.parentWindow.openLoginDialog();
-			}
-		});
-		
 		fileMenu.add(loginMenuItem);
 		
 		logoutMenuItem = new JMenuItem("Logout"); 
-		
-		logoutMenuItem.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//TODO: Implement Logout Dialog
-			}
-		});
 		
 		fileMenu.add(logoutMenuItem);
 		
@@ -116,36 +105,16 @@ public class MainMenu extends JMenuBar implements IMainMenu {
 		
 		exitMenuItem = new JMenuItem("Exit"); 
 		
-		exitMenuItem.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				MainMenu.this.parentWindow.close();
-			}
-		});
-		
 		fileMenu.add(exitMenuItem);
 
 		ticketMenu = new JMenu("Ticket");
 
-		JMenuItem newTicketMenuItem = new JMenuItem("Add New Ticket");
+		newTicketMenuItem = new JMenuItem("Add New Ticket");
 
-		newTicketMenuItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				MainMenu.this.parentWindow.openCreateNewTicketDialog();
-			}
-		});
 		ticketMenu.add(newTicketMenuItem);
 
-		JMenuItem updateTicketMenuItem = new JMenuItem("Update Ticket");
+		updateTicketMenuItem = new JMenuItem("Update Ticket");
 		
-		updateTicketMenuItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-	
-				int selectedRow = MainMenu.this.parentWindow.getActiveSelectedRow();
-				if(selectedRow >= 0)
-					MainMenu.this.parentWindow.openEditTicketDialog(selectedRow);
-			}
-		});
 		ticketMenu.add(updateTicketMenuItem);
 
 		this.add(fileMenu);
@@ -219,5 +188,48 @@ public class MainMenu extends JMenuBar implements IMainMenu {
 	@Override
 	public void enableLogoutMenuItem() {
 		this.logoutMenuItem.setEnabled(true);
+	}
+	
+	public void setController(IMainFormController controller) {
+		this.controller = controller;
+		
+		exitMenuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				MainMenu.this.controller.closeForm();
+			}
+		});
+		
+		loginMenuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				MainMenu.this.controller.openLoginForm();
+			}
+		});
+		
+		logoutMenuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				MainMenu.this.controller.clearActiveTicketView();
+				MainMenu.this.controller.clearInactiveTicketView();
+				MainMenu.this.controller.openLoginForm();
+			}
+		});
+		
+		newTicketMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				MainMenu.this.controller.openTicketForm();
+			}
+		});
+		
+		updateTicketMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+	
+//				int selectedRow = MainMenu.this.parentWindow.getActiveSelectedRow();
+//				
+//				if(selectedRow >= 0)
+//					MainMenu.this.controller.openTicketForm();
+			}
+		});
 	}
 }

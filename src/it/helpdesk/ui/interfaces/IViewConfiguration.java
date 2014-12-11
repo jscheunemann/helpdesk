@@ -49,4 +49,11 @@ public interface IViewConfiguration {
 	 * @return an ITicketFormView object
 	 */
 	public ITicketFormView getTicketFormView();
+
+	/**
+	 * Method to retrieve the current main form view object.
+	 * 
+	 * @return an IMainFormView object
+	 */
+	public IMainFormView getMainFormView();
 }

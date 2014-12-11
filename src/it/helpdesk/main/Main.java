@@ -20,6 +20,10 @@
 
 package it.helpdesk.main;
 
+import it.helpdesk.datasources.hibernate.HibernateDatasourceConfiguration;
+import it.helpdesk.ui.controllers.MainFormController;
+import it.helpdesk.ui.desktop.swing.SwingViewConfiguration;
+import it.helpdesk.ui.interfaces.IMainFormController;
 import it.sauronsoftware.junique.*;
 
 import java.awt.event.*;
@@ -75,15 +79,12 @@ public class Main {
 			}
 			javax.swing.SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
-					it.helpdesk.ui.desktop.swing.MainForm mainScreen = new it.helpdesk.ui.desktop.swing.MainForm();
-					mainScreen.setVisible(true);
-					mainScreen.addWindowListener(new WindowAdapter() {
 
-						@Override
-						public void windowClosing(WindowEvent e) {
-							System.exit(0);
-						}
-					});
+					SwingViewConfiguration viewConfiguration = new SwingViewConfiguration();
+					HibernateDatasourceConfiguration datasourceConfiguration = new HibernateDatasourceConfiguration();
+					
+					IMainFormController controller = new MainFormController(viewConfiguration, datasourceConfiguration);
+					controller.openForm();
 				}
 			});
 		} 

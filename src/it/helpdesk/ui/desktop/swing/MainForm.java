@@ -20,11 +20,10 @@
 
 package it.helpdesk.ui.desktop.swing;
 
-import it.helpdesk.datasources.hibernate.HibernateDatasourceConfiguration;
 import it.helpdesk.main.*;
-import it.helpdesk.ui.controllers.LoginFormController;
-import it.helpdesk.ui.controllers.TicketFormController;
+import it.helpdesk.ui.controllers.MainFormController;
 import it.helpdesk.ui.interfaces.*;
+import it.helpdesk.ui.interfaces.models.ITicket;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -45,68 +44,62 @@ import java.util.List;
  * @version	1.0
  * @since	2014-11-26
  */
-public class MainForm extends JFrame implements IMain {
-	
-	/**
-	 * Contains the serial version number for the application.
-	 */
-	private static final long serialVersionUID = 5596361278718314710L;
+public class MainForm implements IMainFormView {
 
-	/**
-	 * Contains a IDatasourceConfiguration object.
-	 */
-	private IDatasourceConfiguration datasourceConfiguration;
-	
-	/**
-	 * Contains a IViewConfiguration object.
-	 */
-	private IViewConfiguration viewConfiguration;
-	
+	private JFrame window;
+
+	private IMainFormController controller;
+
 	/**
 	 * Contains a IMainMenu object.
 	 */
 	private IMainMenu mainMenu;
-	
+
 	/**
 	 * Variables reflects whether this is the first load of the page.
 	 */
 	private boolean firstLoad = true;
-	
+
 	/**
 	 * Contains a DBInterface object.
 	 */
 	private DBInterface dbInterface = new DBInterface();
-	
+
 	/**
 	 * Contains a JTable object holding a list of archived tickets.
 	 */
 	private JTable tableInactiveTicket;
-	
+
 	/**
 	 * Contains a JTable object holding a list of active tickets.
 	 */
 	private JTable tableActiveTicket;
-	
-	
+
+
 	/**
 	 * Class constructor that builds a tabbed ticket view contains active/archived tickets.
 	 */
 	public MainForm() {
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		viewConfiguration = new SwingViewConfiguration(this);
-		datasourceConfiguration = new HibernateDatasourceConfiguration();
 		JPanel contentPane;
-		//JTable tableInactiveTicket;
-		//JTable tableActiveTicket;
 
+		this.window = new JFrame();
 
-		//Set graphical elements
-		setTitle("Helpdesk Ticket Tracker");
+		this.window.setTitle("Helpdesk Ticket Tracker");
+
+		this.window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+		this.window.addWindowListener(new WindowAdapter() {
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				System.exit(0);
+			}
+		});
 
 		//Main panel to hold window's content
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(25, 25, 25, 25));
-		setContentPane(contentPane);
+		this.window.setContentPane(contentPane);
 		FlowLayout layout = new FlowLayout();
 		contentPane.setLayout(layout);
 
@@ -147,7 +140,8 @@ public class MainForm extends JFrame implements IMain {
 					Object id = model.getValueAt(rowNum, 0);
 					if(id != null){
 						int ticketId = Integer.valueOf(id.toString());
-						openEditTicketDialog(ticketId);
+
+						MainForm.this.controller.openTicketForm();
 					}
 				}
 			}
@@ -158,13 +152,13 @@ public class MainForm extends JFrame implements IMain {
 				int colNum = tableActiveTicket.columnAtPoint(e.getPoint());
 				System.out.println(colNum);
 				sortTable(colNum, true);
-				}
+			}
 		});
-		
+
 		JPanel pnlInactiveTicket = new JPanel();
 		tabbedPane.addTab("Archive Tickets", null, pnlInactiveTicket, null);
 		pnlInactiveTicket.setLayout(layout);
-		
+
 		tabbedPane.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent event){
 				updateActiveTable();
@@ -185,7 +179,7 @@ public class MainForm extends JFrame implements IMain {
 						"ID", "Priority", "Status", "Category", "Client", "Summary", "Date Opened"
 				}
 				));
-		
+
 		tableInactiveTicket.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tableInactiveTicket.setEnabled(false);
 		tableInactiveTicket.addMouseListener(new MouseAdapter(){
@@ -200,28 +194,21 @@ public class MainForm extends JFrame implements IMain {
 							.getModel(); // Set value to table
 					Object id = model.getValueAt(rowNum, 0);
 					if(id != null){
+
 						int ticketId = Integer.valueOf(id.toString());
-						openEditTicketDialog(ticketId);
+
+						MainForm.this.controller.openTicketForm();
 					}
 				}
 			}
 		});
 
-		this.pack();
+		this.window.pack();
 
-		mainMenu = new MainMenu(this);
+		mainMenu = new MainMenu();
 
-		this.setJMenuBar((JMenuBar) mainMenu);
-		this.setLocationByPlatform(true);
-
-		this.addComponentListener(new ComponentAdapter() {
-			public void componentShown(ComponentEvent e) {
-				if (firstLoad) {
-					MainForm.this.openLoginDialog();
-					firstLoad = false;
-				}
-			}
-		});
+		this.window.setJMenuBar((JMenuBar) mainMenu);
+		this.window.setLocationByPlatform(true);
 	}
 
 	/**
@@ -242,9 +229,8 @@ public class MainForm extends JFrame implements IMain {
 	 * Method to open the login window prior to displaying any ticket information.
 	 */
 	@Override
-	public void openLoginDialog() {
-		ILoginFormController controller = new LoginFormController(viewConfiguration, datasourceConfiguration);
-		controller.openForm();
+	public void openLoginForm() {
+		this.controller.openLoginForm();
 	}
 
 	/**
@@ -252,30 +238,15 @@ public class MainForm extends JFrame implements IMain {
 	 */
 	@Override
 	public void openLogoutDialog() {
-		// TODO Auto-generated method stub
+		this.controller.openLoginForm();
 	}
 
 	/**
 	 * Method to open a new window in which the user can create a new ticket.
 	 */
 	@Override
-	public void openCreateNewTicketDialog() {
-		ITicketFormController controller = new TicketFormController(viewConfiguration, datasourceConfiguration);
-		controller.openForm();
-	}
-
-	/**
-	 * Method to open a new window in which the user can edit an existing ticket.
-	 */
-	@Override
-	public void openEditTicketDialog(int ticketId) {
-		ITicketFormController controller = new TicketFormController(viewConfiguration, datasourceConfiguration);
-		//TODO: Add the code to set the controller's ticket
-		//controller.setTicket(ticket);
-		controller.openForm();
-		
-		updateActiveTable();
-		updateInactiveTable();
+	public void openTicketForm() {
+		this.controller.openTicketForm();
 	}
 
 	/**
@@ -283,7 +254,7 @@ public class MainForm extends JFrame implements IMain {
 	 */
 	@Override
 	public void close() {
-		this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+		this.window.dispatchEvent(new WindowEvent(this.window, WindowEvent.WINDOW_CLOSING));
 	}
 
 	/**
@@ -314,9 +285,9 @@ public class MainForm extends JFrame implements IMain {
 			model.setValueAt(currentTicketList.get(rowIndex).getOpenedDate(), rowIndex,6 );
 			rowIndex++;
 		}
-		
+
 	}
-	
+
 	/**
 	 * Method to grab the selected ticket ID and return it to the calling method.
 	 * 
@@ -326,7 +297,7 @@ public class MainForm extends JFrame implements IMain {
 		int selectedRow = tableActiveTicket.getSelectedRow();
 		return Integer.valueOf(tableActiveTicket.getValueAt(selectedRow, 0).toString());
 	}
-	
+
 	/**
 	 * Method to update the active ticket table.
 	 */
@@ -356,11 +327,9 @@ public class MainForm extends JFrame implements IMain {
 			model.setValueAt(currentTicketList.get(rowIndex).getOpenedDate(), rowIndex,6 );
 			rowIndex++;
 		}
-		 
-
 	}
-	
-	
+
+
 	/**
 	 * Method to grab the selected ticket ID and return it to the calling method.
 	 * 
@@ -370,7 +339,7 @@ public class MainForm extends JFrame implements IMain {
 		int selectedRow = tableInactiveTicket.getSelectedRow();
 		return Integer.valueOf(tableInactiveTicket.getValueAt(selectedRow, 0).toString());
 	}
-	
+
 	/**
 	 * Method to sort the view of active ticket list.
 	 * 
@@ -396,8 +365,80 @@ public class MainForm extends JFrame implements IMain {
 			dbInterface.sortByOpenedDate(active);
 			break;
 		}
-		
+
 		updateActiveTable();
 		updateInactiveTable();
+	}
+
+	@Override
+	public void setController(IMainFormController controller) {
+		this.controller = controller;
+	}
+
+	@Override
+	public void open() {
+		((MainFormController)this.controller).setApplicationParentFrame(this.window);
+		((MainMenu) this.mainMenu).setController(this.controller);
+
+		this.window.addComponentListener(new ComponentAdapter() {
+			public void componentShown(ComponentEvent e) {
+				MainForm.this.openLoginForm();
+				MainForm.this.controller.loadActiveTickets();
+				MainForm.this.controller.loadInactiveTickets();
+				firstLoad = false;
+			}
+		});
+
+		this.window.setVisible(true);
+	}
+
+	@Override
+	public void displayActiveTickets(List<ITicket> activeTickets) {
+		DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) tableActiveTicket
+				.getDefaultRenderer(String.class);
+		renderer.setHorizontalAlignment(JLabel.RIGHT); // Format value in table
+		// to right
+		DefaultTableModel model = (DefaultTableModel) tableActiveTicket.getModel();
+
+		int rowIndex =0;
+
+		for (ITicket ticket : activeTickets) {
+			model.addRow(new Object[] { null, null, null, null, null, null, null });
+
+			// Updates existing row if a row already exists. If new row was created, that will be updated here. 
+			model.setValueAt(ticket.getId(), rowIndex,0 );
+			model.setValueAt(ticket.getPriority(), rowIndex,1 );
+			model.setValueAt(ticket.getStatus(), rowIndex,2 );
+			model.setValueAt(ticket.getServiceCategory(), rowIndex,3 );
+			model.setValueAt(String.format("%s %s", ticket.getCustomer().getFirstName(), ticket.getCustomer().getLastName()), rowIndex,4 );
+			model.setValueAt(ticket.getSummary(), rowIndex,5 );
+			model.setValueAt(ticket.getOpenedOn(), rowIndex,6 );
+			rowIndex++;
+		}
+	}
+
+	@Override
+	public void displayInactiveTickets(List<ITicket> inactiveTickets) {
+		DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) tableInactiveTicket
+				.getDefaultRenderer(String.class);
+		renderer.setHorizontalAlignment(JLabel.RIGHT); // Format value in table
+		// to right
+		DefaultTableModel model = (DefaultTableModel) tableInactiveTicket.getModel();
+
+		int rowIndex =0;
+
+		for (ITicket ticket : inactiveTickets) {
+			model.addRow(new Object[] { null, null, null, null, null, null, null });
+
+			// Updates existing row if a row already exists. If new row was created, that will be updated here. 
+			model.setValueAt(ticket.getId(), rowIndex,0 );
+			model.setValueAt(ticket.getPriority(), rowIndex,1 );
+			model.setValueAt(ticket.getStatus(), rowIndex,2 );
+			model.setValueAt(ticket.getServiceCategory(), rowIndex,3 );
+			model.setValueAt(String.format("%s %s", ticket.getCustomer().getFirstName(), ticket.getCustomer().getLastName()), rowIndex,4 );
+			model.setValueAt(ticket.getSummary(), rowIndex,5 );
+			model.setValueAt(ticket.getOpenedOn(), rowIndex,6 );
+			rowIndex++;
+		}
 	}
 }

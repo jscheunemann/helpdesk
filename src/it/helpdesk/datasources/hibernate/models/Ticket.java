@@ -60,7 +60,11 @@ public class Ticket implements ITicket {
 	@OneToOne
 	@JoinColumn(name="technician_id")
 	private Technician technician;
+	
+	@Column(name = "opened_on")
 	private Date openedOn;
+	
+	@Column(name = "completed_on")
 	private Date completedOn;
 	
 	@OneToOne(cascade=CascadeType.ALL)
