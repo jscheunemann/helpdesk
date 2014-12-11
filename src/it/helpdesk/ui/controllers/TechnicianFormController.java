@@ -99,8 +99,36 @@ public class TechnicianFormController implements ITechnicianFormController {
 	 */
 	@Override
 	public void saveButtonPressed() {
-		if (this.view.getFirstName().equals("") || this.view.getLastName().equals("")) {
-			this.view.showValidationErrorDialog("Error!", "Required information missing"); 
+		String errorMessage = "";
+		
+		if (this.view.getUsername().equals("")) 
+			errorMessage += "Missing username.\n";
+		
+		if (this.view.getPassword().equals("")) 
+			errorMessage += "Missing password.\n";
+		else if (this.view.getPassword().length() < 4)
+			errorMessage += "Password need to be at least 4 characters.\n";
+		else if (this.view.getPasswordConfirmation().equals(""))
+			errorMessage += "Missing password confirmation. \n";
+//		else if	(!this.view.getPasswordConfirmation().contentEquals(this.view.getPassword())){
+//			System.out.println(this.view.getPasswordConfirmation().to);
+//			System.out.println(this.view.getPassword().trim());
+//			errorMessage += "Confirm password does not match. \n";
+//		}
+		if (this.view.getFirstName().equals("")) 
+			errorMessage += "Missing first name.\n";
+
+		if (this.view.getLastName().equals("")) 
+			errorMessage += "Missing last name.\n";
+
+		if (this.view.getPhoneNumber().equals("")) 
+			errorMessage += "Missing phone number.\n";
+
+		if (this.view.getEmailAddress().equals("")) 
+			errorMessage += "Missing email address.\n";
+
+		if(!errorMessage.equals("")) {
+			this.view.showValidationErrorDialog("Create User Failed", errorMessage); 
 		}
 		else {
 			this.datasource.saveTechnician(technician,
