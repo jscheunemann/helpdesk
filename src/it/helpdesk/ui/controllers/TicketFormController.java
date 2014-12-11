@@ -105,6 +105,7 @@ public class TicketFormController implements ITicketFormController {
 	 * If all of the required fields in the ticket were not completed, the user will recieve an error message. 
 	 */
 	public void saveButtonPressed() {
+		boolean newTicket = (ticket == null);
 		ITechnician openedBy = ApplicationState.getInstance().getLoggedInTechnician();
 		ITechnician technician = ApplicationState.getInstance().getLoggedInTechnician();
 		Date openedOn = new Date();
@@ -124,7 +125,8 @@ public class TicketFormController implements ITicketFormController {
 			customer.setLastName(this.view.getClientLastName());
 			customer.setEmailAddress(this.view.getClientEmailAddress());
 			customer.setPhoneNumber(this.view.getClientPhoneNumber());
-			this.datasource.saveTicket(ticket,
+			
+			this.ticket = this.datasource.saveTicket(ticket,
 					openedBy,
 					this.view.getSelectedServiceCategory(),
 					this.view.getSelectedPriority(),
@@ -135,7 +137,10 @@ public class TicketFormController implements ITicketFormController {
 					customer,
 					this.view.getSummary());
 			
-			this.addLogEntry(technician, openedBy, openedOn, closedOn, customer);
+			
+			
+			this.addLogEntry(newTicket, technician, openedBy, openedOn, closedOn, customer);
+			
 			this.view.showValidationSuccessDialog("Save Successful", saveMessage.toString());
 		} else{
 			this.view.showValidationErrorDialog("Save Failed", saveMessage.toString());
@@ -195,10 +200,10 @@ public class TicketFormController implements ITicketFormController {
 	/**
 	 * Adds a log entry to the current ticket based on the information provided
 	 */
-	private void addLogEntry(ITechnician technician, ITechnician openedBy, Date openedOn, Date closedOn, ICustomer customer){
+	private void addLogEntry(boolean newTicket, ITechnician technician, ITechnician openedBy, Date openedOn, Date closedOn, ICustomer customer){
 		ILogEntryDatasource logEntryDatasource = new LogEntryDatasource();
 		
-		if (ticket != null) {
+		if (!newTicket) {
 			if (!this.view.getClientFirstName().equals(customer.getFirstName())) {
 				logEntryDatasource.saveLogEntry(null, ticket, new Date(), technician,
 						String.format("Customer's first name changed from %s to %s.", 
