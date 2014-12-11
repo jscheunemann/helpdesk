@@ -83,5 +83,5 @@ public interface ITicketDatasource {
 	 */
 	public ITicket saveTicket(ITicket ticket, ITechnician openedBy, String serviceCategory, String priority,
 			String status, ITechnician technician, Date openedOn, Date closedOn, ICustomer customer,
-			String summary);
+			String description, String summary);
 }

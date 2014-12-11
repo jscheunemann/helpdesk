@@ -65,6 +65,8 @@ public class TicketFormController implements ITicketFormController {
 		if (this.datasource == null) {
 			this.datasource = datasourceConfiguration.getTicketDatasource();
 		}
+		
+		this.ticket = datasource.getTicketById(6);
 
 		if (ticket != null) {
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
@@ -75,6 +77,7 @@ public class TicketFormController implements ITicketFormController {
 			this.view.setClientFirstName(ticket.getCustomer().getFirstName());
 			this.view.setClientLastName(ticket.getCustomer().getLastName());
 			this.view.setClientPhoneNumber(ticket.getCustomer().getPhoneNumber());
+			this.view.setDescription(ticket.getDescription());
 			this.view.setSummary(ticket.getSummary());
 			this.view.setSelectedServiceCategory(ticket.getServiceCategory());
 			this.view.setSelectedPriority(ticket.getPriority());
@@ -135,6 +138,7 @@ public class TicketFormController implements ITicketFormController {
 					openedOn, 
 					closedOn,
 					customer,
+					this.view.getDescription(),
 					this.view.getSummary());
 			
 			

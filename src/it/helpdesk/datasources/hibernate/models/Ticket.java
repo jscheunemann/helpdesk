@@ -66,7 +66,8 @@ public class Ticket implements ITicket {
 	private String summary;
 	private String description;
 	
-	@OneToMany
+	
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name="Ticket_Log_Entries",
             joinColumns = @JoinColumn(name="ticket_id"),

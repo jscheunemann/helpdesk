@@ -126,6 +126,10 @@ public class TicketDatasource implements ITicketDatasource{
 		
 		ticket = (ITicket) query.list().get(0);
 		
+		
+		
+		//ticket.setCustomer((ICustomer) query.list().get(0));
+		
 		session.close();
 
 		return ticket;
@@ -133,7 +137,7 @@ public class TicketDatasource implements ITicketDatasource{
 
 	public ITicket saveTicket(ITicket ticket, ITechnician openedBy, String serviceCategory,
 			String priority, String status, ITechnician technician,
-			Date openedOn, Date closedOn, ICustomer customer, String summary) {
+			Date openedOn, Date closedOn, ICustomer customer, String description, String summary) {
 		
 		boolean newTicket = false;
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -152,6 +156,7 @@ public class TicketDatasource implements ITicketDatasource{
 		ticket.setOpenedOn(openedOn);
 		ticket.setCompletedOn(closedOn);
 		ticket.setCustomer(customer);
+		ticket.setDescription(description);
 		ticket.setSummary(summary);
 		
 		session.beginTransaction();
