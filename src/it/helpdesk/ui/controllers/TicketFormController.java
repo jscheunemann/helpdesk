@@ -140,9 +140,6 @@ public class TicketFormController implements ITicketFormController {
 		} else{
 			this.view.showValidationErrorDialog("Save Failed", saveMessage.toString());
 		}
-		
-		
-		
 	}
 	
 	/**

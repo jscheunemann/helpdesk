@@ -38,7 +38,7 @@ import it.helpdesk.ui.interfaces.models.ITicket;
  * @since	2014-11-30
  */
 @Entity
-@Table(name = "Ticket")
+@Table(name = "HelpdeskTicket")
 public class Ticket implements ITicket {
 	/**
 	 * Contains the ID of the current ticket.
@@ -47,13 +47,21 @@ public class Ticket implements ITicket {
 	@GeneratedValue
 	private long id;
 	
+	@OneToOne
+	@JoinColumn(name="technician_opened_by_id")
 	private Technician openedBy;
 	private String serviceCategory;
 	private String priority;
 	private String status;
+	
+	@OneToOne
+	@JoinColumn(name="technician_id")
 	private Technician technician;
 	private Date openedOn;
 	private Date completedOn;
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="customer_id")
 	private Customer customer;
 	private String summary;
 	private String description;

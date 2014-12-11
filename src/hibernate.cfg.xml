@@ -13,7 +13,10 @@
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     	<property name="show_sql">true</property> 
     	<property name="connection.pool_size">1</property>
-    	<mapping class="it.helpdesk.datasources.hibernate.models.Person"></mapping>
+    	<mapping class="it.helpdesk.datasources.hibernate.models.Customer"></mapping>
+    	<mapping class="it.helpdesk.datasources.hibernate.models.LogEntry"></mapping>
 		<mapping class="it.helpdesk.datasources.hibernate.models.Technician"></mapping>
+		<mapping class="it.helpdesk.datasources.hibernate.models.Ticket"></mapping>
+		<mapping class="it.helpdesk.datasources.hibernate.models.LogEntry"></mapping>
     </session-factory>
 </hibernate-configuration>

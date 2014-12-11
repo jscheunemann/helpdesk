@@ -37,6 +37,9 @@ public class LogEntry implements ILogEntry {
 	
 	private long ticketId;
 	private Date dateEntered;
+	
+	@OneToOne
+	@JoinColumn(name="technician_id")
 	private Technician technician;
 	private String description;
 
