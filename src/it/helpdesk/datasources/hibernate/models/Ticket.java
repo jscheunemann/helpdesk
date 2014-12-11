@@ -56,6 +56,7 @@ public class Ticket implements ITicket {
 	private Date completedOn;
 	private Customer customer;
 	private String summary;
+	private String description;
 	
 	@OneToMany
     @JoinTable(
@@ -245,6 +246,26 @@ public class Ticket implements ITicket {
 	public void setSummary(String summary) {
 		this.summary = summary;
 	}
+	
+	
+	/**
+	 * Method to retrieve the current ticket's description value.
+	 * 
+	 * @return a String value containing the ticket's description value
+	 */
+	public String getDescription(){
+		return this.description;
+	}
+
+	/**
+	 * Method to set the current ticket's description value.
+	 * @param Description contains the current description information
+	 */
+	public void setDescription(String Description){
+		this.description = Description;
+	}
+	
+	
 
 	/**
 	 * Method to retrieve the current record's log entries.
@@ -280,4 +301,6 @@ public class Ticket implements ITicket {
 		
 		logEntryDatasource.saveLogEntry(null, this, date, technician, description);
 	}
+
+	
 }

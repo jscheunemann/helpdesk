@@ -172,6 +172,20 @@ public interface ITicket {
 	public void setSummary(String summary);
 	
 	/**
+	 * Method to retrieve a description of the issue reported
+	 * 
+	 * @return a summary of the description reported
+	 */
+	public String getDescription();
+	
+	/**
+	 * Method to set the description of issue reported
+	 * 
+	 * @param the description of the issue reported
+	 */
+	public void setDescription(String description);
+	
+	/**
 	 * Method to retrieve a list of log entries
 	 * 
 	 * @return a list of log entries

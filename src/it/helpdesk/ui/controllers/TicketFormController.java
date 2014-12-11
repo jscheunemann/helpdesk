@@ -108,27 +108,89 @@ public class TicketFormController implements ITicketFormController {
 		Date closedOn = null;
 
 		ICustomer customer = new Customer();
-
-		if (ticket != null) {
-			openedBy = ticket.getOpenedBy();
-			openedOn = ticket.getOpenedOn();
-			closedOn = ticket.getCompletedOn();
-			customer = ticket.getCustomer();
+		
+		String saveMessage = "";
+		
+		
+		if(checkTicketFields(saveMessage)){
+			if (ticket != null) {
+				openedBy = ticket.getOpenedBy();
+				openedOn = ticket.getOpenedOn();
+				closedOn = ticket.getCompletedOn();
+				customer = ticket.getCustomer();
+			}
+			
+			this.datasource.saveTicket(ticket,
+					openedBy,
+					this.view.getSelectedServiceCategory(),
+					this.view.getSelectedPriority(),
+					this.view.getSelectedStatus(),
+					technician, 
+					openedOn, 
+					closedOn,
+					customer,
+					this.view.getSummary());
+			
+			this.addLogEntry(technician, openedBy, openedOn, closedOn, customer);
+			this.view.showValidationSuccessDialog("Save Successful", saveMessage);
+		} else{
+			this.view.showValidationErrorDialog("Save Failed", saveMessage);
 		}
 		
-		this.datasource.saveTicket(ticket,
-				openedBy,
-				this.view.getSelectedServiceCategory(),
-				this.view.getSelectedPriority(),
-				this.view.getSelectedStatus(),
-				technician, 
-				openedOn, 
-				closedOn,
-				customer,
-				this.view.getSummary());
 		
 		
+	}
+	
+	/**
+	 * Checks to make sure the ticket field are completed correctly. 
+	 * If all of the required fields are completed the method returns true. Otherwise it returns false. 
+	 * saveMessage is updated by the method to include a message that can be displayed to the user
+	 * as to whether the save was successful or what fields they did not complete. 
+	 * @param saveMessage A message that can be displayed to the user detailing the incomplete fields or telling the user the save was successful. 
+	 * @return boolean True if all of the required fields are completed. False otherwise. 
+	 */
+	private boolean checkTicketFields(String saveMessage) {
+		boolean complete = true;
 		
+		ICustomer customer = ticket.getCustomer();
+		if(customer.getFirstName()==""){
+			complete = false;
+			saveMessage = saveMessage + "Client First Name must be completed.\n";
+		}
+		if(customer.getLastName()==""){
+			complete = false;
+			saveMessage = saveMessage + "Client Last Name must be completed.\n";
+		}
+		if(customer.getPhoneNumber()==""&& customer.getEmailAddress()==""){
+			complete = false;
+			saveMessage = saveMessage + "Either Client Phone or Client Email must be completed.\n";
+		}
+		if(ticket.getSummary()==""){
+			complete = false;
+			saveMessage = saveMessage + "Summary field must be completed.\n";
+		}
+		if(ticket.getServiceCategory()==""){
+			complete = false;
+			saveMessage = saveMessage + "You must select a Service Category.\n";
+		}
+		
+		if(ticket.getPriority()==null){
+			complete = false;
+			saveMessage = saveMessage + "You must select a Priority.\n";
+		}
+		
+		if(ticket.getDescription()==""){
+			complete = false;
+			saveMessage = saveMessage + "You must enter a Ticket Description.\n";
+		}
+		
+		return complete;
+	}
+
+	/**
+	 * Adds a log entry to the current ticket based on the information provided
+	 */
+	private void addLogEntry(ITechnician technician, ITechnician openedBy, Date openedOn, Date closedOn, ICustomer customer){
 		ILogEntryDatasource logEntryDatasource = new LogEntryDatasource();
 		
 		if (ticket != null) {

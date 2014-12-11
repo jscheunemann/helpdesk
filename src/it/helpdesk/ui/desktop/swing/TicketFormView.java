@@ -507,6 +507,17 @@ public class TicketFormView implements ITicketFormView {
 	public String getSummary() {
 		return this.txtFldSummary.getText();
 	}
+	
+	@Override
+	public void setDescription(String description) {
+		this.txtAreaDescription.setText(description);
+		
+	}
+
+	@Override
+	public String getDescription() {
+		return this.txtAreaDescription.getText();
+	}
 
 	@Override
 	public String getInformationToAddText() {
@@ -533,5 +544,18 @@ public class TicketFormView implements ITicketFormView {
 	public void showValidationErrorDialog(String title, String message) {
 		JOptionPane.showMessageDialog(this.window.getParent(), message, title, JOptionPane.ERROR_MESSAGE);
 	}
+	
+	/**
+	 * Method to show a success message in a dialog
+	 * 
+	 * @param the title of the dialog
+	 * @param the message to display
+	 */
+	@Override
+	public void showValidationSuccessDialog(String title, String message) {
+		JOptionPane.showMessageDialog(this.window.getParent(), message, title, JOptionPane.OK_OPTION);
+	}
+
+	
 }
 

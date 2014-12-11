@@ -197,6 +197,20 @@ public interface ITicketFormView {
 	public String getSummary();
 	
 	/**
+	 * Method to set the ticket's description
+	 * 
+	 * @param the ticket's description
+	 */
+	public void setDescription(String description);
+	
+	/**
+	 * Method to get the ticket's description
+	 * 
+	 * @return the ticket's description
+	 */
+	public String getDescription();
+	
+	/**
 	 * Method to get the add information text
 	 * 
 	 * @return the add information text
@@ -221,4 +235,9 @@ public interface ITicketFormView {
 	 * @param the title
 	 */
 	void setViewTitle(String title);
+
+	/**
+	 * Method to display the authentication success message, if one exists.
+	 */
+	void showValidationSuccessDialog(String title, String message);
 }
