@@ -25,6 +25,9 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import it.helpdesk.datasources.hibernate.datasources.LogEntryDatasource;
 import it.helpdesk.ui.interfaces.models.ICustomer;
 import it.helpdesk.ui.interfaces.models.ITechnician;
@@ -62,6 +65,7 @@ public class Ticket implements ITicket {
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="customer_id")
+	 @Fetch(FetchMode.JOIN)
 	private Customer customer;
 	private String summary;
 	private String description;

@@ -126,8 +126,6 @@ public class TicketDatasource implements ITicketDatasource{
 		
 		ticket = (ITicket) query.list().get(0);
 		
-		
-		
 		//ticket.setCustomer((ICustomer) query.list().get(0));
 		
 		session.close();

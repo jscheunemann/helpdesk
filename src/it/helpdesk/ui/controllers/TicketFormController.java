@@ -66,7 +66,7 @@ public class TicketFormController implements ITicketFormController {
 			this.datasource = datasourceConfiguration.getTicketDatasource();
 		}
 		
-		this.ticket = datasource.getTicketById(6);
+		//this.ticket = datasource.getTicketById(6);
 
 		if (ticket != null) {
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
