@@ -387,7 +387,7 @@ public class TicketFormView implements ITicketFormView {
 
 	@Override
 	public void saveButtonPressed() {
-		// TODO Auto-generated method stub
+		controller.saveButtonPressed();
 		
 	}
 
