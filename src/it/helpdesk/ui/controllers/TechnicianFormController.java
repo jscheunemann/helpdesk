@@ -110,11 +110,11 @@ public class TechnicianFormController implements ITechnicianFormController {
 			errorMessage += "Password need to be at least 4 characters.\n";
 		else if (this.view.getPasswordConfirmation().equals(""))
 			errorMessage += "Missing password confirmation. \n";
-//		else if	(!this.view.getPasswordConfirmation().contentEquals(this.view.getPassword())){
-//			System.out.println(this.view.getPasswordConfirmation().to);
-//			System.out.println(this.view.getPassword().trim());
-//			errorMessage += "Confirm password does not match. \n";
-//		}
+		else if	(!this.view.getPasswordConfirmation().contentEquals(this.view.getPassword())){
+			System.out.println(this.view.getPasswordConfirmation());
+			System.out.println(this.view.getPassword());
+			errorMessage += "Confirm password does not match. \n";
+		}
 		if (this.view.getFirstName().equals("")) 
 			errorMessage += "Missing first name.\n";
 

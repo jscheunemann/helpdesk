@@ -268,7 +268,8 @@ public class TechnicianFormView implements ITechnicianFormView {
 	 */
 	@Override
 	public String getPasswordConfirmation() {
-		return this.passwordConfirmationTextBox.getPassword().toString();
+		//return this.passwordConfirmationTextBox.getPassword().toString();
+		return new String(this.passwordConfirmationTextBox.getPassword());
 	}
 
 	/**
