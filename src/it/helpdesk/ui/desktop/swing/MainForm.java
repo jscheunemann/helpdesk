@@ -110,6 +110,7 @@ public class MainForm implements IMainFormView {
 
 		tableActiveTicket = new JTable();
 		scrollPane_1.setViewportView(tableActiveTicket);
+		
 		tableActiveTicket.setModel(new DefaultTableModel(
 				new Object[][] {
 						{},
@@ -121,16 +122,17 @@ public class MainForm implements IMainFormView {
 				));
 
 		tableActiveTicket.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tableActiveTicket.setAutoCreateRowSorter(true);
 		tableActiveTicket.setEnabled(false);
 		
-		JTableHeader activeHeader = tableActiveTicket.getTableHeader();
-		activeHeader.addMouseListener(new MouseAdapter(){
-			public void mouseClicked(MouseEvent e){
-				int colNum = tableActiveTicket.columnAtPoint(e.getPoint());
-				System.out.println(colNum);
-				sortTable(colNum, true);
-			}
-		});
+//		JTableHeader activeHeader = tableActiveTicket.getTableHeader();
+//		activeHeader.addMouseListener(new MouseAdapter(){
+//			public void mouseClicked(MouseEvent e){
+//				int colNum = tableActiveTicket.columnAtPoint(e.getPoint());
+//				System.out.println(colNum);
+//				sortTable(colNum, true);
+//			}
+//		});
 
 		JPanel pnlInactiveTicket = new JPanel();
 		tabbedPane.addTab("Archive Tickets", null, pnlInactiveTicket, null);
@@ -158,6 +160,7 @@ public class MainForm implements IMainFormView {
 				));
 
 		tableInactiveTicket.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tableInactiveTicket.setAutoCreateRowSorter(true);
 		tableInactiveTicket.setEnabled(false);
 
 		this.window.pack();
@@ -322,7 +325,7 @@ public class MainForm implements IMainFormView {
 			model.addRow(new Object[] { null, null, null, null, null, null, null });
 
 			// Updates existing row if a row already exists. If new row was created, that will be updated here. 
-			model.setValueAt(ticket.getId(), rowIndex,0 );
+			model.setValueAt(String.format("%04d", ticket.getId()), rowIndex,0 );
 			model.setValueAt(ticket.getPriority(), rowIndex,1 );
 			model.setValueAt(ticket.getStatus(), rowIndex,2 );
 			model.setValueAt(ticket.getServiceCategory(), rowIndex,3 );
@@ -353,7 +356,7 @@ public class MainForm implements IMainFormView {
 			model.addRow(new Object[] { null, null, null, null, null, null, null });
 
 			// Updates existing row if a row already exists. If new row was created, that will be updated here. 
-			model.setValueAt(ticket.getId(), rowIndex,0 );
+			model.setValueAt(String.format("%04d", ticket.getId()), rowIndex,0 );
 			model.setValueAt(ticket.getPriority(), rowIndex,1 );
 			model.setValueAt(ticket.getStatus(), rowIndex,2 );
 			model.setValueAt(ticket.getServiceCategory(), rowIndex,3 );
