@@ -101,9 +101,15 @@ public class TechnicianFormController implements ITechnicianFormController {
 	public void saveButtonPressed() {
 		String errorMessage = "";
 		
+
 		if (this.view.getUsername().equals("")) 
 			errorMessage += "Missing username.\n";
-		
+		else {
+			ITechnician loggedInTechnician = datasource.getTechnicianByUsername(this.view.getUsername());
+			if(loggedInTechnician != null)
+				errorMessage += "Username already existed.\n";				
+		}
+	
 		if (this.view.getPassword().equals("")) 
 			errorMessage += "Missing password.\n";
 		else if (this.view.getPassword().length() < 4)
