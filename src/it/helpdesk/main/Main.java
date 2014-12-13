@@ -26,8 +26,6 @@ import it.helpdesk.ui.desktop.swing.SwingViewConfiguration;
 import it.helpdesk.ui.interfaces.IMainFormController;
 import it.sauronsoftware.junique.*;
 
-import java.awt.event.*;
-
 import javax.swing.*;
 
 /**

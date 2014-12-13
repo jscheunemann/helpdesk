@@ -20,8 +20,6 @@
 
 package it.helpdesk.ui.interfaces;
 
-import java.util.List;
-
 import it.helpdesk.ui.interfaces.models.ITicket;
 
 public interface ITicketFormController {
