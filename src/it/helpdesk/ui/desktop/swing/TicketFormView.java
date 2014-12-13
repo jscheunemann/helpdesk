@@ -427,6 +427,10 @@ public class TicketFormView implements ITicketFormView {
 	public String getSelectedStatus() {
 		return (String) this.cbBoxStatus.getSelectedItem();
 	}
+	
+	public void setOpenedBy(String openedBy) {
+		this.txtFldOpenedBy.setText(openedBy);
+	}
 
 	@Override
 	public void setDateOpened(String dateEntered) {

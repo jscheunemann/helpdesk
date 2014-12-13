@@ -107,6 +107,7 @@ public class TicketFormController implements ITicketFormController {
 			}
 			
 			this.view.setId(String.valueOf(ticket.getId()));
+			this.view.setOpenedBy(String.format("%s %s", ticket.getOpenedBy().getFirstName(), ticket.getOpenedBy().getLastName()));
 			this.view.setClientEmailAddress(ticket.getCustomer().getEmailAddress());
 			this.view.setClientFirstName(ticket.getCustomer().getFirstName());
 			this.view.setClientLastName(ticket.getCustomer().getLastName());

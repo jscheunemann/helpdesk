@@ -124,6 +124,13 @@ public interface ITicketFormView {
 	public String getSelectedStatus();
 	
 	/**
+	 * Method to set the opened by text box
+	 * 
+	 * @param the technician who opened the textbox
+	 */
+	public void setOpenedBy(String openedBy);
+	
+	/**
 	 * Method to set the date the ticket was opened
 	 * 
 	 * @param the date the ticket was opened
@@ -238,10 +245,10 @@ public interface ITicketFormView {
 	 * 
 	 * @param the title
 	 */
-	void setViewTitle(String title);
+	public void setViewTitle(String title);
 
 	/**
 	 * Method to display the authentication success message, if one exists.
 	 */
-	void showValidationSuccessDialog(String title, String message);
+	public void showValidationSuccessDialog(String title, String message);
 }
