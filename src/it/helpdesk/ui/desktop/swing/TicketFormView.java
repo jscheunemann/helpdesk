@@ -561,9 +561,10 @@ public class TicketFormView implements ITicketFormView {
 
 	@Override
 	public void setId(String id) {
-		txtFldTicketID.setText(id);
+		String formattedId = String.format("%04d", Long.parseLong(id));
 		
-		this.lblCreateTicket.setText(String.format("Ticket %04d", Long.parseLong(id)));
+		this.txtFldTicketID.setText(formattedId);
+		this.lblCreateTicket.setText(String.format("Ticket %s", formattedId));
 	}
 
 	@Override
