@@ -84,6 +84,11 @@ public class MainFormController implements IMainFormController {
 		
 		ticketFormController.openForm();
 	}
+	
+	public void openCreateTicketForm() {
+		this.selectedTicketId = 0;
+		this.openTicketForm();
+	}
 
 	@Override
 	public void openLoginForm() {

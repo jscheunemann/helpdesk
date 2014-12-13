@@ -11,4 +11,5 @@ public interface IMainFormController {
 	public void clearInactiveTicketView();
 	public void updateSelectedTicket(long id);
 	public void clearSelectedTicket();
+	public void openCreateTicketForm();
 }
