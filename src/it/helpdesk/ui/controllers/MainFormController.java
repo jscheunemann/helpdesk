@@ -38,13 +38,6 @@ public class MainFormController implements IMainFormController {
 
 	private List<ITicket> tickets = null;
 
-	/**
-	 * Variable for ticket adding/editing
-	 */
-	private List<ITicket> activeTickets = null;
-
-	private List<ITicket> inactiveTickets = null;
-
 	private long selectedTicketId = 0;
 
 	private String[] activeTicketStatuses = {"New", "In Progress", "Wait For Process"};
@@ -76,12 +69,12 @@ public class MainFormController implements IMainFormController {
 		}
 
 
-		activeTickets = new ArrayList<ITicket>();
+		List<ITicket> activeTickets = new ArrayList<ITicket>();
 
 		for (ITicket ticket : tickets) {
 			for (String status : activeTicketStatuses) {
 				if (ticket.getStatus().equalsIgnoreCase(status)) {
-					this.activeTickets.add(ticket);
+					activeTickets.add(ticket);
 				}
 			}
 		}
@@ -96,12 +89,12 @@ public class MainFormController implements IMainFormController {
 		}
 
 
-		inactiveTickets = new ArrayList<ITicket>();
+		List<ITicket> inactiveTickets = new ArrayList<ITicket>();
 
 		for (ITicket ticket : tickets) {
 			for (String status : inactiveTicketStatuses) {
 				if (ticket.getStatus().equalsIgnoreCase(status)) {
-					this.inactiveTickets.add(ticket);
+					inactiveTickets.add(ticket);
 				}
 			}
 		}
@@ -149,14 +142,12 @@ public class MainFormController implements IMainFormController {
 
 	@Override
 	public void clearActiveTicketView() {
-		activeTickets.clear();
-		this.view.displayActiveTickets(activeTickets);
+		this.view.displayActiveTickets(new ArrayList<ITicket>());
 	}
 
 	@Override
 	public void clearInactiveTicketView() {
-		inactiveTickets.clear();
-		this.view.displayInactiveTickets(inactiveTickets);
+		this.view.displayInactiveTickets(new ArrayList<ITicket>());
 	}
 
 	@Override

@@ -123,6 +123,8 @@ public class TicketFormView implements ITicketFormView {
 	 */
 	private JTextArea txtAreaDescription;
 	
+	private JLabel lblCreateTicket;
+	
 	/**
 	 * Class constructor for the Add/Edit ticket View page.
 	 * 
@@ -333,8 +335,8 @@ public class TicketFormView implements ITicketFormView {
 		contentPane.add(panel);
 		panel.setLayout(null);
 			
-		String nameLbl = "this title";
-		JLabel lblCreateTicket = new JLabel(nameLbl);
+		String nameLbl = "New Ticket";
+		lblCreateTicket = new JLabel(nameLbl);
 		lblCreateTicket.setForeground(Color.WHITE);
 		lblCreateTicket.setFont(new Font(lblCreateTicket.getName(), Font.PLAIN, lblCreateTicket.getFont().getSize() * 2));
 		lblCreateTicket.setBounds(15, 15, this.window.getSize().width, 30);
@@ -560,13 +562,13 @@ public class TicketFormView implements ITicketFormView {
 	@Override
 	public void setId(String id) {
 		txtFldTicketID.setText(id);
+		
+		this.lblCreateTicket.setText(String.format("Ticket %04d", Long.parseLong(id)));
 	}
 
 	@Override
 	public String getId() {
 		return txtFldTicketID.getText();
 	}
-
-	
 }
 
