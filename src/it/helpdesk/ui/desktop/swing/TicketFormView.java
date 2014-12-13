@@ -352,33 +352,6 @@ public class TicketFormView implements ITicketFormView {
 
 	@Override
 	public void open() {
-		List<String> statuses = new ArrayList<String>();
-		statuses.add("New");
-		statuses.add("In Progress");
-		statuses.add("Wait For Process");
-		statuses.add("Withdrawn");
-		statuses.add("Complete");
-		statuses.add("Delete");
-		
-		this.setStatuses(statuses);
-		
-		List<String> priorities = new ArrayList<String>();
-		priorities.add("Low");
-		priorities.add("Medium");
-		priorities.add("High");
-		priorities.add("Urgent");
-
-		this.setPriorities(priorities);
-		
-		List<String> serviceCategories = new ArrayList<String>();
-		serviceCategories.add("Access Issue");
-		serviceCategories.add("Hardware");
-		serviceCategories.add("Software");
-		serviceCategories.add("Database");
-		serviceCategories.add("Software Defect");
-		serviceCategories.add("Inquity");
-
-		this.setServiceCategories(serviceCategories);
 		this.window.setVisible(true);
 	}
 
@@ -571,5 +544,7 @@ public class TicketFormView implements ITicketFormView {
 	public String getId() {
 		return txtFldTicketID.getText();
 	}
+	
+	
 }
 

@@ -1,7 +1,9 @@
 package it.helpdesk.ui.controllers;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import it.helpdesk.datasources.hibernate.datasources.LogEntryDatasource;
 import it.helpdesk.datasources.hibernate.models.Customer;
@@ -65,6 +67,35 @@ public class TicketFormController implements ITicketFormController {
 		if (this.datasource == null) {
 			this.datasource = datasourceConfiguration.getTicketDatasource();
 		}
+		
+
+		List<String> statuses = new ArrayList<String>();
+		statuses.add("New");
+		statuses.add("In Progress");
+		statuses.add("Wait For Process");
+		statuses.add("Withdrawn");
+		statuses.add("Complete");
+		statuses.add("Delete");
+		
+		this.view.setStatuses(statuses);
+		
+		List<String> priorities = new ArrayList<String>();
+		priorities.add("Low");
+		priorities.add("Medium");
+		priorities.add("High");
+		priorities.add("Urgent");
+
+		this.view.setPriorities(priorities);
+		
+		List<String> serviceCategories = new ArrayList<String>();
+		serviceCategories.add("Access Issue");
+		serviceCategories.add("Hardware");
+		serviceCategories.add("Software");
+		serviceCategories.add("Database");
+		serviceCategories.add("Software Defect");
+		serviceCategories.add("Inquity");
+
+		this.view.setServiceCategories(serviceCategories);
 
 		//this.ticket = datasource.getTicketById(6);
 
