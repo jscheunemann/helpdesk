@@ -49,8 +49,17 @@ public class TicketDatasource implements ITicketDatasource{
 		List<ITicket> tickets = null;
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
+		
+		/*
+		 * statuses.add("New");
+		statuses.add("In Progress");
+		statuses.add("Wait For Process");
+		statuses.add("Withdrawn");
+		statuses.add("Complete");
+		statuses.add("Delete");
+		 */
 
-		tickets = (List<ITicket>) session.createQuery("from Ticket where completed_on is null").list();
+		tickets = (List<ITicket>) session.createQuery("from Ticket where status = 'New' or status = 'In Progress' or status = 'Wait For Process'").list();
 		session.close();
 
 		return tickets;
@@ -62,7 +71,7 @@ public class TicketDatasource implements ITicketDatasource{
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 
-		tickets = (List<ITicket>) session.createQuery("from Ticket where completed_on is not null").list();
+		tickets = (List<ITicket>) session.createQuery("from Ticket where status = 'Withdrawn' or status = 'Complete' or status = 'Delete'").list();
 		session.close();
 
 		return tickets;
