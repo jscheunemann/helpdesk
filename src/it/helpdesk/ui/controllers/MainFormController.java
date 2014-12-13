@@ -1,5 +1,6 @@
 package it.helpdesk.ui.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -35,20 +36,26 @@ public class MainFormController implements IMainFormController {
 	 */
 	private ITicketDatasource datasource;
 
+	private List<ITicket> tickets = null;
+
 	/**
 	 * Variable for ticket adding/editing
 	 */
-	private List<ITicket> activeTickets;
-	
-	private List<ITicket> inactiveTickets;
-	
+	private List<ITicket> activeTickets = null;
+
+	private List<ITicket> inactiveTickets = null;
+
 	private long selectedTicketId = 0;
-	
+
+	private String[] activeTicketStatuses = {"New", "In Progress", "Wait For Process"};
+
+	private String[] inactiveTicketStatuses = {"Withdrawn", "Complete", "Delete"};
+
 	public MainFormController(IViewConfiguration viewConfiguration, IDatasourceConfiguration datasourceConfiguration) {
 		this.viewConfiguration = viewConfiguration;
 		this.datasourceConfiguration = datasourceConfiguration;
 	}
-	
+
 	public void openForm() {
 		if (this.view == null) {
 			this.view = viewConfiguration.getMainFormView();
@@ -58,33 +65,68 @@ public class MainFormController implements IMainFormController {
 		if (this.datasource == null) {
 			this.datasource = datasourceConfiguration.getTicketDatasource();
 		}
-		
+
 		this.view.open();
 	}
 
 	@Override
 	public void loadActiveTickets() {
-		activeTickets = this.datasource.getOpenTickets();
+		if (tickets == null) {
+			tickets = this.datasource.getTickets();
+		}
+
+
+		activeTickets = new ArrayList<ITicket>();
+
+		for (ITicket ticket : tickets) {
+			for (String status : activeTicketStatuses) {
+				if (ticket.getStatus().equalsIgnoreCase(status)) {
+					this.activeTickets.add(ticket);
+				}
+			}
+		}
+
 		this.view.displayActiveTickets(activeTickets);
 	}
 
 	@Override
 	public void loadInactiveTickets() {
-		inactiveTickets = this.datasource.getClosedTickets();
+		if (tickets == null) {
+			tickets = this.datasource.getTickets();
+		}
+
+
+		inactiveTickets = new ArrayList<ITicket>();
+
+		for (ITicket ticket : tickets) {
+			for (String status : inactiveTicketStatuses) {
+				if (ticket.getStatus().equalsIgnoreCase(status)) {
+					this.inactiveTickets.add(ticket);
+				}
+			}
+		}
+
 		this.view.displayInactiveTickets(inactiveTickets);
 	}
 
 	@Override
 	public void openTicketForm() {
 		ITicketFormController ticketFormController = new TicketFormController(this.viewConfiguration, this.datasourceConfiguration);
-		
+
 		if (this.selectedTicketId > 0) {
-			ticketFormController.setTicket(this.datasource.getTicketById(selectedTicketId));
+			for (ITicket ticket : tickets) {
+				if (ticket.getId() == selectedTicketId) {
+					ticketFormController.setTicket(ticket);
+				}
+			}
 		}
-		
+
 		ticketFormController.openForm();
+		
+		this.loadActiveTickets();
+		this.loadInactiveTickets();
 	}
-	
+
 	public void openCreateTicketForm() {
 		this.selectedTicketId = 0;
 		this.openTicketForm();

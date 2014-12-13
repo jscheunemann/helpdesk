@@ -49,15 +49,6 @@ public class TicketDatasource implements ITicketDatasource{
 		List<ITicket> tickets = null;
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
-		
-		/*
-		 * statuses.add("New");
-		statuses.add("In Progress");
-		statuses.add("Wait For Process");
-		statuses.add("Withdrawn");
-		statuses.add("Complete");
-		statuses.add("Delete");
-		 */
 
 		tickets = (List<ITicket>) session.createQuery("from Ticket where status = 'New' or status = 'In Progress' or status = 'Wait For Process'").list();
 		session.close();
