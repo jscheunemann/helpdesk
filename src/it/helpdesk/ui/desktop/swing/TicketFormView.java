@@ -554,6 +554,7 @@ public class TicketFormView implements ITicketFormView {
 	@Override
 	public void showValidationSuccessDialog(String title, String message) {
 		JOptionPane.showMessageDialog(this.window.getParent(), message, title, JOptionPane.OK_OPTION);
+		controller.closeForm();
 	}
 
 	@Override

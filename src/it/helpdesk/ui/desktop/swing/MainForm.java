@@ -280,7 +280,7 @@ public class MainForm implements IMainFormView {
 					DefaultTableModel model = (DefaultTableModel) tableActiveTicket.getModel(); // Set value to table
 					Object id = model.getValueAt(rowNum, 0);
 					if(id != null){
-						MainForm.this.controller.updateSelectedTicket((Long) id);
+						MainForm.this.controller.updateSelectedTicket(Long.valueOf((String) id));
 						MainForm.this.mainMenu.enableEditTicketMenuItem();
 
 						MainForm.this.controller.openTicketForm();
@@ -291,7 +291,7 @@ public class MainForm implements IMainFormView {
 					Object id = model.getValueAt(rowNum, 0);
 					
 					if(id != null){
-						MainForm.this.controller.updateSelectedTicket((Long) id);
+						MainForm.this.controller.updateSelectedTicket(Long.valueOf((String) id));
 						MainForm.this.mainMenu.enableEditTicketMenuItem();
 					}
 				}
