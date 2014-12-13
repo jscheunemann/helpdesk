@@ -97,17 +97,10 @@ public class TicketFormController implements ITicketFormController {
 
 		this.view.setServiceCategories(serviceCategories);
 
-		//this.ticket = datasource.getTicketById(6);
-
 		if (ticket != null) {
-			if (ticket.getOpenedOn() != null) {
-				SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-				String date = sdf.format(ticket.getOpenedOn()); 
-				this.view.setDateOpened(date);
-			}
-			
 			this.view.setId(String.valueOf(ticket.getId()));
 			this.view.setOpenedBy(String.format("%s %s", ticket.getOpenedBy().getFirstName(), ticket.getOpenedBy().getLastName()));
+			this.view.setDateOpened((ticket.getOpenedOn() != null) ? ticket.getOpenedOn().toString() : "");
 			this.view.setClientEmailAddress(ticket.getCustomer().getEmailAddress());
 			this.view.setClientFirstName(ticket.getCustomer().getFirstName());
 			this.view.setClientLastName(ticket.getCustomer().getLastName());
@@ -121,6 +114,7 @@ public class TicketFormController implements ITicketFormController {
 			String logText = "";
 
 			for (ILogEntry logEntry : ticket.getLogEntries()) {
+				System.out.println(logEntry.getDescription());
 				logText += String.format("%s %s %s: %s", logEntry.getDateEntered(),
 						logEntry.getTechnician().getFirstName(),
 						logEntry.getTechnician().getLastName(),
