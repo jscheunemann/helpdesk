@@ -115,7 +115,7 @@ public class TicketFormController implements ITicketFormController {
 
 			for (int i = logEntries.size() - 1; i >= 0; i--) {
 				String format;
-				
+
 				if (logEntries.size() % 2 == 0) {
 					format = (i % 2 == 0) ? "<div bgcolor=\"#D3D3D3\">%s::%s %s:: %s</div>" : "<div>%s::%s %s:: %s</div>";
 				}
@@ -172,7 +172,11 @@ public class TicketFormController implements ITicketFormController {
 				customer.setPhoneNumber(this.ticket.getCustomer().getPhoneNumber());
 			}
 
-			boolean updated = this.addLogEntry(technician, openedBy, openedOn, closedOn, customer);
+			boolean updated = true;
+
+			if (!newTicket) {
+				updated = this.addLogEntry(newTicket, technician, openedBy, openedOn, closedOn, customer);
+			}
 
 			customer.setFirstName(this.view.getClientFirstName());
 			customer.setLastName(this.view.getClientLastName());
@@ -227,19 +231,19 @@ public class TicketFormController implements ITicketFormController {
 
 		if(this.view.getClientFirstName().equals("")){
 			complete = false;
-			saveMessage.append("Client First Name must be completed.\n");
+			saveMessage.append("The client's first name is mandatory.\n");
 		}
 		if(this.view.getClientLastName().equals("")){
 			complete = false;
-			saveMessage.append("Client Last Name must be completed.\n");
+			saveMessage.append("The client's last name is mandatory.\n");
 		}
 		if(this.view.getClientPhoneNumber().equals("")&& this.view.getClientEmailAddress().equals("")){
 			complete = false;
-			saveMessage.append("Either Client Phone or Client Email must be completed.\n");
+			saveMessage.append("You must supply either the client's phone or email address.\n");
 		}
 		if(this.view.getSummary().equals("")){
 			complete = false;
-			saveMessage.append("Summary field must be completed.\n");
+			saveMessage.append("Summary field is mandatory.\n");
 		}
 		if(this.view.getSelectedServiceCategory().equals("")){
 			complete = false;
@@ -253,7 +257,7 @@ public class TicketFormController implements ITicketFormController {
 
 		if(this.view.getDescription().equals("")){
 			complete = false;
-			saveMessage.append("You must enter a Ticket Description.\n");
+			saveMessage.append("The ticket description is mandatory.\n");
 		}
 
 		if(complete){
@@ -267,118 +271,123 @@ public class TicketFormController implements ITicketFormController {
 	/**
 	 * Adds a log entry to the current ticket based on the information provided
 	 */
-	private boolean addLogEntry(ITechnician technician, ITechnician openedBy, Date openedOn, Date closedOn, ICustomer customer) {
+	private boolean addLogEntry(boolean newTicket, ITechnician technician, ITechnician openedBy, Date openedOn, Date closedOn, ICustomer customer) {
 		boolean updated = false;
-		if (!this.view.getClientFirstName().equals(customer.getFirstName())) {
-			ILogEntry logEntry = new LogEntry();
-			logEntry.setDateEntered(new Date());
-			logEntry.setDescriptition(String.format("Customer's first name changed from \"%s\" to \"%s\".", 
-					ticket.getCustomer().getFirstName(), 
-					this.view.getClientFirstName()));
-			logEntry.setTechnician(technician);
-			logEntry.setParent(this.ticket);
-			this.datasource.addLogEntry(ticket.getId(), logEntry);
-			updated = true;
-		}
+		if (!newTicket) {
+			if (!this.view.getClientFirstName().equals(customer.getFirstName())) {
+				ILogEntry logEntry = new LogEntry();
+				logEntry.setDateEntered(new Date());
+				logEntry.setDescriptition(String.format("Customer's first name changed from \"%s\" to \"%s\".", 
+						ticket.getCustomer().getFirstName(), 
+						this.view.getClientFirstName()));
+				logEntry.setTechnician(technician);
+				logEntry.setParent(this.ticket);
+				this.datasource.addLogEntry(ticket.getId(), logEntry);
+				updated = true;
+			}
 
-		if (!this.view.getClientLastName().equals(customer.getLastName())) {
-			ILogEntry logEntry = new LogEntry();
-			logEntry.setDateEntered(new Date());
-			logEntry.setDescriptition(String.format("Customer's last name changed from \"%s\" to \"%s\".", 
-					ticket.getCustomer().getLastName(), 
-					this.view.getClientLastName()));
-			logEntry.setTechnician(technician);
-			logEntry.setParent(this.ticket);
-			this.datasource.addLogEntry(ticket.getId(), logEntry);
-			updated = true;
-		}
+			if (!this.view.getClientLastName().equals(customer.getLastName())) {
+				ILogEntry logEntry = new LogEntry();
+				logEntry.setDateEntered(new Date());
+				logEntry.setDescriptition(String.format("Customer's last name changed from \"%s\" to \"%s\".", 
+						ticket.getCustomer().getLastName(), 
+						this.view.getClientLastName()));
+				logEntry.setTechnician(technician);
+				logEntry.setParent(this.ticket);
+				this.datasource.addLogEntry(ticket.getId(), logEntry);
+				updated = true;
+			}
 
-		if (!this.view.getClientPhoneNumber().equals(customer.getPhoneNumber())) {
-			ILogEntry logEntry = new LogEntry();
-			logEntry.setDateEntered(new Date());
-			logEntry.setDescriptition(String.format("Customer's phone changed from \"%s\" to \"%s\".", 
-					(!ticket.getCustomer().getPhoneNumber().equals("")) ? ticket.getCustomer().getPhoneNumber() : "none",
-							(!this.view.getClientPhoneNumber().equals("")) ? this.view.getClientPhoneNumber() : "none"));
-			logEntry.setTechnician(technician);
-			logEntry.setParent(this.ticket);
-			this.datasource.addLogEntry(ticket.getId(), logEntry);
-			updated = true;
-		}
+			if (!this.view.getClientPhoneNumber().equals(customer.getPhoneNumber())) {
+				ILogEntry logEntry = new LogEntry();
+				logEntry.setDateEntered(new Date());
+				logEntry.setDescriptition(String.format("Customer's phone changed from \"%s\" to \"%s\".", 
+						(!ticket.getCustomer().getPhoneNumber().equals("")) ? ticket.getCustomer().getPhoneNumber() : "none",
+								(!this.view.getClientPhoneNumber().equals("")) ? this.view.getClientPhoneNumber() : "none"));
+				logEntry.setTechnician(technician);
+				logEntry.setParent(this.ticket);
+				this.datasource.addLogEntry(ticket.getId(), logEntry);
+				updated = true;
+			}
 
-		if (!this.view.getClientEmailAddress().equals(customer.getEmailAddress())) {
-			ILogEntry logEntry = new LogEntry();
-			logEntry.setDateEntered(new Date());
-			logEntry.setDescriptition(String.format("Customer's email address changed from \"%s\" to \"%s\".", 
-					(!ticket.getCustomer().getEmailAddress().equals("")) ? ticket.getCustomer().getEmailAddress() : "none",
-							(!this.view.getClientEmailAddress().equals("")) ? this.view.getClientEmailAddress() : "none"));
-			logEntry.setTechnician(technician);
-			logEntry.setParent(this.ticket);
-			this.datasource.addLogEntry(ticket.getId(), logEntry);
-			updated = true;
-		}
+			if (!this.view.getClientEmailAddress().equals(customer.getEmailAddress())) {
+				ILogEntry logEntry = new LogEntry();
+				logEntry.setDateEntered(new Date());
+				logEntry.setDescriptition(String.format("Customer's email address changed from \"%s\" to \"%s\".", 
+						(!ticket.getCustomer().getEmailAddress().equals("")) ? ticket.getCustomer().getEmailAddress() : "none",
+								(!this.view.getClientEmailAddress().equals("")) ? this.view.getClientEmailAddress() : "none"));
+				logEntry.setTechnician(technician);
+				logEntry.setParent(this.ticket);
+				this.datasource.addLogEntry(ticket.getId(), logEntry);
+				updated = true;
+			}
 
-		if (!this.view.getSummary().equals(ticket.getSummary())) {
-			ILogEntry logEntry = new LogEntry();
-			logEntry.setDateEntered(new Date());
-			logEntry.setDescriptition(String.format("Summary changed from \"%s\" to \"%s\".", 
-					ticket.getSummary(),
-					this.view.getSummary()));
-			logEntry.setTechnician(technician);
-			logEntry.setParent(this.ticket);
-			this.datasource.addLogEntry(ticket.getId(), logEntry);
-			updated = true;
-		}
-		
-		if (!this.view.getDescription().equals(ticket.getDescription())) {
-			ILogEntry logEntry = new LogEntry();
-			logEntry.setDateEntered(new Date());
-			logEntry.setDescriptition(String.format("Description changed from \"%s\" to \"%s\".", 
-					ticket.getDescription(),
-					this.view.getDescription()));
-			logEntry.setTechnician(technician);
-			logEntry.setParent(this.ticket);
-			this.datasource.addLogEntry(ticket.getId(), logEntry);
-			updated = true;
-		}
+			if (!this.view.getSummary().equals(ticket.getSummary())) {
+				ILogEntry logEntry = new LogEntry();
+				logEntry.setDateEntered(new Date());
+				logEntry.setDescriptition(String.format("Summary changed from \"%s\" to \"%s\".", 
+						ticket.getSummary(),
+						this.view.getSummary()));
+				logEntry.setTechnician(technician);
+				logEntry.setParent(this.ticket);
+				this.datasource.addLogEntry(ticket.getId(), logEntry);
+				updated = true;
+			}
 
-		if (!this.view.getSelectedServiceCategory().equals(ticket.getServiceCategory())) {
-			ILogEntry logEntry = new LogEntry();
-			logEntry.setDateEntered(new Date());
-			logEntry.setDescriptition(String.format("Selected service category changed from \"%s\" to \"%s\".", 
-					ticket.getServiceCategory(),
-					this.view.getSelectedServiceCategory()));
-			logEntry.setTechnician(technician);
-			logEntry.setParent(this.ticket);
-			this.datasource.addLogEntry(ticket.getId(), logEntry);
-			updated = true;
+			if (!this.view.getDescription().equals(ticket.getDescription())) {
+				ILogEntry logEntry = new LogEntry();
+				logEntry.setDateEntered(new Date());
+				logEntry.setDescriptition(String.format("Description changed from \"%s\" to \"%s\".", 
+						ticket.getDescription(),
+						this.view.getDescription()));
+				logEntry.setTechnician(technician);
+				logEntry.setParent(this.ticket);
+				this.datasource.addLogEntry(ticket.getId(), logEntry);
+				updated = true;
+			}
+
+			if (!this.view.getSelectedServiceCategory().equals(ticket.getServiceCategory())) {
+				ILogEntry logEntry = new LogEntry();
+				logEntry.setDateEntered(new Date());
+				logEntry.setDescriptition(String.format("Selected service category changed from \"%s\" to \"%s\".", 
+						ticket.getServiceCategory(),
+						this.view.getSelectedServiceCategory()));
+				logEntry.setTechnician(technician);
+				logEntry.setParent(this.ticket);
+				this.datasource.addLogEntry(ticket.getId(), logEntry);
+				updated = true;
+			}
+
+			if (!this.view.getSelectedPriority().equals(ticket.getPriority())) {
+				ILogEntry logEntry = new LogEntry();
+				logEntry.setDateEntered(new Date());
+				logEntry.setDescriptition(String.format("Priority changed from \"%s\" to \"%s\".", 
+						ticket.getPriority(),
+						this.view.getSelectedPriority()));
+				logEntry.setTechnician(technician);
+				logEntry.setParent(this.ticket);
+				this.datasource.addLogEntry(ticket.getId(), logEntry);
+				updated = true;
+			}
+
+			if (!this.view.getSelectedStatus().equals(ticket.getStatus())) {
+				ILogEntry logEntry = new LogEntry();
+				logEntry.setDateEntered(new Date());
+				logEntry.setDescriptition(String.format("Status changed from \"%s\" to \"%s\".", 
+						ticket.getStatus(),
+						this.view.getSelectedStatus()));
+				logEntry.setTechnician(technician);
+				logEntry.setParent(this.ticket);
+				this.datasource.addLogEntry(ticket.getId(), logEntry);
+				updated = true;
+
+				//if (this.view.getSelectedStatus().equalsIgnoreCase("Complete")) {
+				//	closedOn = new Date();
+				//}
+			}
 		}
-
-		if (!this.view.getSelectedPriority().equals(ticket.getPriority())) {
-			ILogEntry logEntry = new LogEntry();
-			logEntry.setDateEntered(new Date());
-			logEntry.setDescriptition(String.format("Priority changed from \"%s\" to \"%s\".", 
-					ticket.getPriority(),
-					this.view.getSelectedPriority()));
-			logEntry.setTechnician(technician);
-			logEntry.setParent(this.ticket);
-			this.datasource.addLogEntry(ticket.getId(), logEntry);
+		else {
 			updated = true;
-		}
-
-		if (!this.view.getSelectedStatus().equals(ticket.getStatus())) {
-			ILogEntry logEntry = new LogEntry();
-			logEntry.setDateEntered(new Date());
-			logEntry.setDescriptition(String.format("Status changed from \"%s\" to \"%s\".", 
-					ticket.getStatus(),
-					this.view.getSelectedStatus()));
-			logEntry.setTechnician(technician);
-			logEntry.setParent(this.ticket);
-			this.datasource.addLogEntry(ticket.getId(), logEntry);
-			updated = true;
-
-			//if (this.view.getSelectedStatus().equalsIgnoreCase("Complete")) {
-			//	closedOn = new Date();
-			//}
 		}
 
 		return updated;
