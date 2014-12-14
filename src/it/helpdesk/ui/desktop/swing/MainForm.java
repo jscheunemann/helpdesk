@@ -114,10 +114,10 @@ public class MainForm implements IMainFormView {
 		
 		JPanel pnlActiveTicket = new JPanel();
 		tabbedPane.addTab("Active Tickets", null, pnlActiveTicket, null);
-		pnlActiveTicket.setLayout(new FlowLayout());
+		pnlActiveTicket.setLayout(new BorderLayout());
 
 		JScrollPane scrollPane_1 = new JScrollPane();
-		pnlActiveTicket.add(scrollPane_1);
+		pnlActiveTicket.add(scrollPane_1, BorderLayout.CENTER);
 
 		tableActiveTicket = new JTable();
 		scrollPane_1.setViewportView(tableActiveTicket);
@@ -138,11 +138,11 @@ public class MainForm implements IMainFormView {
 
 		JPanel pnlInactiveTicket = new JPanel();
 		tabbedPane.addTab("Archive Tickets", null, pnlInactiveTicket, null);
-		pnlInactiveTicket.setLayout(new FlowLayout());
+		pnlInactiveTicket.setLayout(new BorderLayout());
 
 
 		JScrollPane scrollPane = new JScrollPane();
-		pnlInactiveTicket.add(scrollPane);
+		pnlInactiveTicket.add(scrollPane, BorderLayout.CENTER);
 
 		tableInactiveTicket = new JTable();
 		scrollPane.setViewportView(tableInactiveTicket);
