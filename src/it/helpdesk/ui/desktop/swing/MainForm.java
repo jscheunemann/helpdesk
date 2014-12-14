@@ -54,11 +54,6 @@ public class MainForm implements IMainFormView {
 	private IMainMenu mainMenu;
 
 	/**
-	 * Contains a DBInterface object.
-	 */
-	private DBInterface dbInterface = new DBInterface();
-
-	/**
 	 * Contains a JTable object holding a list of archived tickets.
 	 */
 	private JTable tableInactiveTicket;
