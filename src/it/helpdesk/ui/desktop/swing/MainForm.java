@@ -30,8 +30,6 @@ import java.awt.event.*;
 
 import javax.swing.*;
 import javax.swing.border.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.table.*;
 
 import java.util.List;
@@ -110,7 +108,7 @@ public class MainForm implements IMainFormView {
 
 		tableActiveTicket = new JTable();
 		scrollPane_1.setViewportView(tableActiveTicket);
-		
+
 		tableActiveTicket.setModel(new DefaultTableModel(
 				new Object[][] {
 						{},
@@ -124,26 +122,11 @@ public class MainForm implements IMainFormView {
 		tableActiveTicket.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tableActiveTicket.setAutoCreateRowSorter(true);
 		tableActiveTicket.setEnabled(false);
-		
-//		JTableHeader activeHeader = tableActiveTicket.getTableHeader();
-//		activeHeader.addMouseListener(new MouseAdapter(){
-//			public void mouseClicked(MouseEvent e){
-//				int colNum = tableActiveTicket.columnAtPoint(e.getPoint());
-//				System.out.println(colNum);
-//				sortTable(colNum, true);
-//			}
-//		});
 
 		JPanel pnlInactiveTicket = new JPanel();
 		tabbedPane.addTab("Archive Tickets", null, pnlInactiveTicket, null);
 		pnlInactiveTicket.setLayout(layout);
 
-		tabbedPane.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent event){
-//				updateActiveTable();
-//				updateInactiveTable();
-			}
-		});
 
 		JScrollPane scrollPane = new JScrollPane();
 		pnlInactiveTicket.add(scrollPane);
@@ -203,54 +186,6 @@ public class MainForm implements IMainFormView {
 		this.window.dispatchEvent(new WindowEvent(this.window, WindowEvent.WINDOW_CLOSING));
 	}
 
-	/**
-	 * Method to grab the selected ticket ID and return it to the calling method.
-	 * 
-	 * @return ID for the currently selected ticket
-	 */
-	public int getActiveSelectedRow() {
-		int selectedRow = tableActiveTicket.getSelectedRow();
-		return Integer.valueOf(tableActiveTicket.getValueAt(selectedRow, 0).toString());
-	}
-
-
-	/**
-	 * Method to grab the selected ticket ID and return it to the calling method.
-	 * 
-	 * @return ID for the currently selected ticket
-	 */
-	public int getInactiveSelectedRow() {
-		int selectedRow = tableInactiveTicket.getSelectedRow();
-		return Integer.valueOf(tableInactiveTicket.getValueAt(selectedRow, 0).toString());
-	}
-
-	/**
-	 * Method to sort the view of active ticket list.
-	 * 
-	 */
-	public void sortTable(int column, boolean active) {
-		switch(column){
-		case 0:
-			dbInterface.sortByID(active);
-			break;
-		case 1:
-			dbInterface.sortByPriority(active);
-			break;
-		case 2:
-			dbInterface.sortByStatus(active);
-			break;
-		case 3:
-			dbInterface.sortByCategory(active);
-			break;
-		case 4:
-			dbInterface.sortByClient(active);
-			break;
-		case 6:
-			dbInterface.sortByOpenedDate(active);
-			break;
-		}
-	}
-
 	@Override
 	public void setController(IMainFormController controller) {
 		this.controller = controller;
@@ -269,30 +204,46 @@ public class MainForm implements IMainFormView {
 				MainForm.this.controller.loadInactiveTickets();
 			}
 		});
-		
+
 		tableActiveTicket.addMouseListener(new MouseAdapter(){
 			public void mouseClicked(MouseEvent e){
 				int rowNum = tableActiveTicket.rowAtPoint(e.getPoint());
 				tableActiveTicket.clearSelection();
 				tableActiveTicket.addRowSelectionInterval(rowNum, rowNum);
+
+				int index = tableActiveTicket.convertRowIndexToModel(rowNum);
 				// Right click or double click 
 				if(SwingUtilities.isRightMouseButton(e) == true || e.getClickCount() == 2) {
-					DefaultTableModel model = (DefaultTableModel) tableActiveTicket.getModel(); // Set value to table
-					Object id = model.getValueAt(rowNum, 0);
-					if(id != null){
-						MainForm.this.controller.updateSelectedTicket(Long.valueOf((String) id));
-						MainForm.this.mainMenu.enableEditTicketMenuItem();
 
+					if(index > -1){
+						MainForm.this.controller.updateSelectedTicketIndex(index);
+						MainForm.this.mainMenu.enableEditTicketMenuItem();
+				
 						MainForm.this.controller.openTicketForm();
 					}
 				}
-				else if (SwingUtilities.isLeftMouseButton(e) == true) {
-					DefaultTableModel model = (DefaultTableModel) tableActiveTicket.getModel(); // Set value to table
-					Object id = model.getValueAt(rowNum, 0);
-					
-					if(id != null){
-						MainForm.this.controller.updateSelectedTicket(Long.valueOf((String) id));
+				else {
+					MainForm.this.controller.clearSelectedTicket();
+					MainForm.this.mainMenu.disableEditTicketMenuItem();
+				}
+			}
+		});
+		
+		tableInactiveTicket.addMouseListener(new MouseAdapter(){
+			public void mouseClicked(MouseEvent e){
+				int rowNum = tableInactiveTicket.rowAtPoint(e.getPoint());
+				tableInactiveTicket.clearSelection();
+				tableInactiveTicket.addRowSelectionInterval(rowNum, rowNum);
+
+				int index = tableInactiveTicket.convertRowIndexToModel(rowNum);
+				// Right click or double click 
+				if(SwingUtilities.isRightMouseButton(e) == true || e.getClickCount() == 2) {
+
+					if(index > -1){
+						MainForm.this.controller.updateSelectedTicketIndex(index);
 						MainForm.this.mainMenu.enableEditTicketMenuItem();
+				
+						MainForm.this.controller.openTicketForm();
 					}
 				}
 				else {
@@ -312,11 +263,11 @@ public class MainForm implements IMainFormView {
 		renderer.setHorizontalAlignment(JLabel.RIGHT); // Format value in table
 		// to right
 		DefaultTableModel model = (DefaultTableModel) tableActiveTicket.getModel();
-		
+
 		int rowCount = model.getRowCount();
 		//Remove rows one by one from the end of the table
 		for (int i = rowCount - 1; i >= 0; i--) {
-		    model.removeRow(i);
+			model.removeRow(i);
 		}
 
 		int rowIndex =0;
@@ -343,11 +294,11 @@ public class MainForm implements IMainFormView {
 		renderer.setHorizontalAlignment(JLabel.RIGHT); // Format value in table
 		// to right
 		DefaultTableModel model = (DefaultTableModel) tableInactiveTicket.getModel();
-		
+
 		int rowCount = model.getRowCount();
 		//Remove rows one by one from the end of the table
 		for (int i = rowCount - 1; i >= 0; i--) {
-		    model.removeRow(i);
+			model.removeRow(i);
 		}
 
 		int rowIndex = 0;

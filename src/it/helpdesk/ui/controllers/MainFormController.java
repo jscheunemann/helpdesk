@@ -159,4 +159,9 @@ public class MainFormController implements IMainFormController {
 	public void clearSelectedTicket() {
 		this.selectedTicketId = 0;
 	}
+
+	@Override
+	public void updateSelectedTicketIndex(int index) {
+		this.selectedTicketId = tickets.get(index).getId();
+	}
 }

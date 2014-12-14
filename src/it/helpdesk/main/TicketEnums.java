@@ -20,8 +20,6 @@
 
 package it.helpdesk.main;
 
-import java.util.Date;
-
 /**
  * View class that allows the user to add a new ticket to the system or update
  * an existing ticket.
