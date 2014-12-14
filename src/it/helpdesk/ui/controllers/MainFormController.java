@@ -216,4 +216,39 @@ public class MainFormController implements IMainFormController {
 	public void updateSelectedInactiveTicketIndex(int index) {
 		this.selectedTicketId = inactiveTickets.get(index).getId();
 	}
+
+	@Override
+	public void searchByTicket() {
+		long searchId = -1;
+		
+		try {
+			searchId = Long.parseLong(this.view.getSearchByTicketText());
+		}
+		catch (NumberFormatException ex) {
+			
+		}
+		
+		boolean found = false;
+		
+		for (ITicket ticket : tickets) {
+			if (ticket.getId() == searchId) {
+				searchId = ticket.getId();
+				found = true;
+			}
+		}
+		
+		if (found) {
+			this.selectedTicketId = searchId;
+		}
+		else {
+			this.selectedTicketId = -1;
+		}
+		
+		if (this.selectedTicketId >= 0) {
+			this.openTicketForm();
+		}
+		else {
+			this.view.showDialog("Ticket Not Found", "The ticket ID could not be found, please try again.");
+		}
+	}
 }

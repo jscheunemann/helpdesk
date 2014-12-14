@@ -34,4 +34,5 @@ public interface IMainFormController {
 	public void openCreateTicketForm();
 	public void updateSelectedActiveTicketIndex(int index);
 	public void updateSelectedInactiveTicketIndex(int index);
+	public void searchByTicket();
 }

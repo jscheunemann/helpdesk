@@ -61,6 +61,10 @@ public class MainForm implements IMainFormView {
 	 * Contains a JTable object holding a list of active tickets.
 	 */
 	private JTable tableActiveTicket;
+	
+	private JButton searchButton;
+	
+	private JTextField searchBox;
 
 
 	/**
@@ -87,12 +91,42 @@ public class MainForm implements IMainFormView {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(25, 25, 25, 25));
 		this.window.setContentPane(contentPane);
-		FlowLayout layout = new FlowLayout();
+		
+		//FlowLayout layout = new FlowLayout();
+		
+		GridBagLayout layout = new GridBagLayout();
 		contentPane.setLayout(layout);
-
+		
+		JPanel searchPanel = new JPanel();
+		
+		searchBox = new JTextField(15);
+		searchBox.setUI(new HintTextFieldUI("Search by Ticket ID", true));
+		searchPanel.add(searchBox);
+		
+		searchButton = new JButton("Search");
+		searchPanel.add(searchButton);
+		
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.anchor = GridBagConstraints.CENTER;
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		
+		contentPane.add(searchPanel, gbc);
+		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		contentPane.add(tabbedPane);
+		
+		gbc.anchor = GridBagConstraints.CENTER;
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		
+		contentPane.add(new JLabel(" "), gbc);
 
+		gbc.anchor = GridBagConstraints.CENTER;
+		gbc.gridx = 0;
+		gbc.gridy = 2;
+		
+		contentPane.add(tabbedPane, gbc);
+		
 		JPanel pnlActiveTicket = new JPanel();
 		tabbedPane.addTab("Active Tickets", null, pnlActiveTicket, null);
 		pnlActiveTicket.setLayout(layout);
@@ -154,6 +188,7 @@ public class MainForm implements IMainFormView {
 	@Override
 	public void openLoginForm() {
 		this.controller.openLoginForm();
+		
 	}
 
 	/**
@@ -257,7 +292,22 @@ public class MainForm implements IMainFormView {
 				}
 			}
 		});
+		
+		this.searchButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				MainForm.this.controller.searchByTicket();
+			}
+		});
+		
+		this.searchBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			    
+				MainForm.this.searchButton.doClick();
+			}
+		});
 
+		this.searchButton.requestFocus();
 		this.window.setVisible(true);
 	}
 
@@ -321,5 +371,15 @@ public class MainForm implements IMainFormView {
 			model.setValueAt(ticket.getOpenedOn(), rowIndex,6 );
 			rowIndex++;
 		}
+	}
+
+	@Override
+	public String getSearchByTicketText() {
+		return this.searchBox.getText();
+	}
+	
+	@Override
+	public void showDialog(String title, String message) {
+		JOptionPane.showMessageDialog(this.window, message, title, JOptionPane.OK_OPTION);
 	}
 }

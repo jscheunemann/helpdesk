@@ -51,4 +51,8 @@ public interface IMainFormView {
 	public void displayActiveTickets(List<ITicket> tickets);
 	
 	public void displayInactiveTickets(List<ITicket> tickets);
+	
+	public String getSearchByTicketText();
+	
+	public void showDialog(String title, String message);
 }
