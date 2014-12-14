@@ -214,9 +214,8 @@ public class MainForm implements IMainFormView {
 				int index = tableActiveTicket.convertRowIndexToModel(rowNum);
 				// Right click or double click 
 				if(SwingUtilities.isRightMouseButton(e) == true || e.getClickCount() == 2) {
-
 					if(index > -1){
-						MainForm.this.controller.updateSelectedTicketIndex(index);
+						MainForm.this.controller.updateSelectedActiveTicketIndex(index);
 						MainForm.this.mainMenu.enableEditTicketMenuItem();
 				
 						MainForm.this.controller.openTicketForm();
@@ -240,7 +239,7 @@ public class MainForm implements IMainFormView {
 				if(SwingUtilities.isRightMouseButton(e) == true || e.getClickCount() == 2) {
 
 					if(index > -1){
-						MainForm.this.controller.updateSelectedTicketIndex(index);
+						MainForm.this.controller.updateSelectedInactiveTicketIndex(index);
 						MainForm.this.mainMenu.enableEditTicketMenuItem();
 				
 						MainForm.this.controller.openTicketForm();

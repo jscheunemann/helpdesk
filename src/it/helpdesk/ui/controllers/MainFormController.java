@@ -38,6 +38,10 @@ public class MainFormController implements IMainFormController {
 
 	private List<ITicket> tickets = null;
 
+	private List<ITicket> activeTickets = null;
+
+	private List<ITicket> inactiveTickets = null;
+
 	private long selectedTicketId = 0;
 
 	private String[] activeTicketStatuses = {"New", "In Progress", "Wait For Process"};
@@ -64,12 +68,15 @@ public class MainFormController implements IMainFormController {
 
 	@Override
 	public void loadActiveTickets() {
-		if (tickets == null) {
+		if (this.tickets == null) { 
 			tickets = this.datasource.getTickets();
 		}
 
-
-		List<ITicket> activeTickets = new ArrayList<ITicket>();
+		if (activeTickets == null) {
+			this.activeTickets = new ArrayList<ITicket>();	
+		}
+		
+		activeTickets.clear();
 
 		for (ITicket ticket : tickets) {
 			for (String status : activeTicketStatuses) {
@@ -78,19 +85,22 @@ public class MainFormController implements IMainFormController {
 				}
 			}
 		}
-
+		
 		this.view.displayActiveTickets(activeTickets);
 	}
 
 	@Override
 	public void loadInactiveTickets() {
-		if (tickets == null) {
+		if (this.tickets == null) { 
 			tickets = this.datasource.getTickets();
 		}
 
-
-		List<ITicket> inactiveTickets = new ArrayList<ITicket>();
-
+		if (inactiveTickets == null) {
+			this.inactiveTickets = new ArrayList<ITicket>();
+		}
+		
+		inactiveTickets.clear();
+		
 		for (ITicket ticket : tickets) {
 			for (String status : inactiveTicketStatuses) {
 				if (ticket.getStatus().equalsIgnoreCase(status)) {
@@ -115,7 +125,7 @@ public class MainFormController implements IMainFormController {
 		}
 
 		ticketFormController.openForm();
-		
+
 		this.loadActiveTickets();
 		this.loadInactiveTickets();
 	}
@@ -161,7 +171,12 @@ public class MainFormController implements IMainFormController {
 	}
 
 	@Override
-	public void updateSelectedTicketIndex(int index) {
-		this.selectedTicketId = tickets.get(index).getId();
+	public void updateSelectedActiveTicketIndex(int index) {
+		this.selectedTicketId = activeTickets.get(index).getId();
+	}
+
+	@Override
+	public void updateSelectedInactiveTicketIndex(int index) {
+		this.selectedTicketId = inactiveTickets.get(index).getId();
 	}
 }
