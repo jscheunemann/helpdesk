@@ -20,6 +20,8 @@
 
 package it.helpdesk.main;
 
+import it.helpdesk.datasources.hibernate.models.Ticket;
+
 import java.util.Comparator;
 
 /**
@@ -40,7 +42,7 @@ public class TicketDateComparator  implements Comparator<Ticket>{
 	 */
 	public int compare(Ticket o1, Ticket o2) {
 		// TODO Auto-generated method stub
-		return o1.getOpenedDate().compareTo(o2.getOpenedDate());
+		return o1.getOpenedOn().compareTo(o2.getOpenedOn());
 	}
 
 }

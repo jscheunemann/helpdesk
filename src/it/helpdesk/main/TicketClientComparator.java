@@ -20,6 +20,8 @@
 
 package it.helpdesk.main;
 
+import it.helpdesk.datasources.hibernate.models.Ticket;
+
 import java.util.Comparator;
 
 /**
@@ -39,7 +41,7 @@ public class TicketClientComparator  implements Comparator<Ticket>{
 	 * 
 	 */
 	public int compare(Ticket o1, Ticket o2) {
-		return o1.getClient().compareTo(o2.getClient());
+		return o1.getCustomer().getLastName().compareTo(o2.getCustomer().getLastName());
 	}
 
 }

@@ -20,6 +20,8 @@
 
 package it.helpdesk.main;
 
+import it.helpdesk.datasources.hibernate.models.Ticket;
+
 import java.util.Comparator;
 
 /**
@@ -39,8 +41,8 @@ public class TicketStatusComparator implements Comparator<Ticket>{
 	 * 
 	 */
 	public int compare(Ticket o1, Ticket o2) {
-		// TODO Auto-generated method stub
-		return Ticket.StatusEnum.toInt(o1.getStatus()) - Ticket.StatusEnum.toInt(o2.getStatus());
+		return TicketEnums.PriorityEnum.toInt(TicketEnums.PriorityEnum.fromString(o1.getStatus())) - 
+				TicketEnums.PriorityEnum.toInt(TicketEnums.PriorityEnum.fromString(o2.getStatus()));
 	}
 
 }
