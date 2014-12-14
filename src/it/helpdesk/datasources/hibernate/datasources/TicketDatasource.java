@@ -26,7 +26,6 @@ import java.util.List;
 import org.hibernate.*;
 
 import it.helpdesk.datasources.hibernate.HibernateUtil;
-import it.helpdesk.datasources.hibernate.models.LogEntry;
 import it.helpdesk.datasources.hibernate.models.Ticket;
 import it.helpdesk.ui.interfaces.models.*;
 import it.helpdesk.ui.interfaces.models.datasources.ITicketDatasource;
@@ -146,7 +145,6 @@ public class TicketDatasource implements ITicketDatasource{
 		if (ticket == null) {
 			ticket = new Ticket();
 			newTicket = true;
-			System.err.println("Ticket is null");
 		}
 		
 		ticket.setOpenedBy(openedBy);
@@ -176,6 +174,7 @@ public class TicketDatasource implements ITicketDatasource{
 		return ticket;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ITicket> getTicketUpdates(long lastTicketId) {
 		List<ITicket> tickets = null;
@@ -183,12 +182,10 @@ public class TicketDatasource implements ITicketDatasource{
 		Session session = sessionFactory.openSession();
 		
 		session.beginTransaction();
-		System.out.println(lastTicketId);
 		Query query = session.createQuery("from Ticket where id > :id");
 		query.setParameter("id", lastTicketId);
 		
 		tickets = (List<ITicket>) query.list();
-		System.out.println(tickets.size());
 		session.getTransaction().commit();
 		
 		session.close();
@@ -196,6 +193,7 @@ public class TicketDatasource implements ITicketDatasource{
 		return tickets;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public ITicket addLogEntry(long ticketId, ILogEntry logEntry) {
 		ITicket ticket = this.getTicketById(ticketId);
 		List<ILogEntry> logEntries = ticket.getLogEntries();

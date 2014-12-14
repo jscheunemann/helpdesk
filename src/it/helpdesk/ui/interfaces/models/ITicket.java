@@ -20,8 +20,6 @@
 
 package it.helpdesk.ui.interfaces.models;
 
-import it.helpdesk.datasources.hibernate.models.LogEntry;
-
 import java.util.Date;
 import java.util.List;
 
@@ -194,7 +192,9 @@ public interface ITicket {
 	 */
 	public void addLogEntry(ILogEntry logEntry);
 	
+	@SuppressWarnings("rawtypes")
 	public List getLogEntries();
 
+	@SuppressWarnings("rawtypes")
 	public void setLogEntries(List logEntries);
 }

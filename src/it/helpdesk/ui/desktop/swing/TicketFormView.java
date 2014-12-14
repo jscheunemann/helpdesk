@@ -10,10 +10,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.MutableAttributeSet;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
 import javax.swing.JLabel;
 
 import java.awt.Font;

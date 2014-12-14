@@ -307,10 +307,12 @@ public class Ticket implements ITicket {
 		this.logEntries.add((LogEntry) logEntry);
 	}
 
+	@SuppressWarnings("rawtypes")
 	public List getLogEntries() {
 		return this.logEntries;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void setLogEntries(List logEntries) {
 		this.logEntries = logEntries;
 	}
