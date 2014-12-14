@@ -181,18 +181,18 @@ public class TicketFormController implements ITicketFormController {
 				logEntries = new ArrayList<LogEntry>();
 			}
 			
-			if (newTicket) {
-				LogEntry logEntry = new LogEntry();
-				logEntry.setDateEntered(new Date());
-				logEntry.setDescriptition("Ticket created");
-				logEntry.setTechnician(technician);
-				logEntry.setParent(this.ticket);
-				logEntries.add(logEntry);
-				
-				((Ticket) this.ticket).setLogEntries(logEntries);
-				
-				((TicketDatasource) this.datasource).saveTicket(this.ticket);
-			}
+//			if (newTicket) {
+//				LogEntry logEntry = new LogEntry();
+//				logEntry.setDateEntered(new Date());
+//				logEntry.setDescriptition("Ticket created");
+//				logEntry.setTechnician(technician);
+//				logEntry.setParent(this.ticket);
+//				logEntries.add(logEntry);
+//				
+//				((Ticket) this.ticket).setLogEntries(logEntries);
+//				
+//				((TicketDatasource) this.datasource).saveTicket(this.ticket);
+//			}
 
 			this.view.showValidationSuccessDialog("Save Successful", saveMessage.toString());
 		} else{

@@ -74,4 +74,6 @@ public interface ITicketDatasource {
 	 * @return the requested ticket, null if none found
 	 */
 	public ITicket getTicketById(long id);
+	
+	public List<ITicket> getTicketUpdates(long lastTicketId);
 }

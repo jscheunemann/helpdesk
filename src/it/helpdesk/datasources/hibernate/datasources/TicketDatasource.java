@@ -182,4 +182,24 @@ public class TicketDatasource implements ITicketDatasource{
 		
 		return ticket;
 	}
+
+	@Override
+	public List<ITicket> getTicketUpdates(long lastTicketId) {
+		List<ITicket> tickets = null;
+		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		
+		session.beginTransaction();
+		System.out.println(lastTicketId);
+		Query query = session.createQuery("from Ticket where id > :id");
+		query.setParameter("id", lastTicketId);
+		
+		tickets = (List<ITicket>) query.list();
+		System.out.println(tickets.size());
+		session.getTransaction().commit();
+		
+		session.close();
+
+		return tickets;
+	}
 }

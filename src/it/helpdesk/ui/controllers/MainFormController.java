@@ -128,6 +128,23 @@ public class MainFormController implements IMainFormController {
 
 		this.loadActiveTickets();
 		this.loadInactiveTickets();
+		
+		long lastId = 0;
+		
+		for (ITicket ticket : this.tickets) {
+			if (ticket.getId() > lastId) {
+				lastId = ticket.getId();
+			}
+		}
+		
+		List<ITicket> newTickets = this.datasource.getTicketUpdates(lastId);
+		
+		for (ITicket ticket : newTickets) {
+			this.tickets.add(ticket);
+		}
+		
+		this.loadActiveTickets();
+		this.loadInactiveTickets();
 	}
 
 	public void openCreateTicketForm() {
