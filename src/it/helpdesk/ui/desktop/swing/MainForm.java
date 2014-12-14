@@ -108,6 +108,8 @@ public class MainForm implements IMainFormView {
 		
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.anchor = GridBagConstraints.CENTER;
+		gbc.weightx = 0;
+		gbc.weighty = 0;
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		
@@ -116,6 +118,8 @@ public class MainForm implements IMainFormView {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		
 		gbc.anchor = GridBagConstraints.CENTER;
+		gbc.weightx = 0;
+		gbc.weighty = 0;
 		gbc.gridx = 0;
 		gbc.gridy = 1;
 		
@@ -167,8 +171,10 @@ public class MainForm implements IMainFormView {
 		tableInactiveTicket.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tableInactiveTicket.setAutoCreateRowSorter(true);
 		tableInactiveTicket.setEnabled(false);
-		
+		 
 		gbc.anchor = GridBagConstraints.CENTER;
+		gbc.weightx = 1;
+		gbc.weighty = 1;
 		gbc.gridx = 0;
 		gbc.gridy = 2;
 		
