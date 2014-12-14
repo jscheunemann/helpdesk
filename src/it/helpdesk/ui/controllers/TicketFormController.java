@@ -108,6 +108,8 @@ public class TicketFormController implements ITicketFormController {
 			this.view.setSelectedServiceCategory(ticket.getServiceCategory());
 			this.view.setSelectedPriority(ticket.getPriority());
 			this.view.setSelectedStatus(ticket.getStatus());
+			
+			this.view.enableAddLogEntryButton();
 
 			String logText = "<html>";
 
@@ -117,10 +119,10 @@ public class TicketFormController implements ITicketFormController {
 				String format;
 
 				if (logEntries.size() % 2 == 0) {
-					format = (i % 2 == 0) ? "<div bgcolor=\"#D3D3D3\">%s::%s %s:: %s</div>" : "<div>%s::%s %s:: %s</div>";
+					format = (i % 2 == 0) ? "<div bgcolor=\"#D3D3D3\">%s\u25A0%s %s\u25A0 %s</div>" : "<div>%s\u25A0%s %s\u25A0 %s</div>";
 				}
 				else {
-					format = (i % 2 == 1) ? "<div bgcolor=\"#D3D3D3\">%s::%s %s:: %s</div>" : "<div>%s::%s %s:: %s</div>";
+					format = (i % 2 == 1) ? "<div bgcolor=\"#D3D3D3\">%s\u25A0%s %s\u25A0 %s</div>" : "<div>%s\u25A0%s %s\u25A0 %s</div>";
 				}
 
 				logText += String.format(format, logEntries.get(i).getDateEntered(),
@@ -161,10 +163,10 @@ public class TicketFormController implements ITicketFormController {
 					String format;
 
 					if (logEntries.size() % 2 == 0) {
-						format = (i % 2 == 0) ? "<div bgcolor=\"#D3D3D3\">%s::%s %s:: %s</div>" : "<div>%s::%s %s:: %s</div>";
+						format = (i % 2 == 0) ? "<div bgcolor=\"#D3D3D3\">%s\u25A0%s %s\u25A0 %s</div>" : "<div>%s\u25A0%s %s\u25A0 %s</div>";
 					}
 					else {
-						format = (i % 2 == 1) ? "<div bgcolor=\"#D3D3D3\">%s::%s %s:: %s</div>" : "<div>%s::%s %s:: %s</div>";
+						format = (i % 2 == 1) ? "<div bgcolor=\"#D3D3D3\">%s\u25A0%s %s\u25A0 %s</div>" : "<div>%s\u25A0%s %s\u25A0 %s</div>";
 					}
 
 					logText += String.format(format, logEntries.get(i).getDateEntered(),
@@ -419,10 +421,6 @@ public class TicketFormController implements ITicketFormController {
 				logEntry.setParent(this.ticket);
 				this.datasource.addLogEntry(ticket.getId(), logEntry);
 				updated = true;
-
-				//if (this.view.getSelectedStatus().equalsIgnoreCase("Complete")) {
-				//	closedOn = new Date();
-				//}
 			}
 		}
 		else {

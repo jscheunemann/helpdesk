@@ -207,13 +207,19 @@ public class MainForm implements IMainFormView {
 
 				int index = tableActiveTicket.convertRowIndexToModel(rowNum);
 				// Right click or double click 
-				if(SwingUtilities.isRightMouseButton(e) == true || e.getClickCount() == 2) {
+				if(SwingUtilities.isRightMouseButton(e) == true || (SwingUtilities.isLeftMouseButton(e) == true && e.getClickCount() == 2)) {
 					if(index > -1){
 						MainForm.this.controller.updateSelectedActiveTicketIndex(index);
 						MainForm.this.mainMenu.enableEditTicketMenuItem();
 				
 						MainForm.this.controller.openTicketForm();
+						MainForm.this.controller.clearSelectedTicket();
+						MainForm.this.mainMenu.disableEditTicketMenuItem();
 					}
+				}
+				else if (SwingUtilities.isLeftMouseButton(e)) {
+					MainForm.this.controller.updateSelectedActiveTicketIndex(index);
+					MainForm.this.mainMenu.enableEditTicketMenuItem();
 				}
 				else {
 					MainForm.this.controller.clearSelectedTicket();
@@ -230,14 +236,20 @@ public class MainForm implements IMainFormView {
 
 				int index = tableInactiveTicket.convertRowIndexToModel(rowNum);
 				// Right click or double click 
-				if(SwingUtilities.isRightMouseButton(e) == true || e.getClickCount() == 2) {
+				if(SwingUtilities.isRightMouseButton(e) == true || (SwingUtilities.isLeftMouseButton(e) == true && e.getClickCount() == 2)) {
 
 					if(index > -1){
 						MainForm.this.controller.updateSelectedInactiveTicketIndex(index);
 						MainForm.this.mainMenu.enableEditTicketMenuItem();
 				
 						MainForm.this.controller.openTicketForm();
+						MainForm.this.controller.clearSelectedTicket();
+						MainForm.this.mainMenu.disableEditTicketMenuItem();
 					}
+				}
+				else if (SwingUtilities.isLeftMouseButton(e)) {
+					MainForm.this.controller.updateSelectedInactiveTicketIndex(index);
+					MainForm.this.mainMenu.enableEditTicketMenuItem();
 				}
 				else {
 					MainForm.this.controller.clearSelectedTicket();

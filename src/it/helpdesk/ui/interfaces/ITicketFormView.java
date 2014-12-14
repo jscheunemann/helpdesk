@@ -251,4 +251,8 @@ public interface ITicketFormView {
 	 * Method to display the authentication success message, if one exists.
 	 */
 	public void showValidationSuccessDialog(String title, String message);
+	
+	public void disableAddLogEntryButton();
+	
+	public void enableAddLogEntryButton();
 }

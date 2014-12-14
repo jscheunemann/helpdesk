@@ -126,6 +126,8 @@ public class TicketFormView implements ITicketFormView {
 	private JLabel lblCreateTicket;
 
 	private JScrollPane scroll;
+	
+	private JButton btnAddInformation;
 
 	/**
 	 * Class constructor for the Add/Edit ticket View page.
@@ -158,7 +160,7 @@ public class TicketFormView implements ITicketFormView {
 		txtFldTicketID.setBounds(131, 11, 515, 20);
 		pnl1.add(txtFldTicketID);
 		txtFldTicketID.setColumns(10);
-		txtFldTicketID.setText(String.valueOf(0));
+		txtFldTicketID.setText("<NewTicket>");
 
 		JLabel lblOpenedBy = new JLabel("Opened By");
 		lblOpenedBy.setBounds(33, 47, 88, 14);
@@ -284,14 +286,10 @@ public class TicketFormView implements ITicketFormView {
 
 		txtAreaLog = new JTextPane();
 		txtAreaLog.setContentType("text/html");
+		txtAreaLog.setEditable(false);
 		scroll = new JScrollPane(txtAreaLog);
 		scroll.setBounds(131, 381, 515, 130);
 		pnl1.add(scroll);
-
-		//		MutableAttributeSet set = new SimpleAttributeSet();
-		//		StyleConstants.setLineSpacing(set, (float) .25);
-		//		
-		//		txtAreaLog.setParagraphAttributes(set, false);
 
 		txtAreaDescription = new JTextArea();
 		Border border = BorderFactory.createLineBorder(Color.GRAY, 1);
@@ -305,8 +303,9 @@ public class TicketFormView implements ITicketFormView {
 		pnl2.setBounds(0, 568, 671, 44);
 		contentPane.add(pnl2);
 		pnl2.setLayout(null);
-
-		JButton btnAddInformation = new JButton("Add Log Entry");
+		
+		btnAddInformation = new JButton("Add Log Entry");
+		btnAddInformation.setVisible(false);
 		btnAddInformation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				TicketFormView.this.addInformationPressed();
@@ -390,7 +389,8 @@ public class TicketFormView implements ITicketFormView {
 	      JScrollPane scrollPane = new JScrollPane(textArea);
 	       
 	      // display them in a message dialog
-	      JOptionPane.showMessageDialog(this.window, scrollPane);
+	      JOptionPane.showMessageDialog(this.window, scrollPane, "Enter You Log Entry",
+	    		    JOptionPane.PLAIN_MESSAGE);
 	      this.controller.addLogMessage(textArea.getText());
 
 	}
@@ -568,6 +568,14 @@ public class TicketFormView implements ITicketFormView {
 		return txtFldTicketID.getText();
 	}
 
+	@Override
+	public void disableAddLogEntryButton() {
+		this.btnAddInformation.setVisible(false);
+	}
 
+	@Override
+	public void enableAddLogEntryButton() {
+		this.btnAddInformation.setVisible(true);
+	}
 }
 
