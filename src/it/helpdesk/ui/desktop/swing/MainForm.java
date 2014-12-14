@@ -117,13 +117,13 @@ public class MainForm implements IMainFormView {
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		
-		gbc.anchor = GridBagConstraints.CENTER;
-		gbc.weightx = 0;
-		gbc.weighty = 0;
-		gbc.gridx = 0;
-		gbc.gridy = 1;
-		
-		contentPane.add(new JLabel(" "), gbc);
+//		gbc.anchor = GridBagConstraints.CENTER;
+//		gbc.weightx = 0;
+//		gbc.weighty = 0;
+//		gbc.gridx = 0;
+//		gbc.gridy = 1;
+//		
+//		contentPane.add(new JLabel(" "), gbc);
 		
 		JPanel pnlActiveTicket = new JPanel();
 		tabbedPane.addTab("Active Tickets", null, pnlActiveTicket, null);
@@ -172,11 +172,11 @@ public class MainForm implements IMainFormView {
 		tableInactiveTicket.setAutoCreateRowSorter(true);
 		tableInactiveTicket.setEnabled(false);
 		 
-		gbc.anchor = GridBagConstraints.SOUTH;
+		gbc.anchor = GridBagConstraints.CENTER;
 		gbc.weightx = 1;
 		gbc.weighty = 1;
 		gbc.gridx = 0;
-		gbc.gridy = 2;
+		gbc.gridy = 1;
 		
 		contentPane.add(tabbedPane, gbc);
 
