@@ -107,7 +107,7 @@ public class MainForm implements IMainFormView {
 		searchPanel.add(searchButton);
 		
 		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.anchor = GridBagConstraints.CENTER;
+		gbc.anchor = GridBagConstraints.NORTH;
 		gbc.weightx = 0;
 		gbc.weighty = 0;
 		gbc.gridx = 0;
@@ -172,7 +172,7 @@ public class MainForm implements IMainFormView {
 		tableInactiveTicket.setAutoCreateRowSorter(true);
 		tableInactiveTicket.setEnabled(false);
 		 
-		gbc.anchor = GridBagConstraints.CENTER;
+		gbc.anchor = GridBagConstraints.SOUTH;
 		gbc.weightx = 1;
 		gbc.weighty = 1;
 		gbc.gridx = 0;
