@@ -1,14 +1,9 @@
 package it.helpdesk.ui.controllers;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.hibernate.Hibernate;
-import org.hibernate.SessionFactory;
-
-import it.helpdesk.datasources.hibernate.HibernateUtil;
 import it.helpdesk.datasources.hibernate.datasources.LogEntryDatasource;
 import it.helpdesk.datasources.hibernate.datasources.TicketDatasource;
 import it.helpdesk.datasources.hibernate.models.Customer;

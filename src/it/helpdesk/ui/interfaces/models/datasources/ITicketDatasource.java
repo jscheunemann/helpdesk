@@ -22,7 +22,6 @@ package it.helpdesk.ui.interfaces.models.datasources;
 
 import it.helpdesk.ui.interfaces.models.*;
 
-import java.util.Date;
 import java.util.List;
 
 public interface ITicketDatasource {

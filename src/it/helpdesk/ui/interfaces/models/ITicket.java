@@ -21,7 +21,6 @@
 package it.helpdesk.ui.interfaces.models;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * Model class to handle the communication between the application and the database.

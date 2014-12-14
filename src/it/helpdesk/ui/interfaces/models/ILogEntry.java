@@ -20,8 +20,6 @@
 
 package it.helpdesk.ui.interfaces.models;
 
-import it.helpdesk.datasources.hibernate.models.Ticket;
-
 import java.util.Date;
 
 public interface ILogEntry {

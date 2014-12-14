@@ -20,7 +20,6 @@
 
 package it.helpdesk.ui.desktop.swing;
 
-import it.helpdesk.main.*;
 import it.helpdesk.ui.controllers.MainFormController;
 import it.helpdesk.ui.interfaces.*;
 import it.helpdesk.ui.interfaces.models.ITicket;

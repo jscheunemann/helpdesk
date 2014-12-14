@@ -27,13 +27,10 @@ import java.util.List;
 import javax.persistence.*;
 
 import org.hibernate.Hibernate;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import it.helpdesk.datasources.hibernate.HibernateUtil;
-import it.helpdesk.datasources.hibernate.datasources.LogEntryDatasource;
 import it.helpdesk.ui.interfaces.models.ICustomer;
 import it.helpdesk.ui.interfaces.models.ILogEntry;
 import it.helpdesk.ui.interfaces.models.ITechnician;

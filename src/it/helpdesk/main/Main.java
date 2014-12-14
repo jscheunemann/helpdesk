@@ -23,7 +23,6 @@ package it.helpdesk.main;
 import it.helpdesk.datasources.hibernate.HibernateDatasourceConfiguration;
 import it.helpdesk.ui.controllers.MainFormController;
 import it.helpdesk.ui.desktop.swing.SwingViewConfiguration;
-import it.helpdesk.ui.desktop.swing.TicketFormView;
 import it.helpdesk.ui.interfaces.IMainFormController;
 import it.sauronsoftware.junique.*;
 
