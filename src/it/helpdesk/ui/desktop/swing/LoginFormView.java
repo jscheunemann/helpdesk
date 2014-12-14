@@ -28,9 +28,14 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.AWTException;
+import java.awt.BorderLayout;
 import java.awt.Dialog;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Point;
 import java.awt.Robot;
 
@@ -40,6 +45,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.SwingConstants;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -96,51 +102,81 @@ public class LoginFormView implements ILoginFormView {
 	 */
 	public LoginFormView(JFrame parent) {
 		window = new JDialog(parent, "Login", Dialog.ModalityType.APPLICATION_MODAL);
-		//window.setLocationRelativeTo(parent);
-		window.setBounds(100, 100, 450, 287);
+		window.setPreferredSize(new Dimension(400, 300));
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		window.setContentPane(contentPane);
-		contentPane.setLayout(null);
+		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
+		contentPane.setLayout(new BorderLayout());
+		
+		
+		JPanel pnlTitle = new JPanel();
+		pnlTitle.setBackground(new Color(47, 79, 79));
+		pnlTitle.setLayout(new FlowLayout(FlowLayout.LEFT));
+		
+		JLabel title = new JLabel("  Login");
+		title.setForeground(Color.WHITE);
+		title.setFont(new Font(null, Font.PLAIN, title.getFont().getSize() * 2));
+		
+		pnlTitle.add(title);
+		pnlTitle.setBackground(new Color(47, 79, 79));
+		pnlTitle.setBorder(new EmptyBorder(10, 0, 10, 0));
 		
 		JPanel pnlLogin = new JPanel();
-		pnlLogin.setBackground(new Color(47, 79, 79));
-		pnlLogin.setBounds(0, 0, 434, 67);
-		contentPane.add(pnlLogin);
-		pnlLogin.setLayout(null);
+		pnlLogin.setLayout(new GridBagLayout());
 		
-		JLabel lblLogin = new JLabel("Login");
-		lblLogin.setForeground(Color.WHITE);
-		lblLogin.setFont(new Font(lblLogin.getName(), Font.PLAIN, lblLogin.getFont().getSize() * 2));
-		lblLogin.setBounds(15, 15, 168, 30);
-		pnlLogin.add(lblLogin);
+		GridBagConstraints gbc = new GridBagConstraints();
 		
-		JLabel lblUserName = new JLabel(" User Name");
-		lblUserName.setBounds(42, 106, 85, 24);
-		contentPane.add(lblUserName);
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.weightx = 0;
+		gbc.weighty = 0;
 		
-		JLabel lblPassword = new JLabel(" Password");
-		lblPassword.setBounds(42, 141, 85, 24);
-		contentPane.add(lblPassword);
+		JLabel lblUserName = new JLabel("User Name  ", SwingConstants.RIGHT);
+		pnlLogin.add(lblUserName, gbc);
+		
+		gbc.gridx = 1;
+		gbc.gridy = 0;
+		gbc.weightx = 1;
+		gbc.weighty = 1;
+		gbc.fill=GridBagConstraints.HORIZONTAL;
 		
 		usernameTextBox = new JTextField();
-		usernameTextBox.setBounds(137, 108, 273, 20);
-		contentPane.add(usernameTextBox);
-		usernameTextBox.setColumns(10);
+		pnlLogin.add(usernameTextBox, gbc);
+		
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		gbc.weightx = 0;
+		gbc.weighty = 0;
+		
+		JLabel lblPassword = new JLabel("Password  ", SwingConstants.RIGHT);
+		pnlLogin.add(lblPassword, gbc);
+		
+		gbc.gridx = 1;
+		gbc.gridy = 1;
+		gbc.weightx = 1;
+		gbc.weighty = 1;
+		gbc.fill=GridBagConstraints.HORIZONTAL;
 		
 		passwordTextBox = new JPasswordField();
-		passwordTextBox.setColumns(10);
-		passwordTextBox.setBounds(137, 143, 273, 20);
-		contentPane.add(passwordTextBox);
+		pnlLogin.add(passwordTextBox, gbc);
+		
+		pnlLogin.setBorder(new EmptyBorder(25, 45, 25, 45));
 		
 		btnSignIn = new JButton("Sign In");
-		btnSignIn.setBounds(109, 211, 99, 24);
-		contentPane.add(btnSignIn);
+		JPanel pnlButton = new JPanel(new FlowLayout());
+		pnlButton.add(btnSignIn);
+		
+		pnlButton.setBorder(new EmptyBorder(0, 15, 15, 15));
 		
 		btnCreateNewAccount = new JButton("Create New Account");
-		btnCreateNewAccount.setBounds(218, 211, 192, 24);
-		contentPane.add(btnCreateNewAccount);	
+		pnlLogin.add(btnCreateNewAccount);
+		pnlButton.add(btnCreateNewAccount);
 		
+		contentPane.add(pnlTitle, BorderLayout.NORTH);
+		contentPane.add(pnlLogin, BorderLayout.CENTER);
+		contentPane.add(pnlButton, BorderLayout.SOUTH);
+		
+		window.setContentPane(contentPane);
+		window.pack();
 		window.setLocationRelativeTo(parent);
 	}
 
