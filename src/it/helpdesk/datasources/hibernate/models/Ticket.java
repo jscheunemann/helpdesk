@@ -303,14 +303,15 @@ public class Ticket implements ITicket {
 		if (this.logEntries == null) {
 			this.logEntries = new ArrayList<LogEntry>();
 		}
+		
 		this.logEntries.add((LogEntry) logEntry);
 	}
 
-	public List<LogEntry> getLogEntries() {
+	public List getLogEntries() {
 		return this.logEntries;
 	}
 
-	public void setLogEntries(List<LogEntry> logEntries) {
+	public void setLogEntries(List logEntries) {
 		this.logEntries = logEntries;
 	}
 	

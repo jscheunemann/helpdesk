@@ -20,7 +20,10 @@
 
 package it.helpdesk.ui.interfaces.models;
 
+import it.helpdesk.datasources.hibernate.models.LogEntry;
+
 import java.util.Date;
+import java.util.List;
 
 /**
  * Model class to handle the communication between the application and the database.
@@ -190,4 +193,8 @@ public interface ITicket {
 	 * @param the log entry to add to the ticket
 	 */
 	public void addLogEntry(ILogEntry logEntry);
+	
+	public List getLogEntries();
+
+	public void setLogEntries(List logEntries);
 }

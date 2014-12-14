@@ -133,20 +133,11 @@ public class TicketDatasource implements ITicketDatasource{
 
 		return ticket;
 	}
-	
-	public void saveTicket(ITicket ticket) {
-		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-		Session session = sessionFactory.openSession();
-		
-		session.beginTransaction();
-		session.save(ticket);
-		session.getTransaction().commit();
-		session.close();
-	}
 
+	@Override
 	public ITicket saveTicket(ITicket ticket, ITechnician openedBy, String serviceCategory,
 			String priority, String status, ITechnician technician,
-			Date openedOn, Date closedOn, ICustomer customer, String description, String summary, List<LogEntry> logEntries) {
+			Date openedOn, Date closedOn, ICustomer customer, String description, String summary) {
 		
 		boolean newTicket = false;
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -155,6 +146,7 @@ public class TicketDatasource implements ITicketDatasource{
 		if (ticket == null) {
 			ticket = new Ticket();
 			newTicket = true;
+			System.err.println("Ticket is null");
 		}
 		
 		ticket.setOpenedBy(openedBy);
@@ -178,6 +170,7 @@ public class TicketDatasource implements ITicketDatasource{
 		}
 	
 		session.getTransaction().commit();
+		session.flush();
 		session.close();
 		
 		return ticket;
@@ -202,4 +195,24 @@ public class TicketDatasource implements ITicketDatasource{
 
 		return tickets;
 	}
+	
+	public ITicket addLogEntry(long ticketId, ILogEntry logEntry) {
+		ITicket ticket = this.getTicketById(ticketId);
+		List<ILogEntry> logEntries = ticket.getLogEntries();
+		
+		logEntries.add(logEntry);
+		
+		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		
+		session.beginTransaction();
+		
+		session.update(ticket);
+	
+		session.getTransaction().commit();
+		session.flush();
+		session.close();
+		
+		return ticket;
+ 	}
 }

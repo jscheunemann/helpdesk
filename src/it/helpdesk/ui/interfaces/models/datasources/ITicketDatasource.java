@@ -22,6 +22,7 @@ package it.helpdesk.ui.interfaces.models.datasources;
 
 import it.helpdesk.ui.interfaces.models.*;
 
+import java.util.Date;
 import java.util.List;
 
 public interface ITicketDatasource {
@@ -76,4 +77,12 @@ public interface ITicketDatasource {
 	public ITicket getTicketById(long id);
 	
 	public List<ITicket> getTicketUpdates(long lastTicketId);
+	
+	public ITicket addLogEntry(long ticketId, ILogEntry logEntry);
+
+	public ITicket saveTicket(ITicket ticket, ITechnician openedBy,
+			String selectedServiceCategory, String selectedPriority,
+			String selectedStatus, ITechnician technician, Date openedOn,
+			Date closedOn, ICustomer customer, String description,
+			String summary);
 }

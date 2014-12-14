@@ -10,6 +10,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.MutableAttributeSet;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
 import javax.swing.JLabel;
 
 import java.awt.Font;
@@ -17,6 +21,8 @@ import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -115,7 +121,7 @@ public class TicketFormView implements ITicketFormView {
 	/**
 	 * Variable contains a JTextArea holding the ticket history
 	 */
-	private JTextArea txtAreaLog;
+	private JTextPane txtAreaLog;
 	
 	/**
 	 * Variable contains a JTextArea holding the ticket update information
@@ -123,6 +129,8 @@ public class TicketFormView implements ITicketFormView {
 	private JTextArea txtAreaDescription;
 	
 	private JLabel lblCreateTicket;
+	
+	private JScrollPane scroll;
 	
 	/**
 	 * Class constructor for the Add/Edit ticket View page.
@@ -279,12 +287,16 @@ public class TicketFormView implements ITicketFormView {
 		lblLog.setBounds(66, 381, 55, 14);
 		pnl1.add(lblLog);
 				
-		txtAreaLog = new JTextArea();
-		txtAreaLog.setLineWrap(true);
-		txtAreaLog.setToolTipText("");
-		txtAreaLog.setEditable(false);
-		txtAreaLog.setBounds(131, 381, 515, 130);
-		pnl1.add(txtAreaLog);
+		txtAreaLog = new JTextPane();
+		txtAreaLog.setContentType("text/html");
+		scroll = new JScrollPane(txtAreaLog);
+		scroll.setBounds(131, 381, 515, 130);
+		pnl1.add(scroll);
+		
+//		MutableAttributeSet set = new SimpleAttributeSet();
+//		StyleConstants.setLineSpacing(set, (float) .25);
+//		
+//		txtAreaLog.setParagraphAttributes(set, false);
 		
 		txtAreaDescription = new JTextArea();
 		Border border = BorderFactory.createLineBorder(Color.GRAY, 1);
@@ -509,6 +521,7 @@ public class TicketFormView implements ITicketFormView {
 	@Override
 	public void setLogText(String logText) {
 		this.txtAreaLog.setText(logText);
+		this.txtAreaLog.setCaretPosition(0);
 	}
 
 	@Override
