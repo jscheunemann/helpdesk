@@ -75,13 +75,4 @@ public interface ITicketDatasource {
 	 * @return the requested ticket, null if none found
 	 */
 	public ITicket getTicketById(long id);
-	
-	/**
-	 * Method to and/or save a ticket
-	 * 
-	 * @param the ticket information to be persisted
-	 */
-	public ITicket saveTicket(ITicket ticket, ITechnician openedBy, String serviceCategory, String priority,
-			String status, ITechnician technician, Date openedOn, Date closedOn, ICustomer customer,
-			String description, String summary);
 }

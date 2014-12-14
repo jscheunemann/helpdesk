@@ -21,6 +21,7 @@
 package it.helpdesk.datasources.hibernate;
 
 import it.helpdesk.datasources.hibernate.datasources.CustomerDatasource;
+import it.helpdesk.datasources.hibernate.datasources.LogEntryDatasource;
 import it.helpdesk.datasources.hibernate.datasources.PriorityDatasource;
 import it.helpdesk.datasources.hibernate.datasources.ServiceCategoryDatasource;
 import it.helpdesk.datasources.hibernate.datasources.StatusDatasource;
@@ -67,6 +68,8 @@ public class HibernateDatasourceConfiguration implements IDatasourceConfiguratio
 	 */
 	private ITicketDatasource ticketDatasource = null;
 	
+	private ILogEntryDatasource logEntryDatasource = null;
+	
 	/**
 	 * Default class constructor.Instantiate all of the datasource objects.
 	 */
@@ -77,6 +80,7 @@ public class HibernateDatasourceConfiguration implements IDatasourceConfiguratio
 		this.statusDatasource = new StatusDatasource();
 		this.technicianDatasource = new TechnicianDatasource();
 		this.ticketDatasource = new TicketDatasource();
+		this.logEntryDatasource = new LogEntryDatasource();
 	}
 
 	/**
@@ -131,5 +135,10 @@ public class HibernateDatasourceConfiguration implements IDatasourceConfiguratio
 	 */
 	public ITicketDatasource getTicketDatasource() {
 		return this.ticketDatasource;
+	}
+
+	@Override
+	public ILogEntryDatasource getLogEntryDatasource() {
+		return this.logEntryDatasource;
 	}
 }

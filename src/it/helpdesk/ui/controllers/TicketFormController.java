@@ -5,8 +5,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Hibernate;
+import org.hibernate.SessionFactory;
+
+import it.helpdesk.datasources.hibernate.HibernateUtil;
 import it.helpdesk.datasources.hibernate.datasources.LogEntryDatasource;
+import it.helpdesk.datasources.hibernate.datasources.TicketDatasource;
 import it.helpdesk.datasources.hibernate.models.Customer;
+import it.helpdesk.datasources.hibernate.models.LogEntry;
+import it.helpdesk.datasources.hibernate.models.Ticket;
 import it.helpdesk.main.ApplicationState;
 import it.helpdesk.ui.interfaces.IDatasourceConfiguration;
 import it.helpdesk.ui.interfaces.ITicketFormController;
@@ -93,7 +100,7 @@ public class TicketFormController implements ITicketFormController {
 		serviceCategories.add("Software");
 		serviceCategories.add("Database");
 		serviceCategories.add("Software Defect");
-		serviceCategories.add("Inquity");
+		serviceCategories.add("Inquiry");
 
 		this.view.setServiceCategories(serviceCategories);
 
@@ -113,8 +120,7 @@ public class TicketFormController implements ITicketFormController {
 
 			String logText = "";
 
-			for (ILogEntry logEntry : ticket.getLogEntries()) {
-				System.out.println(logEntry.getDescription());
+			for (ILogEntry logEntry : datasourceConfiguration.getLogEntryDatasource().getLogEntriesByTicket(ticket)) {
 				logText += String.format("%s %s %s: %s", logEntry.getDateEntered(),
 						logEntry.getTechnician().getFirstName(),
 						logEntry.getTechnician().getLastName(),
@@ -153,12 +159,15 @@ public class TicketFormController implements ITicketFormController {
 				openedOn = ticket.getOpenedOn();
 				closedOn = ticket.getCompletedOn();
 			}
+			
 			customer.setFirstName(this.view.getClientFirstName());
 			customer.setLastName(this.view.getClientLastName());
 			customer.setEmailAddress(this.view.getClientEmailAddress());
 			customer.setPhoneNumber(this.view.getClientPhoneNumber());
+			
+			//this.addLogEntry(newTicket, technician, openedBy, openedOn, closedOn, customer);
 
-			this.ticket = this.datasource.saveTicket(ticket,
+			this.ticket = ((TicketDatasource) this.datasource).saveTicket(ticket,
 					openedBy,
 					this.view.getSelectedServiceCategory(),
 					this.view.getSelectedPriority(),
@@ -168,11 +177,27 @@ public class TicketFormController implements ITicketFormController {
 					closedOn,
 					customer,
 					this.view.getDescription(),
-					this.view.getSummary());
-
-
-
-			this.addLogEntry(newTicket, technician, openedBy, openedOn, closedOn, customer);
+					this.view.getSummary(),
+					(this.ticket == null) ? null : ((Ticket) this.ticket).getLogEntries());
+			
+			List<LogEntry> logEntries = ((Ticket) this.ticket).getLogEntries();
+			
+			if (logEntries == null) {
+				logEntries = new ArrayList<LogEntry>();
+			}
+			
+			if (newTicket) {
+				LogEntry logEntry = new LogEntry();
+				logEntry.setDateEntered(new Date());
+				logEntry.setDescriptition("Ticket created");
+				logEntry.setTechnician(technician);
+				logEntry.setParent(this.ticket);
+				logEntries.add(logEntry);
+				
+				((Ticket) this.ticket).setLogEntries(logEntries);
+				
+				((TicketDatasource) this.datasource).saveTicket(this.ticket);
+			}
 
 			this.view.showValidationSuccessDialog("Save Successful", saveMessage.toString());
 		} else{

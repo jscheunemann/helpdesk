@@ -20,16 +20,22 @@
 
 package it.helpdesk.datasources.hibernate.models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
 
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import it.helpdesk.datasources.hibernate.HibernateUtil;
 import it.helpdesk.datasources.hibernate.datasources.LogEntryDatasource;
 import it.helpdesk.ui.interfaces.models.ICustomer;
+import it.helpdesk.ui.interfaces.models.ILogEntry;
 import it.helpdesk.ui.interfaces.models.ITechnician;
 import it.helpdesk.ui.interfaces.models.ITicket;
 
@@ -50,14 +56,15 @@ public class Ticket implements ITicket {
 	@GeneratedValue
 	private long id;
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="technician_opened_by_id")
 	private Technician openedBy;
+	
 	private String serviceCategory;
 	private String priority;
 	private String status;
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="technician_id")
 	private Technician technician;
 	
@@ -69,19 +76,20 @@ public class Ticket implements ITicket {
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="customer_id")
-	 @Fetch(FetchMode.JOIN)
+	@Fetch(FetchMode.JOIN)
 	private Customer customer;
+	
 	private String summary;
+	
+	@Column(columnDefinition = "LONGTEXT")
 	private String description;
 	
-	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(
-            name="Ticket_Log_Entries",
-            joinColumns = @JoinColumn(name="ticket_id"),
-            inverseJoinColumns = @JoinColumn(name="log_entry_id")
-    )
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="parent")
+    @Column(nullable=false)
 	private List<LogEntry> logEntries;
+	
+	@Transient
+	private boolean technicianLoaded = false;
 	
 	
 	/**
@@ -180,6 +188,10 @@ public class Ticket implements ITicket {
 	 * @return the assigned technician of the current record
 	 */
 	public ITechnician getTechnician() {
+		if (!this.technicianLoaded) {
+			HibernateUtil.getSessionFactory().openSession().refresh(this.getTechnician());
+			Hibernate.initialize(this);
+		}
 		return this.technician;
 	}
 
@@ -281,28 +293,6 @@ public class Ticket implements ITicket {
 	public void setDescription(String Description){
 		this.description = Description;
 	}
-	
-	
-
-	/**
-	 * Method to retrieve the current record's log entries.
-	 * 
-	 * @return the log entries of the current record
-	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public List getLogEntries() {
-		return this.logEntries;
-	}
-
-	/**
-	 * Method to set the current record's summary.
-	 * 
-	 * @param the summary of the current record
-	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public void setLogEntries(List logEntries) {
-		this.logEntries = logEntries;
-	}
 
 	/**
 	 * Method to add log entry to ticket
@@ -312,12 +302,18 @@ public class Ticket implements ITicket {
 	 * @param the description of the log entry
 	 */
 	@Override
-	public void addLogEntry(Date date, ITechnician technician,
-			String description) {
-		LogEntryDatasource logEntryDatasource = new LogEntryDatasource();
-		
-		logEntryDatasource.saveLogEntry(null, this, date, technician, description);
+	public void addLogEntry(ILogEntry logEntry) {
+		if (this.logEntries == null) {
+			this.logEntries = new ArrayList<LogEntry>();
+		}
+		this.logEntries.add((LogEntry) logEntry);
 	}
 
-	
+	public List<LogEntry> getLogEntries() {
+		return this.logEntries;
+	}
+
+	public void setLogEntries(List<LogEntry> logEntries) {
+		this.logEntries = logEntries;
+	}
 }

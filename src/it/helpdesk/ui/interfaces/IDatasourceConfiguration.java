@@ -72,4 +72,11 @@ public interface IDatasourceConfiguration {
 	 * @return an ITicketDatasource object
 	 */
 	public ITicketDatasource getTicketDatasource();
+	
+	/**
+	 * Method to retrieve the log entry datasource
+	 * 
+	 * @return the log entry datasource
+	 */
+	public ILogEntryDatasource getLogEntryDatasource();
 }

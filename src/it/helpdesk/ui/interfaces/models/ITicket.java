@@ -186,23 +186,9 @@ public interface ITicket {
 	public void setDescription(String description);
 	
 	/**
-	 * Method to retrieve a list of log entries
-	 * 
-	 * @return a list of log entries
-	 */
-	public List<ILogEntry> getLogEntries();
-	
-	/**
-	 * Method to set the description of the remediation efforts
-	 * 
-	 * @param the description of the remediation efforts
-	 */
-	public void setLogEntries(List<ILogEntry> logEntries);
-	
-	/**
 	 * Method to add log entry to ticket
 	 * 
 	 * @param the log entry to add to the ticket
 	 */
-	public void addLogEntry(Date date, ITechnician technician, String description);
+	public void addLogEntry(ILogEntry logEntry);
 }

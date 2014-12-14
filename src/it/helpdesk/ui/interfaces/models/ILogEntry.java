@@ -20,6 +20,8 @@
 
 package it.helpdesk.ui.interfaces.models;
 
+import it.helpdesk.datasources.hibernate.models.Ticket;
+
 import java.util.Date;
 
 public interface ILogEntry {
@@ -36,20 +38,6 @@ public interface ILogEntry {
 	 * @param the id of the log entry
 	 */
 	public void setId(long id);
-	
-	/**
-	 * Method to get the ticket id
-	 * 
-	 * @return the ticket id
-	 */
-	public long getTicketId();
-	
-	/**
-	 * Method to set the ticket id
-	 * 
-	 * @param the ticket id
-	 */
-	public void setTicketId(long ticketId);
 	
 	/**
 	 * Method to get the date the log entry was created
@@ -92,4 +80,8 @@ public interface ILogEntry {
 	 * @param the description of the log entry
 	 */
 	public void setDescriptition(String description);
+	
+	public void setParent(ITicket parent);
+	
+	public ITicket getParent();
 }

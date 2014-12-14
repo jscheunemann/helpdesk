@@ -1,6 +1,9 @@
 package it.helpdesk.datasources.hibernate.datasources;
 
 import java.util.Date;
+import java.util.List;
+
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -26,7 +29,6 @@ public class LogEntryDatasource implements ILogEntryDatasource {
 			newLogEntry = true;
 		}
 		
-		logEntry.setTicketId(ticket.getId());
 		logEntry.setTechnician(technician);
 		logEntry.setDateEntered(dateEntered);
 		logEntry.setDescriptition(logEntryDescription);
@@ -43,5 +45,22 @@ public class LogEntryDatasource implements ILogEntryDatasource {
 		session.getTransaction().commit();
 		session.close();
 		
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ILogEntry> getLogEntriesByTicket(ITicket ticket) {
+		List<ILogEntry> logEntries = null;
+		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		
+		Query query = session.createQuery("from LogEntry where parent_id = :id");
+		query.setParameter("id", ticket.getId());
+		
+		logEntries = (List<ILogEntry>) query.list();
+		
+		session.close();
+
+		return logEntries;
 	}
 }

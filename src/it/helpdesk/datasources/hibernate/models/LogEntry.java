@@ -26,6 +26,7 @@ import javax.persistence.*;
 
 import it.helpdesk.ui.interfaces.models.ILogEntry;
 import it.helpdesk.ui.interfaces.models.ITechnician;
+import it.helpdesk.ui.interfaces.models.ITicket;
 
 @Entity
 @Table(name = "LogEntry")
@@ -35,7 +36,10 @@ public class LogEntry implements ILogEntry {
 	@GeneratedValue
 	private long id;
 	
-	private long ticketId;
+	@ManyToOne( fetch = FetchType.EAGER )
+	@JoinColumn(name="parent_id", nullable = false )
+	private Ticket parent;
+	
 	private Date dateEntered;
 	
 	@OneToOne
@@ -59,24 +63,6 @@ public class LogEntry implements ILogEntry {
 	 */
 	public void setId(long id) {
 		this.id = id;
-	}
-	
-	/**
-	 * Method to get the ticket id
-	 * 
-	 * @return the ticket id
-	 */
-	public long getTicketId() {
-		return this.ticketId;
-	}
-	
-	/**
-	 * Method to set the ticket id
-	 * 
-	 * @param the ticket id
-	 */
-	public void setTicketId(long ticketId) {
-		this.ticketId = ticketId;
 	}
 
 	/**
@@ -131,5 +117,13 @@ public class LogEntry implements ILogEntry {
 	 */
 	public void setDescriptition(String description) {
 		this.description = description;
+	}
+	
+	public void setParent(ITicket parent) {
+		this.parent = (Ticket) parent;
+	}
+	
+	public ITicket getParent() {
+		return this.parent;
 	}
 }

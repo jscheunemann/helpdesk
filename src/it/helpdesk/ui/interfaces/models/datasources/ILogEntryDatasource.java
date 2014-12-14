@@ -21,11 +21,14 @@
 package it.helpdesk.ui.interfaces.models.datasources;
 
 import java.util.Date;
+import java.util.List;
+
 import it.helpdesk.ui.interfaces.models.ILogEntry;
 import it.helpdesk.ui.interfaces.models.ITechnician;
 import it.helpdesk.ui.interfaces.models.ITicket;
 
 public interface ILogEntryDatasource {
+	public List<ILogEntry> getLogEntriesByTicket(ITicket ticket);
 	
 	/**
 	 * Method to save log entry

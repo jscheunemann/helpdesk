@@ -26,6 +26,7 @@ import java.util.List;
 import org.hibernate.*;
 
 import it.helpdesk.datasources.hibernate.HibernateUtil;
+import it.helpdesk.datasources.hibernate.models.LogEntry;
 import it.helpdesk.datasources.hibernate.models.Ticket;
 import it.helpdesk.ui.interfaces.models.*;
 import it.helpdesk.ui.interfaces.models.datasources.ITicketDatasource;
@@ -132,10 +133,20 @@ public class TicketDatasource implements ITicketDatasource{
 
 		return ticket;
 	}
+	
+	public void saveTicket(ITicket ticket) {
+		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		
+		session.beginTransaction();
+		session.save(ticket);
+		session.getTransaction().commit();
+		session.close();
+	}
 
 	public ITicket saveTicket(ITicket ticket, ITechnician openedBy, String serviceCategory,
 			String priority, String status, ITechnician technician,
-			Date openedOn, Date closedOn, ICustomer customer, String description, String summary) {
+			Date openedOn, Date closedOn, ICustomer customer, String description, String summary, List<LogEntry> logEntries) {
 		
 		boolean newTicket = false;
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
