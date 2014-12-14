@@ -89,13 +89,10 @@ public class MainForm implements IMainFormView {
 
 		//Main panel to hold window's content
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(25, 25, 25, 25));
+		
 		this.window.setContentPane(contentPane);
 		
-		//FlowLayout layout = new FlowLayout();
-		
-		GridBagLayout layout = new GridBagLayout();
-		contentPane.setLayout(layout);
+		contentPane.setLayout(new BorderLayout());
 		
 		JPanel searchPanel = new JPanel();
 		
@@ -106,28 +103,18 @@ public class MainForm implements IMainFormView {
 		searchButton = new JButton("Search");
 		searchPanel.add(searchButton);
 		
-		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.anchor = GridBagConstraints.NORTH;
-		gbc.weightx = 0;
-		gbc.weighty = 0;
-		gbc.gridx = 0;
-		gbc.gridy = 0;
+		searchPanel.setBorder(new EmptyBorder(25,25, 0, 25));
 		
-		contentPane.add(searchPanel, gbc);
+		contentPane.add(searchPanel, BorderLayout.NORTH);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBorder(new EmptyBorder(15, 25, 25, 25));
 		
-//		gbc.anchor = GridBagConstraints.CENTER;
-//		gbc.weightx = 0;
-//		gbc.weighty = 0;
-//		gbc.gridx = 0;
-//		gbc.gridy = 1;
-//		
-//		contentPane.add(new JLabel(" "), gbc);
+		contentPane.add(tabbedPane, BorderLayout.CENTER);
 		
 		JPanel pnlActiveTicket = new JPanel();
 		tabbedPane.addTab("Active Tickets", null, pnlActiveTicket, null);
-		pnlActiveTicket.setLayout(layout);
+		pnlActiveTicket.setLayout(new FlowLayout());
 
 		JScrollPane scrollPane_1 = new JScrollPane();
 		pnlActiveTicket.add(scrollPane_1);
@@ -151,7 +138,7 @@ public class MainForm implements IMainFormView {
 
 		JPanel pnlInactiveTicket = new JPanel();
 		tabbedPane.addTab("Archive Tickets", null, pnlInactiveTicket, null);
-		pnlInactiveTicket.setLayout(layout);
+		pnlInactiveTicket.setLayout(new FlowLayout());
 
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -171,14 +158,6 @@ public class MainForm implements IMainFormView {
 		tableInactiveTicket.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tableInactiveTicket.setAutoCreateRowSorter(true);
 		tableInactiveTicket.setEnabled(false);
-		 
-		gbc.anchor = GridBagConstraints.CENTER;
-		gbc.weightx = 1;
-		gbc.weighty = 1;
-		gbc.gridx = 0;
-		gbc.gridy = 1;
-		
-		contentPane.add(tabbedPane, gbc);
 
 		this.window.pack();
 
