@@ -142,6 +142,44 @@ public class TicketFormController implements ITicketFormController {
 		this.view.close();
 	}
 
+	public void addLogMessage(String text) {
+		if (text.length() > 0) {
+			if (this.ticket != null) {
+				ITechnician technician = ApplicationState.getInstance().getLoggedInTechnician();
+				ILogEntry logEntry = new LogEntry();
+				logEntry.setDateEntered(new Date());
+				logEntry.setDescriptition(String.format("Info: %s", text));
+				logEntry.setTechnician(technician);
+				logEntry.setParent(this.ticket);
+				this.datasource.addLogEntry(ticket.getId(), logEntry);
+
+				List<ILogEntry> logEntries = datasourceConfiguration.getLogEntryDatasource().getLogEntriesByTicket(ticket);
+
+				String logText = "";
+
+				for (int i = logEntries.size() - 1; i >= 0; i--) {
+					String format;
+
+					if (logEntries.size() % 2 == 0) {
+						format = (i % 2 == 0) ? "<div bgcolor=\"#D3D3D3\">%s::%s %s:: %s</div>" : "<div>%s::%s %s:: %s</div>";
+					}
+					else {
+						format = (i % 2 == 1) ? "<div bgcolor=\"#D3D3D3\">%s::%s %s:: %s</div>" : "<div>%s::%s %s:: %s</div>";
+					}
+
+					logText += String.format(format, logEntries.get(i).getDateEntered(),
+							logEntries.get(i).getTechnician().getFirstName(),
+							logEntries.get(i).getTechnician().getLastName(),
+							logEntries.get(i).getDescription());
+				}
+
+				logText += "</html>";
+
+				this.view.setLogText(logText);
+			}
+		}
+	}
+
 	/**
 	 * Method handles Save Button press by taking items from the view and saving it to the database. 
 	 * If all of the required fields in the ticket were not completed, the user will recieve an error message. 
@@ -213,7 +251,8 @@ public class TicketFormController implements ITicketFormController {
 			else {
 				this.view.close();
 			}
-		} else{
+		} 
+		else{
 			this.view.showValidationErrorDialog("Save Failed", saveMessage.toString());
 		}
 	}
@@ -229,38 +268,38 @@ public class TicketFormController implements ITicketFormController {
 	private boolean checkTicketFields(StringBuilder saveMessage) {
 		boolean complete = true;
 
-		if(this.view.getClientFirstName().equals("")){
+		if (this.view.getClientFirstName().equals("")){
 			complete = false;
 			saveMessage.append("The client's first name is mandatory.\n");
 		}
-		if(this.view.getClientLastName().equals("")){
+		if (this.view.getClientLastName().equals("")){
 			complete = false;
 			saveMessage.append("The client's last name is mandatory.\n");
 		}
-		if(this.view.getClientPhoneNumber().equals("")&& this.view.getClientEmailAddress().equals("")){
+		if (this.view.getClientPhoneNumber().equals("")&& this.view.getClientEmailAddress().equals("")){
 			complete = false;
 			saveMessage.append("You must supply either the client's phone or email address.\n");
 		}
-		if(this.view.getSummary().equals("")){
+		if (this.view.getSummary().equals("")){
 			complete = false;
 			saveMessage.append("Summary field is mandatory.\n");
 		}
-		if(this.view.getSelectedServiceCategory().equals("")){
+		if (this.view.getSelectedServiceCategory().equals("")){
 			complete = false;
 			saveMessage.append("You must select a Service Category.\n");
 		}
 
-		if(this.view.getSelectedPriority().equals("")){
+		if (this.view.getSelectedPriority().equals("")){
 			complete = false;
 			saveMessage.append("You must select a Priority.\n");
 		}
 
-		if(this.view.getDescription().equals("")){
+		if (this.view.getDescription().equals("")){
 			complete = false;
 			saveMessage.append("The ticket description is mandatory.\n");
 		}
 
-		if(complete){
+		if (complete){
 			saveMessage.setLength(0);
 			saveMessage.append("Ticket Save Successful"); //If all the fields were completed, message will say successful
 		}

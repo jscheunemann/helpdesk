@@ -45,4 +45,6 @@ public interface ITicketFormController {
 	 * @param the ticket
 	 */
 	void setTicket(ITicket ticket);
+	
+	public void addLogMessage(String text);
 }
