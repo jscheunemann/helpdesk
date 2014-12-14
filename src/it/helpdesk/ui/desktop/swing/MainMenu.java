@@ -88,14 +88,14 @@ public class MainMenu extends JMenuBar implements IMainMenu {
 	public MainMenu() {
 		fileMenu = new JMenu("File");
 
-		JMenuItem settingsMenuItem = new JMenuItem("Setting");
-		fileMenu.add(settingsMenuItem);
+		//JMenuItem settingsMenuItem = new JMenuItem("Setting");
+		//fileMenu.add(settingsMenuItem);
 		
-		fileMenu.add(new JSeparator());
+		//fileMenu.add(new JSeparator());
 
-		loginMenuItem = new JMenuItem("Login");
+		//loginMenuItem = new JMenuItem("Login");
 		
-		fileMenu.add(loginMenuItem);
+		//fileMenu.add(loginMenuItem);
 		
 		logoutMenuItem = new JMenuItem("Logout"); 
 		
@@ -200,16 +200,16 @@ public class MainMenu extends JMenuBar implements IMainMenu {
 			}
 		});
 		
-		loginMenuItem.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				MainMenu.this.controller.clearActiveTicketView();
-				MainMenu.this.controller.clearInactiveTicketView();
-				MainMenu.this.controller.openLoginForm();
-				MainMenu.this.controller.loadActiveTickets();
-				MainMenu.this.controller.loadInactiveTickets();
-			}
-		});
+//		loginMenuItem.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				MainMenu.this.controller.clearActiveTicketView();
+//				MainMenu.this.controller.clearInactiveTicketView();
+//				MainMenu.this.controller.openLoginForm();
+//				MainMenu.this.controller.loadActiveTickets();
+//				MainMenu.this.controller.loadInactiveTickets();
+//			}
+//		});
 		
 		logoutMenuItem.addActionListener(new ActionListener() {
 			@Override
