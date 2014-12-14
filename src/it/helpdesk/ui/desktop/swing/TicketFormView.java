@@ -256,7 +256,7 @@ public class TicketFormView implements ITicketFormView {
 		pnl1.add(txtFldComplDate);
 		
 		JLabel lblDescription = new JLabel("Description");
-		lblDescription.setBounds(2, 227, 119, 14);
+		lblDescription.setBounds(2, 252, 119, 14);
 		lblDescription.setHorizontalAlignment(SwingConstants.RIGHT);
 		pnl1.add(lblDescription);
 		
@@ -264,15 +264,8 @@ public class TicketFormView implements ITicketFormView {
 		cbBoxPriority.setBounds(440, 167, 206, 20);
 		pnl1.add(cbBoxPriority);
 		
-		JButton btnAddInformation = new JButton("Add Information");
-		btnAddInformation.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				TicketFormView.this.addInformationPressed();
-			}
-		});
-		btnAddInformation.setBounds(131, 344, 196, 26);
-		pnl1.add(btnAddInformation);
 		
+		//131, 344, 196, 26
 		cbBoxSerCategory = new JComboBox<String>();
 		cbBoxSerCategory.setBounds(131, 167, 203, 20);
 		pnl1.add(cbBoxSerCategory);
@@ -283,7 +276,7 @@ public class TicketFormView implements ITicketFormView {
 		
 		JLabel lblLog = new JLabel("Log");
 		lblLog.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblLog.setBounds(66, 369, 55, 14);
+		lblLog.setBounds(66, 381, 55, 14);
 		pnl1.add(lblLog);
 				
 		txtAreaLog = new JTextArea();
@@ -305,6 +298,17 @@ public class TicketFormView implements ITicketFormView {
 		pnl2.setBounds(0, 568, 671, 44);
 		contentPane.add(pnl2);
 		pnl2.setLayout(null);
+		
+		JButton btnAddInformation = new JButton("Add Log Entry");
+		btnAddInformation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				TicketFormView.this.addInformationPressed();
+			}
+		});
+		btnAddInformation.setBounds(125, 11, 140, 26);
+		pnl2.add(btnAddInformation);
+		
+		
 		
 		JButton btnSave = new JButton("Save");
 		btnSave.setBounds(473, 11, 80, 26);
